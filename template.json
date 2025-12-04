@@ -1,0 +1,162 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "base": {
+        "health": {
+          "value": 6,
+          "min": 0,
+          "label": "Circulos de Vida"
+        },
+        "pain":{
+          "value": 6,
+          "min": 0,
+          "max": 6,
+          "label": "Circulos de Dor"
+        },
+        "insanity": { 
+          "value": 0,
+          "min": 0,
+          "max": 10,
+          "label": "Sanidade/Sorte"
+        },
+        "inspiration": {
+          "value": 0,
+          "min": 0,
+          "max": 1,
+          "label": "Carta de Sina"
+        },
+
+        "biography": ""
+      }
+    },
+    "character": {
+      "templates": ["base"],
+      "attributes": {
+        "level": {
+          "value": 1
+        },
+        "xp": {
+          "value": 0,
+          "max": 10
+        },
+        "moviment":{
+          "value": 0,
+          "label": "Ações de movimento"
+        },
+        "actions": {
+          "value": 0,
+          "label": "Ações de combate"
+        },
+        "antecedents": {
+          "value": 0,
+          "label": "Pontos de antecedente"
+        },
+        "defense": {
+          "value": 5,
+          "label": "Pontos de defesa"
+        }
+      },
+      "abilities": {
+        "fis": { "value": 0, "label": "Físico" },
+        "vel": { "value": 0, "label": "Velocidade" },
+        "int": { "value": 0, "label": "Intelecto" },
+        "cor": { "value": 0, "label": "Coragem" }
+      }
+    },
+    "npc": {
+      "templates": ["base"],
+      "attributes": {
+        "cr": {
+          "value": 0,
+          "label": "Nível de Canalhice (NdC)"
+        },
+        "isSpecial": {
+          "value": false,
+          "dtype": "Boolean",
+          "label": "É Especial?"
+        },
+        "defense": {
+          "value": 5,
+          "label": "Defesa"
+        },
+        "actions": {
+          "value": 1,
+          "label": "Ações por Turno"
+        }
+      }
+    }
+  },
+  "Item": {
+    "types": ["item", "equipament", "weapon"],
+    "templates": {
+      "base": {
+        "description": ""
+      }
+    },
+    "item": {
+      "templates": ["base"],
+      "quantity": 1,
+      "slots": 0,
+      "price": 0
+    },
+    "equipament": {
+      "templates": ["base"],
+      "attributes": {
+        "price": {
+          "value": 0,
+          "label": "Preço ($)"
+        },
+        "slots": {
+          "value": 1,
+          "label": "Espaço (Slots)"
+        },
+        "modifiers": {
+          "value": "",
+          "label": "Modificadores concedidos"
+        }
+      }
+    },  
+    "weapon": {
+      "templates": ["base"],
+      "attributes": {
+        "painDamage": {
+          "value": 0,
+          "label": "Dano (Fixo)"
+        },
+        "lifeDamage": {
+          "value": 0,
+          "label": "Dano (Fixo)"
+        },
+        "damageDist": {
+          "value": 0,
+          "label": "Dano à Distância"
+        },
+        "ammo": {
+          "value": 0,
+          "label": "Munição"
+        },
+        "reload": {
+          "value": 1,
+          "label": "Ações para recarregar"
+        },
+        "range":{
+          "value": 9,
+          "label": "Alcance do ataque"
+        },
+        "slots": {
+          "value": 1,
+          "label": "Espaço (Slots)"
+        },
+        "price": {
+          "value": 0,
+          "label": "Preço da arma ($)"
+        },
+        "special":{
+          "value": "",
+          "label": "Efeitos especiais"
+        }
+      }
+    }
+  }
+}

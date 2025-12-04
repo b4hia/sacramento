@@ -1,0 +1,53 @@
+{
+  "name": "sacramento-rpg",
+  "version": "0.0.1",
+  "description": "CSS compiler for the sacramento system",
+  "scripts": {
+    "build:css": "sass src/scss/sacramento-rpg.scss css/sacramento-rpg.css --style=expanded --no-source-map",
+    "watch:css": "sass src/scss/sacramento-rpg.scss css/sacramento-rpg.css --style=expanded --source-map --watch",
+    "build": "npm run build:css",
+    "watch": "npm run watch:css",
+    "build:packs": "node ./utils/packs.mjs package pack",
+    "build:unpack": "node ./utils/packs.mjs package unpack",
+    "build:ci": "npm run build:packs",
+    "lint": "eslint --ext .js,.cjs,.mjs .",
+    "lint:fix": "eslint --ext .js,.cjs,.mjs --fix .",
+    "lint:warnings": "eslint --max-warnings 0 --ext .js,.cjs,.mjs .",
+    "lint:errors": "eslint --quiet --ext .js,.cjs,.mjs .",
+    "lint:fix:errors": "eslint --quiet --ext .js,.cjs,.mjs --fix .",
+    "postinstall": "npm run build:ci",
+    "prepare": "husky",
+    "update-manifest": "node ./utils/update-manifest.js"
+  },
+  "browserslist": [
+    "last 3 versions"
+  ],
+  "author": "b4hia",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.27.0",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.26.0",
+    "@foundryvtt/foundryvtt-cli": "^1.1.0",
+    "@guanghechen/rollup-plugin-copy": "^6.0.7",
+    "@stylistic/eslint-plugin-js": "^1.8.1",
+    "autoprefixer": "^10.4.21",
+    "chalk": "^5.4.1",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "fancy-log": "^2.0.0",
+    "fs-extra": "^11.2.0",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "js-yaml": "^4.1.1",
+    "less-watch-compiler": "^1.16.3",
+    "lessc": "^1.0.2",
+    "lint-staged": "^16.0.0",
+    "minisearch": "^7.1.2",
+    "prettier": "3.5.3",
+    "sass": "^1.53.0",
+    "yargs": "^17.7.2"
+  }
+}

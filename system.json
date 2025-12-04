@@ -1,0 +1,81 @@
+{
+  "id": "sacramento-rpg",
+  "title": "Sacramento",
+  "description":"Sistema NÃO OFICIAL de Sacramento para FoundryVTT!",
+  "authors": [
+    {
+      "name": "b4hia",
+      "discord": "b4hia",
+      "github": "b4hia"
+    }
+  ],
+  "url": "https://github.com/b4hia/sacramento",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "Replace this with a link to file issues or tickets",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/sacramento/assets/anvil-impact.png",
+      "thumbnail": "systems/sacramento/assets/anvil-impact.png"
+    }
+  ],
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "11.315"
+  },
+  "esmodules": ["module/sacramento.mjs"],
+  "styles": ["css/sacramento.css"],
+  "languages": [
+    {
+      "lang": "ptbr",
+      "name": "Portuguese",
+      "path": "lang/pt_br.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "armas",
+      "label": "Armas e Munições",
+      "system": "sacramento-rpg",
+      "path": "./packs/armas",
+      "type": "Item"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": ["system.biography"]
+      },
+      "npc": {
+        "htmlFields": ["system.biography"]
+      }
+    },
+    "Item": {
+      "weapon": {
+        "htmlFields": ["system.description"]
+      },
+      "equipament": {
+        "htmlFields": ["system.description"]
+      },
+      "reza": {
+        "htmlFields": ["system.description"]
+      },
+      "feature": {
+        "htmlFields": ["system.description"]
+      }
+    }
+  },
+
+  "grid": {
+    "distance": 1.5,
+    "units": "m",
+    "diagonals": 1
+  },
+  "primaryTokenAttribute": "health.value",
+  "secondaryTokenAttribute": "pain.value",
+  "manifest": "",
+  "download": ""
+}

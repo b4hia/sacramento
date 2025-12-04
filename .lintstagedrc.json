@@ -1,0 +1,4 @@
+{
+  "*.{hbs,less}": "prettier --write",
+  "*.mjs": ["eslint --fix", "prettier --write"]
+}

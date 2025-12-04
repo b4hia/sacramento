@@ -1,0 +1,39 @@
+{
+  "SACRAMENTO_RPG": {
+    "Ability": {
+      "Fis": { "long": "Físico", "abbr": "fis" },
+      "Vel": { "long": "Velocidade", "abbr": "vel" },
+      "Int": { "long": "Intelecto", "abbr": "int" },
+      "Cor": { "long": "Coragem", "abbr": "cor" }
+    },
+    "SheetLabels": {
+      "Actor": "Ficha de Personagem",
+      "Item": "Ficha de Item"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Rezas e Simpatias - Círculo {level}",
+        "AddLVL": "Adicionar Círculo {level}"
+      }
+    },
+    "Effect": {
+      "Source": "Fonte",
+      "Toggle": "Alternar Efeito",
+      "Temporary": "Efeitos Temporários",
+      "Passive": "Efeitos Passivos",
+      "Inactive": "Efeitos Inativos"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Personagem",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Habilidade",
+      "spell": "Reza/Simpatia"
+    }
+  }
+}
