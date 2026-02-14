@@ -1,368 +1,164 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-/* Global styles */
-.window-app {
-  font-family: "Roboto", sans-serif;
+/* Ajustes Globais baseados no PDF */
+.sacramento-rpg.sheet.actor {
+	background-color: #fdfaf3;
+	padding: 15px;
+	--sacramento-black: #1a1a1a;
+	--sacramento-red: #4a0404;
 }
 
-.rollable:hover, .rollable:focus {
-  color: #000;
-  text-shadow: 0 0 10px red;
-  cursor: pointer;
+@font-face {
+	font-family: "Folkafe";
+	src:
+		url("../fonts/FolkafeRegular.woff2") format("woff2"),
+		url("../fonts/FolkafeRegular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
 }
 
-.grid,
-.grid-2col {
-  display: grid;
-  grid-column: span 2/span 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
-  padding: 0;
+/* Header Estilo PDF */
+.sacramento-rpg .charname {
+	display: flex;
+	align-items: baseline;
+	border-bottom: 2px solid var(--sacramento-black);
+	margin-bottom: 10px;
 }
 
-.grid-3col {
-  grid-column: span 3/span 3;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.sacramento-rpg .charname label {
+	font-size: 14px;
+	font-weight: bold;
+	margin-right: 10px;
 }
 
-.grid-4col {
-  grid-column: span 4/span 4;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.sacramento-rpg .charname input {
+	font-size: 24px;
+	border: none;
+	background: transparent;
 }
 
-.grid-5col {
-  grid-column: span 5/span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+/* Grid de Atributos Quadrados */
+.abilities-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
 }
 
-.grid-6col {
-  grid-column: span 6/span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+.ability-card {
+	border: 3px solid var(--sacramento-black);
+	padding: 5px;
+	text-align: center;
 }
 
-.grid-7col {
-  grid-column: span 7/span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+.ability-card label {
+	display: block;
+	font-weight: bold;
+	text-transform: uppercase;
+	border-bottom: 2px solid var(--sacramento-black);
+	background: var(--sacramento-black);
+	color: white;
+	padding: 2px;
 }
 
-.grid-8col {
-  grid-column: span 8/span 8;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+.ability-card input {
+	font-size: 32px;
+	width: 100%;
+	text-align: center;
+	border: none;
+	background: transparent;
+	font-weight: bold;
 }
 
-.grid-9col {
-  grid-column: span 9/span 9;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+/* Recursos (Vida e Dor) */
+.resource-group {
+	margin-bottom: 20px;
+	border: 2px solid var(--sacramento-black);
+	padding: 10px;
 }
 
-.grid-10col {
-  grid-column: span 10/span 10;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+.resource-group label {
+	font-weight: bold;
+	display: block;
+	font-size: 12px;
+	margin-bottom: 5px;
 }
 
-.grid-11col {
-  grid-column: span 11/span 11;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
+.circles-row {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.grid-12col {
-  grid-column: span 12/span 12;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+.circles-row input {
+	font-size: 40px;
+	width: 60px;
+	text-align: center;
+	border: none;
+	background: transparent;
+	color: var(--sacramento-red);
 }
 
-.grid-start-2 {
-  grid-column-start: 2;
+.circles-row .max {
+	font-size: 24px;
+	font-weight: bold;
 }
 
-.grid-start-3 {
-  grid-column-start: 3;
+.sheet-tabs {
+	margin-top: 20px;
+	border-top: 3px solid var(--sacramento-black);
 }
 
-.grid-start-4 {
-  grid-column-start: 4;
+.sheet-tabs .item {
+	background: #eee;
+	border-right: 1px solid #ccc;
 }
 
-.grid-start-5 {
-  grid-column-start: 5;
+.sheet-tabs .item.active {
+	background: var(--sacramento-black);
+	color: white;
 }
 
-.grid-start-6 {
-  grid-column-start: 6;
+.sacramento-rpg.sheet.actor {
+	font-family: "Folkafe", serif;
+	background-color: #fdfaf3;
+	--sacramento-black: #1a1a1a;
+	--sacramento-red: #4a0404;
 }
 
-.grid-start-7 {
-  grid-column-start: 7;
-}
-
-.grid-start-8 {
-  grid-column-start: 8;
-}
-
-.grid-start-9 {
-  grid-column-start: 9;
-}
-
-.grid-start-10 {
-  grid-column-start: 10;
-}
-
-.grid-start-11 {
-  grid-column-start: 11;
-}
-
-.grid-start-12 {
-  grid-column-start: 12;
-}
-
-.grid-span-2 {
-  grid-column-end: span 2;
-}
-
-.grid-span-3 {
-  grid-column-end: span 3;
-}
-
-.grid-span-4 {
-  grid-column-end: span 4;
-}
-
-.grid-span-5 {
-  grid-column-end: span 5;
-}
-
-.grid-span-6 {
-  grid-column-end: span 6;
-}
-
-.grid-span-7 {
-  grid-column-end: span 7;
-}
-
-.grid-span-8 {
-  grid-column-end: span 8;
-}
-
-.grid-span-9 {
-  grid-column-end: span 9;
-}
-
-.grid-span-10 {
-  grid-column-end: span 10;
-}
-
-.grid-span-11 {
-  grid-column-end: span 11;
-}
-
-.grid-span-12 {
-  grid-column-end: span 12;
-}
-
-.flex-group-center,
-.flex-group-left,
-.flex-group-right {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.flex-group-left {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.flex-group-right {
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.flexshrink {
-  flex: 0;
-}
-
-.flex-between {
-  justify-content: space-between;
-}
-
-.flexlarge {
-  flex: 2;
-}
-
-.align-left {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.align-right {
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.align-center {
-  justify-content: center;
-  text-align: center;
-}
-
-/* Styles limited to sacramento-rpg sheets */
-.sacramento-rpg .item-form {
-  font-family: "Roboto", sans-serif;
-}
 .sacramento-rpg .sheet-header {
-  flex: 0 auto;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
-.sacramento-rpg .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-.sacramento-rpg .sheet-header .header-fields {
-  flex: 1;
-}
-.sacramento-rpg .sheet-header h1.charname {
-  height: 50px;
-  padding: 0px;
-  margin: 5px 0;
-  border-bottom: 0;
-}
-.sacramento-rpg .sheet-header h1.charname input {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-.sacramento-rpg .sheet-tabs {
-  flex: 0;
-}
-.sacramento-rpg .sheet-body,
-.sacramento-rpg .sheet-body .tab,
-.sacramento-rpg .sheet-body .tab .editor {
-  height: 100%;
-}
-.sacramento-rpg .tox .tox-editor-container {
-  background: #fff;
-}
-.sacramento-rpg .tox .tox-edit-area {
-  padding: 0 8px;
-}
-.sacramento-rpg .resource-label {
-  font-weight: bold;
-}
-.sacramento-rpg .items-header {
-  height: 28px;
-  margin: 2px 0;
-  padding: 0;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: 2px groove #eeede0;
-  font-weight: bold;
-}
-.sacramento-rpg .items-header > * {
-  font-size: 14px;
-  text-align: center;
-}
-.sacramento-rpg .items-header .item-name {
-  font-weight: bold;
-  padding-left: 5px;
-  text-align: left;
-  display: flex;
-}
-.sacramento-rpg .items-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  color: #444;
-}
-.sacramento-rpg .items-list .item-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.sacramento-rpg .items-list .item-name {
-  flex: 2;
-  margin: 0;
-  overflow: hidden;
-  font-size: 13px;
-  text-align: left;
-  align-items: center;
-  display: flex;
-}
-.sacramento-rpg .items-list .item-name h3, .sacramento-rpg .items-list .item-name h4 {
-  margin: 0;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.sacramento-rpg .items-list .item-controls {
-  display: flex;
-  flex: 0 0 100px;
-  justify-content: flex-end;
-}
-.sacramento-rpg .items-list .item-controls a {
-  font-size: 12px;
-  text-align: center;
-  margin: 0 6px;
-}
-.sacramento-rpg .items-list .item {
-  align-items: center;
-  padding: 0 2px;
-  border-bottom: 1px solid #c9c7b8;
-}
-.sacramento-rpg .items-list .item:last-child {
-  border-bottom: none;
-}
-.sacramento-rpg .items-list .item .item-name {
-  color: #191813;
-}
-.sacramento-rpg .items-list .item .item-name .item-image {
-  flex: 0 0 30px;
-  height: 30px;
-  background-size: 30px;
-  border: none;
-  margin-right: 5px;
-}
-.sacramento-rpg .items-list .item-prop {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.sacramento-rpg .items-list .items-header {
-  height: 28px;
-  margin: 2px 0;
-  padding: 0;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: 2px groove #eeede0;
-  font-weight: bold;
-}
-.sacramento-rpg .items-list .items-header > * {
-  font-size: 12px;
-  text-align: center;
-}
-.sacramento-rpg .items-list .items-header .item-name {
-  padding-left: 5px;
-  text-align: left;
-}
-.sacramento-rpg .item-formula {
-  flex: 0 0 200px;
-  padding: 0 8px;
-}
-.sacramento-rpg .effects .item .effect-source,
-.sacramento-rpg .effects .item .effect-duration,
-.sacramento-rpg .effects .item .effect-controls {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.sacramento-rpg .effects .item .effect-controls {
-  border: none;
+	display: flex;
+	border-bottom: 3px solid var(--sacramento-black);
+	padding-bottom: 10px;
 }
 
-/*# sourceMappingURL=sacramento-rpg.css.map */
+.sacramento-rpg .profile-img {
+	flex: 0 0 120px;
+	height: 120px;
+	border: 3px solid var(--sacramento-black);
+	border-radius: 0;
+}
+
+/* 4. Estilo de Antecedentes (Perícias) */
+.antecedents-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 5px;
+}
+
+.antecedente-item {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px dotted var(--sacramento-black);
+	align-items: center;
+}
+
+.antecedente-item label {
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.antecedente-item input {
+	width: 30px;
+	border: none;
+	background: transparent;
+	text-align: right;
+}

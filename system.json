@@ -1,7 +1,7 @@
 {
   "id": "sacramento-rpg",
   "title": "Sacramento",
-  "description":"Sistema NÃO OFICIAL de Sacramento para FoundryVTT!",
+  "description": "Sistema NÃO OFICIAL de Sacramento para FoundryVTT!",
   "authors": [
     {
       "name": "b4hia",
@@ -17,8 +17,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/sacramento/assets/anvil-impact.png",
-      "thumbnail": "systems/sacramento/assets/anvil-impact.png"
+      "url": "systems/sacramento-rpg/assets/anvil-impact.png",
+      "thumbnail": "systems/sacramento-rpg/assets/anvil-impact.png"
     }
   ],
   "version": "0.0.1",
@@ -26,11 +26,11 @@
     "minimum": 11,
     "verified": "11.315"
   },
-  "esmodules": ["module/sacramento.mjs"],
-  "styles": ["css/sacramento.css"],
+  "esmodules": ["module/sacramento-rpg.mjs"],
+  "styles": ["css/sacramento-rpg.css"],
   "languages": [
     {
-      "lang": "ptbr",
+      "lang": "pt-br",
       "name": "Portuguese",
       "path": "lang/pt_br.json"
     }
@@ -39,9 +39,27 @@
     {
       "name": "armas",
       "label": "Armas e Munições",
+      "path": "packs/armas",
+      "type": "Item",
       "system": "sacramento-rpg",
-      "path": "./packs/armas",
-      "type": "Item"
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "habilidades",
+      "label": "Habilidades e Rezas",
+      "path": "packs/habilidades",
+      "type": "Item",
+      "system": "sacramento-rpg"
+    },
+    {
+      "name": "itens",
+      "label": "Itens e Equipamentos",
+      "path": "packs/itens",
+      "type": "Item",
+      "system": "sacramento-rpg"
     }
   ],
   "documentTypes": {
@@ -57,13 +75,19 @@
       "weapon": {
         "htmlFields": ["system.description"]
       },
+      "weapon-ammo": {
+        "htmlFields": ["system.description"]
+      },
       "equipament": {
         "htmlFields": ["system.description"]
       },
-      "reza": {
+      "skill": {
         "htmlFields": ["system.description"]
       },
-      "feature": {
+      "consumable": {
+        "htmlFields": ["system.description"]
+      },
+      "item": {
         "htmlFields": ["system.description"]
       }
     }

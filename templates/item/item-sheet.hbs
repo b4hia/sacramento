@@ -1,47 +1,25 @@
-{{! This template is a fallback for when items don't have more specific templates. }}
-{{! Generally, you'll want to make more specific templates when possible. }}
-<form class='{{cssClass}}' autocomplete='off'>
-  <header class='sheet-header'>
-    <img
-      class='profile-img'
-      src='{{item.img}}'
-      data-edit='img'
-      title='{{item.name}}'
-    />
-    <div class='header-fields'>
-      <h1 class='charname'><input
-          name='name'
-          type='text'
-          value='{{item.name}}'
-          placeholder='Name'
-        /></h1>
-    </div>
-  </header>
+<form class="{{cssClass}} flexcol" autocomplete="off">
+    {{!-- Cabeçalho compartilhado (Baseado no header.hbs do D&D) --}}
+    {{> "systems/sacramento-rpg/templates/item/parts/item-header.hbs" }}
 
-  {{! Sheet Tab Navigation }}
-  <nav class='sheet-tabs tabs' data-group='primary'>
-    <a class='item' data-tab='description'>Description</a>
-    <a class='item' data-tab='attributes'>Attributes</a>
-  </nav>
+    {{!-- Navegação de Abas --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">Descrição</a>
+        <a class="item" data-tab="details">Detalhes</a>
+        <a class="item" data-tab="effects">Efeitos</a>
+    </nav>
 
-  {{! Sheet Body }}
-  <section class='sheet-body'>
+    {{!-- Corpo da Ficha --}}
+    <section class="sheet-body">
+        {{!-- Aba de Descrição (Padrão para todos) --}}
+        <div class="tab description" data-group="primary" data-tab="description">
+            {{> "systems/sacramento-rpg/templates/item/parts/item-description.hbs" }}
+        </div>
 
-    {{! Description Tab }}
-    <div class='tab' data-group='primary' data-tab='description'>
-      {{! Editors must receive enriched text data from getData to properly handle rolls }}
-      {{editor
-        enrichedDescription
-        target='system.description'
-        engine='prosemirror'
-        button=true
-        editable=editable
-      }}
-    </div>
-
-    {{! Attributes Tab }}
-    <div class='tab attributes' data-group='primary' data-tab='attributes'>
-      {{! As you add new fields, add them in here! }}
-    </div>
-  </section>
+        {{!-- Aba de Detalhes (Dinâmica por tipo) --}}
+        <div class="tab details" data-group="primary" data-tab="details">
+            {{!-- Aqui o Foundry carrega o arquivo específico da pasta details/ --}}
+            {{> (concat "systems/sacramento-rpg/templates/item/details/details-" item.type ".hbs") }}
+        </div>
+    </section>
 </form>
