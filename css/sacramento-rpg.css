@@ -228,29 +228,47 @@
     display: flex;
     align-items: baseline;
     font-size: clamp(1.2rem, 3vw, 2rem);
-    min-width: 0;
+    min-width: 120px !important;
+    flex-shrink: 0 !important;
 }
 
 .sacramento-rpg .life-box .circles-row {
     font-size: clamp(1.2rem, 3vw, 2rem);
     display: flex;
     align-items: baseline;
-    min-width: 0;
+    min-width: 120px !important;
+    flex-shrink: 0 !important;
 }
 
 /* Specific Fix for Life and Pain Inputs */
 .sacramento-rpg.sheet.actor .life-box input, 
 .sacramento-rpg.sheet.actor .pain-box input {
-    width: 1.2ch;
-    min-width: 0;
+    width: 80px !important;
+    min-width: 80px !important;
+    flex: 0 0 80px !important;
+    height: 1.5em !important;
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
-    text-align: center;
+    text-align: center !important;
     outline: none;
     font-family: 'Rye', cursive;
     color: inherit;
     font-size: 1em;
+    padding: 10px 15px !important;
+    margin: 0 !important;
+    -moz-appearance: textfield;
+    line-height: 1.5 !important;
+    overflow: visible !important;
+    box-sizing: content-box !important;
+}
+
+.sacramento-rpg.sheet.actor .life-box input::-webkit-outer-spin-button,
+.sacramento-rpg.sheet.actor .life-box input::-webkit-inner-spin-button,
+.sacramento-rpg.sheet.actor .pain-box input::-webkit-outer-spin-button,
+.sacramento-rpg.sheet.actor .pain-box input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .sacramento-rpg .pain-input-container span,

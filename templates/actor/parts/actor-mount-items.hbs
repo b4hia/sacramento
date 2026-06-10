@@ -1,0 +1,73 @@
+{{!-- WEAPONS (MONTARIA) --}}
+{{#if mountWeapons.length}}
+<h3 class="inventory-category">Armas na Montaria</h3>
+<ol class="items-list">
+  <li class="item flexrow items-header">
+    <div class="item-name">Nome</div>
+    <div class="item-detail">Balas</div>
+    <div class="item-detail"><i class="fas fa-horse" title="Remover da Montaria?"></i></div>
+  </li>
+  {{#each mountWeapons as |item id|}}
+  <li class="item flexrow" data-item-id="{{item._id}}">
+    <div class="item-name">
+      <a class="rollable" data-roll-type="item"><img src="{{item.img}}" width="24" height="24"/></a>
+      <h4>{{item.name}}</h4>
+    </div>
+    <div class="item-detail">
+      <input type="number" class="item-ammo" data-item-id="{{item._id}}" value="{{item.system.attributes.ammo.value}}" min="0" max="{{item.system.attributes.ammo.max}}" style="width:40px;" /> / {{item.system.attributes.ammo.max}}
+    </div>
+    <div class="item-detail">
+      <a class="item-control item-mount" title="Voltar para Mochila" data-item-id="{{item._id}}" style="cursor: pointer;"><i class="fas fa-horse"></i></a>
+    </div>
+  </li>
+  {{/each}}
+</ol>
+{{/if}}
+
+{{!-- EQUIPMENT (MONTARIA) --}}
+{{#if mountEquipment.length}}
+<h3 class="inventory-category mt-2">Equipamentos na Montaria</h3>
+<ol class="items-list">
+  <li class="item flexrow items-header">
+    <div class="item-name">Nome</div>
+    <div class="item-detail">Espaços</div>
+    <div class="item-detail"><i class="fas fa-horse" title="Remover da Montaria?"></i></div>
+  </li>
+  {{#each mountEquipment as |item id|}}
+  <li class="item flexrow" data-item-id="{{item._id}}">
+    <div class="item-name">
+      <a class="rollable" data-roll-type="item"><img src="{{item.img}}" width="24" height="24"/></a>
+      <h4>{{item.name}}</h4>
+    </div>
+    <div class="item-detail">{{item.system.attributes.slots.value}}</div>
+    <div class="item-detail">
+      <a class="item-control item-mount" title="Voltar para Mochila" data-item-id="{{item._id}}" style="cursor: pointer;"><i class="fas fa-horse"></i></a>
+    </div>
+  </li>
+  {{/each}}
+</ol>
+{{/if}}
+
+{{!-- CONSUMABLES (MONTARIA) --}}
+{{#if mountConsumables.length}}
+<h3 class="inventory-category mt-2">Consumíveis na Montaria</h3>
+<ol class="items-list">
+  <li class="item flexrow items-header">
+    <div class="item-name">Nome</div>
+    <div class="item-detail">Qtd</div>
+    <div class="item-detail"><i class="fas fa-horse" title="Remover da Montaria?"></i></div>
+  </li>
+  {{#each mountConsumables as |item id|}}
+  <li class="item flexrow" data-item-id="{{item._id}}">
+    <div class="item-name">
+      <a class="rollable" data-roll-type="item"><img src="{{item.img}}" width="24" height="24"/></a>
+      <h4>{{item.name}}</h4>
+    </div>
+    <div class="item-detail">{{item.system.attributes.quantity.value}}</div>
+    <div class="item-detail">
+      <a class="item-control item-mount" title="Voltar para Mochila" data-item-id="{{item._id}}" style="cursor: pointer;"><i class="fas fa-horse"></i></a>
+    </div>
+  </li>
+  {{/each}}
+</ol>
+{{/if}}

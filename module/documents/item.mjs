@@ -60,9 +60,12 @@ export class SacramentoRPGItem extends Item {
 
 		// Card
 		let content = `
-    <div class="sacramento-chat-card">
-        <div class="card-description" style="font-style: italic; margin-bottom: 5px;">${itemData.description ?? ""}</div>
-        <hr>
+    <div class="sacramento-chat-card" style="background-color: #e8dcc4; padding: 10px; border: 3px solid #2c1a11; border-radius: 5px; font-family: 'Playfair Display', serif;">
+        <header class="card-header flexrow" style="display: flex; align-items: center; border-bottom: 2px solid #5c3a21; padding-bottom: 5px; margin-bottom: 10px;">
+            <img src="${item.img}" title="${item.name}" width="36" height="36" style="border: 2px solid #5c3a21; margin-right: 10px; border-radius: 4px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); object-fit: cover;"/>
+            <h3 class="item-name" style="margin: 0; font-family: 'Rye', cursive; font-size: 1.5em; color: #5c3a21;"><strong>${item.name}</strong></h3>
+        </header>
+        <div class="card-description" style="margin-bottom: 5px; color: #2c1a11;">${itemData.description ?? ""}</div>
     `;
 
 		// Exibir armas

@@ -44,7 +44,7 @@
     "type": "ability",
     "img": "systems/sacramento-rpg/icons/skills/CancaoDaEmocao.png",
     "system": {
-      "description": "<p>Uma vez por sessão, você pode gastar duas <strong>Ações de Combate</strong> para cada PJ que queira beneficiar e conceder a todos eles um dos bônus a seguir, conforme seu nível. Quando usa esta habilidade você pode conceder benefícios adicionais, conforme seu nível, gastando mais duas <strong>Ações de Combate</strong> para cada PJ por benefício. Nível 1: +1 <strong>Movimento</strong>. Nível 3: +1 <strong>Ação de Combate</strong>. Nível 4: +1 <strong>Violência</strong>. Nível 6: +3 Pontos de vida temporários.</p>"
+      "description": "<p>Uma vez por sessão, você pode gastar duas <strong>Ações de Combate</strong> para cada PJ que queira beneficiar e conceder a todos eles um dos bônus a seguir, conforme seu nível. Quando usa esta habilidade você pode conceder benefícios adicionais, conforme seu nível, gastando mais duas <strong>Ações de Combate</strong> para cada PJ por benefício.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Beneficios</th></tr></thead><tbody><tr><td>1</td><td> +1 <strong>Movimento</strong></td></tr><tr><td>3</td><td>+1 <strong>Ação de Combate</strong></td></tr><tr><td>4</td><td>+1 <strong>Violência</strong></td></tr>tr><td>6</td><td>+3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /></td></tr></tbody></table>"
     }
   },
   {
@@ -60,7 +60,7 @@
     "type": "ability",
     "img": "systems/sacramento-rpg/icons/skills/CuspeECola.png",
     "system": {
-      "description": "<p>Este é o único jeito de curar alguém no meio do combate. Para fazer isso, você precisa estar colado no seu paciente e gastar 2 <strong>Ações de Combate</strong> para cada que curar. O limite de usos dessa habilidade aumenta conforme seu nível. Nível 1: 1 uso. Nível 3: 2 usos. Nível 6: 4 usos.</p>"
+      "description": "<p>AEste é o único jeito de curar alguém no meio do combate. Para fazer isso, você precisa estar colado no seu paciente e gastar 2 <strong>Ações de Combate</strong> para cada que curar. O limite de usos dessa habilidade aumenta conforme seu nível.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Dano</th></tr></thead><tbody><tr><td>1</td><td>1 uso</td></tr><tr><td>3</td><td>2 usos</td></tr><tr><td>6</td><td>4 usos</td></tr></tbody></table>"
     }
   },
   {
@@ -92,7 +92,7 @@
     "type": "ability",
     "img": "systems/sacramento-rpg/icons/skills/FuriaDosAflitos.jpg",
     "system": {
-      "description": "<p>Em combate, você reduz sua <strong>Defesa</strong> em 1 ponto, e aumenta o dano de seus ataques corpo a corpo em 3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pontos de Dor\" /></p>"
+      "description": "<p>Em combate, você reduz sua <strong>Defesa</strong> em 1 ponto, e aumenta o dano de seus ataques corpo a corpo em +3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pontos de Dor\" /></p>"
     }
   },
   {

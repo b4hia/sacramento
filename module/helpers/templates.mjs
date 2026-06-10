@@ -9,6 +9,7 @@ export const preloadHandlebarsTemplates = async function () {
 		// Actor partials.
 		"systems/sacramento-rpg/templates/actor/parts/actor-features.hbs",
 		"systems/sacramento-rpg/templates/actor/parts/actor-items.hbs",
+		"systems/sacramento-rpg/templates/actor/parts/actor-mount-items.hbs",
 		"systems/sacramento-rpg/templates/actor/parts/actor-spells.hbs",
 		"systems/sacramento-rpg/templates/actor/parts/actor-effects.hbs",
 		// Item partials

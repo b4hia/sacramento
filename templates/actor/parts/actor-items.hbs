@@ -5,6 +5,7 @@
     <div class="item-name">Nome</div>
     <div class="item-detail">Balas</div>
     <div class="item-detail">Coldre?</div>
+    <div class="item-detail"><i class="fas fa-horse" title="Na Montaria?"></i></div>
     <div class="item-controls"><a class="item-control item-create" data-type="weapon"><i class="fas fa-plus"></i></a></div>
   </li>
   {{#each weapons as |item id|}}
@@ -18,6 +19,9 @@
     </div>
     <div class="item-detail">
       <input type="checkbox" class="item-equip" data-item-id="{{item._id}}" {{checked item.system.attributes.isEquipped.value}} title="No Coldre" />
+    </div>
+    <div class="item-detail">
+      <a class="item-control item-mount" title="Guardar na Montaria" data-item-id="{{item._id}}" style="cursor: pointer; opacity: {{#if item.system.attributes.isMountItem.value}}1{{else}}0.3{{/if}};"><i class="fas fa-horse"></i></a>
     </div>
     <div class="item-controls">
       <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
@@ -34,6 +38,7 @@
     <div class="item-name">Nome</div>
     <div class="item-detail">Espaços</div>
     <div class="item-detail">Vestido?</div>
+    <div class="item-detail"><i class="fas fa-horse" title="Na Montaria?"></i></div>
     <div class="item-controls"><a class="item-control item-create" data-type="equipment"><i class="fas fa-plus"></i></a></div>
   </li>
   {{#each equipment as |item id|}}
@@ -45,6 +50,9 @@
     <div class="item-detail">{{item.system.attributes.slots.value}}</div>
     <div class="item-detail">
       <input type="checkbox" class="item-equip" data-item-id="{{item._id}}" {{checked item.system.attributes.isEquipped.value}} title="Vestido" />
+    </div>
+    <div class="item-detail">
+      <a class="item-control item-mount" title="Guardar na Montaria" data-item-id="{{item._id}}" style="cursor: pointer; opacity: {{#if item.system.attributes.isMountItem.value}}1{{else}}0.3{{/if}};"><i class="fas fa-horse"></i></a>
     </div>
     <div class="item-controls">
       <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
@@ -60,6 +68,7 @@
   <li class="item flexrow items-header">
     <div class="item-name">Nome</div>
     <div class="item-detail">Qtd</div>
+    <div class="item-detail"><i class="fas fa-horse" title="Na Montaria?"></i></div>
     <div class="item-controls"><a class="item-control item-create" data-type="consumable"><i class="fas fa-plus"></i></a></div>
   </li>
   {{#each consumables as |item id|}}
@@ -69,6 +78,9 @@
       <h4>{{item.name}}</h4>
     </div>
     <div class="item-detail">{{item.system.attributes.quantity.value}}</div>
+    <div class="item-detail">
+      <a class="item-control item-mount" title="Guardar na Montaria" data-item-id="{{item._id}}" style="cursor: pointer; opacity: {{#if item.system.attributes.isMountItem.value}}1{{else}}0.3{{/if}};"><i class="fas fa-horse"></i></a>
+    </div>
     <div class="item-controls">
       <a class="item-control item-edit"><i class="fas fa-edit"></i></a>
       <a class="item-control item-delete"><i class="fas fa-trash"></i></a>

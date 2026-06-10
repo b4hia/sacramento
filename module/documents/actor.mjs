@@ -62,16 +62,23 @@ export class SacramentoRPGActor extends Actor {
 		const velVal = abilities.vel?.value || 0;
 		// const intVal = abilities.int?.value || 0;
 		const corVal = abilities.cor?.value || 0;
+		const level = attributes.level?.value || 1;
 
 		/** Definição de atributos do PJ */
 		if (systemData.health) {
-			systemData.health.max = 6 + fisVal;
+			let maxHP = 6 + fisVal; // Level 1 base
+			if (level >= 2) maxHP += Math.max(1, fisVal);
+			if (level >= 4) maxHP += Math.max(1, fisVal);
+			if (level >= 5) maxHP += Math.max(1, fisVal);
+			if (level >= 6) maxHP += 3;
+
+			systemData.health.max = maxHP;
 		}
 		if (attributes.moviment) {
-			attributes.moviment.value = 1 + velVal;
+			attributes.moviment.value = Math.max(1, velVal);
 		}
 		if (attributes.actions) {
-			attributes.actions.value = 1 + corVal;
+			attributes.actions.value = Math.max(1, corVal);
 		}
 		if (systemData.mount) {
 			const res = systemData.mount.resistencia?.value || 0;
@@ -137,6 +144,20 @@ export class SacramentoRPGActor extends Actor {
 
 				// 2. Reseta a Dor para o máximo original
 				changed["system.pain.value"] = maxPain;
+			}
+		}
+
+		const newMountPain = foundry.utils.getProperty(changed, "system.mount.pain.value");
+		if (newMountPain !== undefined) {
+			if (newMountPain <= 0) {
+				const currentMountLife = this.system.mount?.health?.value || 0;
+				const maxMountPain = this.system.mount?.pain?.max || 6;
+
+				if (currentMountLife > 0) {
+					changed["system.mount.health.value"] = currentMountLife - 1;
+				}
+
+				changed["system.mount.pain.value"] = maxMountPain;
 			}
 		}
 	}

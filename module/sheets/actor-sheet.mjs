@@ -67,14 +67,113 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		return context;
 	}
 
-	/**
-	 * Character-specific context modifications
-	 *
-	 * @param {object} context The context object to mutate
-	 */
-	_prepareCharacterData() {
-		// This is where you can enrich character-specific editor fields
-		// or setup anything else that's specific to this type
+	_prepareCharacterData(context) {
+		const systemData = context.system;
+		const attributes = systemData.attributes;
+		const abilitiesMap = systemData.abilities || {};
+
+		const level = attributes.level?.value || 1;
+
+		// XP Thresholds
+		const xpMaxLevels = {
+			1: 10,
+			2: 20,
+			3: 30,
+			4: 45,
+			5: 65,
+			6: 100 // Level max
+		};
+		if (attributes.xp) {
+			attributes.xp.max = xpMaxLevels[level] || 100;
+		}
+
+		const warnings = [];
+
+		// Calculate total attributes distributed
+		let totalAttributes = 0;
+		for (const ab of Object.values(abilitiesMap)) {
+			totalAttributes += ab.value || 0;
+		}
+
+		// Expected Attributes
+		let expectedAttributes = 4; // Level 1
+		if (level >= 3) expectedAttributes += 1;
+		if (level >= 4) expectedAttributes += 1;
+		if (level >= 5) expectedAttributes += 1;
+		if (level >= 6) expectedAttributes += 1;
+
+		if (totalAttributes < expectedAttributes) {
+			warnings.push(`Falta distribuir ${expectedAttributes - totalAttributes} ponto(s) de Atributo.`);
+		} else if (totalAttributes > expectedAttributes) {
+			warnings.push(`Você distribuiu pontos de Atributo a mais! O esperado é ${expectedAttributes}.`);
+		}
+
+		// Expected Abilities
+		let expectedAbilities = 2; // Level 1
+		if (level >= 2) expectedAbilities += 1;
+		if (level >= 3) expectedAbilities += 1;
+		if (level >= 4) expectedAbilities += 1;
+		if (level >= 6) expectedAbilities += 1;
+
+		const actualAbilities = context.abilities?.length || 0;
+		if (actualAbilities < expectedAbilities) {
+			warnings.push(`Você precisa adicionar ${expectedAbilities - actualAbilities} Habilidade(s).`);
+		} else if (actualAbilities > expectedAbilities) {
+			warnings.push(`Você tem Habilidades a mais! O esperado é ${expectedAbilities}.`);
+		}
+
+		// Expected Antecedents
+		const intVal = abilitiesMap.int?.value || 0;
+		let expectedAntecedents = intVal; // Level 1
+		if (level >= 2) expectedAntecedents += 1;
+		if (level >= 3) expectedAntecedents += 1;
+		if (level >= 4) expectedAntecedents += 1;
+		if (level >= 5) expectedAntecedents += 1;
+		if (level >= 6) expectedAntecedents += 1;
+
+		let totalAntecedents = 0;
+		for (const ant of Object.values(systemData.antecedents || {})) {
+			totalAntecedents += ant.value || 0;
+		}
+
+		if (totalAntecedents < expectedAntecedents) {
+			warnings.push(`Falta distribuir ${expectedAntecedents - totalAntecedents} ponto(s) de Antecedente.`);
+		} else if (totalAntecedents > expectedAntecedents) {
+			warnings.push(`Você distribuiu pontos de Antecedente a mais! O esperado é ${expectedAntecedents}.`);
+		}
+
+		context.warnings = warnings;
+
+		// Mount fidelity logic
+		if (systemData.mount) {
+			const mountWarnings = [];
+			const fid = systemData.mount.fidelidade?.value || 0;
+
+			let expectedMountAttributes = 0;
+			if (fid >= 2) expectedMountAttributes += 1;
+			if (fid >= 5) expectedMountAttributes += 1;
+
+			const currentMountAttributes =
+				(systemData.mount.potencia?.value || 0) + (systemData.mount.resistencia?.value || 0);
+
+			if (currentMountAttributes < expectedMountAttributes) {
+				mountWarnings.push(
+					`Falta distribuir ${expectedMountAttributes - currentMountAttributes} ponto(s) nos Atributos da Montaria.`
+				);
+			} else if (currentMountAttributes > expectedMountAttributes) {
+				mountWarnings.push(`Você distribuiu pontos a mais na Montaria! O esperado é ${expectedMountAttributes}.`);
+			}
+
+			context.mountWarnings = mountWarnings;
+
+			context.fidelityOpacity = {
+				l1: fid >= 1 ? 1 : 0.4,
+				l2: fid >= 2 ? 1 : 0.4,
+				l3: fid >= 3 ? 1 : 0.4,
+				l4: fid >= 4 ? 1 : 0.4,
+				l5: fid >= 5 ? 1 : 0.4
+			};
+		}
 	}
 
 	_prepareItems(context) {
@@ -83,18 +182,36 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		const consumables = [];
 		const abilities = [];
 
+		const mountWeapons = [];
+		const mountEquipment = [];
+		const mountConsumables = [];
+
 		for (const i of context.items) {
 			i.img = i.img || Item.DEFAULT_ICON;
-			if (i.type === "weapon") weapons.push(i);
-			else if (i.type === "equipment") equipment.push(i);
-			else if (i.type === "consumable") consumables.push(i);
-			else if (i.type === "ability") abilities.push(i);
+			const isMount = i.system.attributes?.isMountItem?.value === true;
+
+			if (i.type === "weapon") {
+				if (isMount) mountWeapons.push(i);
+				else weapons.push(i);
+			} else if (i.type === "equipment") {
+				if (isMount) mountEquipment.push(i);
+				else equipment.push(i);
+			} else if (i.type === "consumable") {
+				if (isMount) mountConsumables.push(i);
+				else consumables.push(i);
+			} else if (i.type === "ability") {
+				abilities.push(i);
+			}
 		}
 
 		context.weapons = weapons;
 		context.equipment = equipment;
 		context.consumables = consumables;
 		context.abilities = abilities;
+
+		context.mountWeapons = mountWeapons;
+		context.mountEquipment = mountEquipment;
+		context.mountConsumables = mountConsumables;
 	}
 
 	/* -------------------------------------------- */
@@ -132,6 +249,25 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 
 		// Add Inventory Item
 		html.on("click", ".item-create", this._onItemCreate.bind(this));
+
+		// Equip/Unequip Toggle
+		html.find(".item-equip").click((ev) => {
+			const li = $(ev.currentTarget).parents(".item");
+			const item = this.actor.items.get(li.data("itemId"));
+			item.update({
+				"system.attributes.isEquipped.value": !item.system.attributes.isEquipped.value
+			});
+		});
+
+		// Mount/Unmount Toggle
+		html.find(".item-mount").click((ev) => {
+			const li = $(ev.currentTarget).parents(".item");
+			const item = this.actor.items.get(li.data("itemId"));
+			const current = item.system.attributes?.isMountItem?.value || false;
+			item.update({
+				"system.attributes.isMountItem.value": !current
+			});
+		});
 
 		// Delete Inventory Item
 		html.on("click", ".item-delete", (ev) => {
