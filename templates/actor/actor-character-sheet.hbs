@@ -1,99 +1,184 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
-  <header class="sheet-header">
-    {{!-- Foto do Personagem --}}
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+  <header class="sheet-header western-header flexrow">
+    <!-- Left: Identity -->
+    <div class="header-identity flexrow">
+      <img class="profile-img western-border" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+      <div class="header-names flexcol">
+        <h1 class="charname">
+          <input class="uninput document-name" name="name" type="text" value="{{actor.name}}" placeholder="Nome do Personagem"/>
+        </h1>
+        <h2 class="playername">
+          <input class="uninput" name="system.attributes.playerName.value" type="text" value="{{system.attributes.playerName.value}}" placeholder="Nome do Jogador"/>
+        </h2>
+      </div>
+    </div>
     
-    <div class="header-fields">
-      <h1 class="charname">
-        <label>NOME:</label>
-        <input name="name" type="text" value="{{actor.name}}" placeholder="Nome"/>
-      </h1>
-      <div class="header-stats grid grid-4col">
-        <div class="stat-item">
+    <!-- Right: Mechanics & Badges -->
+    <div class="header-mechanics flexrow">
+      <div class="level-badge western-border stamp-box" title="Nível do Personagem">
+        <label>NÍVEL</label>
+        <input class="uninput" name="system.attributes.level.value" type="number" value="{{system.attributes.level.value}}" min="1"/>
+      </div>
+
+      <div class="header-stats flexrow">
+        <div class="stat-item stamp-box">
           <label>AÇÕES</label>
-          <input type="text" name="system.attributes.actions.value" value="{{system.attributes.actions.value}}" readonly/>
+          <input class="uninput" type="text" value="{{system.attributes.actions.value}}" readonly/>
         </div>
-        <div class="stat-item">
+        <div class="stat-item stamp-box">
           <label>MOVIMENTOS</label>
-          <input type="text" name="system.attributes.moviment.value" value="{{system.attributes.moviment.value}}" readonly/>
+          <input class="uninput" type="text" value="{{system.attributes.moviment.value}}" readonly/>
         </div>
-        <div class="stat-item">
+        <div class="stat-item stamp-box">
           <label>DEFESA</label>
-          <input type="text" name="system.attributes.defense.value" value="{{system.attributes.defense.value}}"/>
+          <input class="uninput" type="number" name="system.attributes.defense.value" value="{{system.attributes.defense.value}}"/>
         </div>
-        <div class="stat-item">
+        <div class="stat-item stamp-box">
           <label>INICIATIVA</label>
-          <input type="text" value="0" readonly/>
+          <input class="uninput" type="text" value="CARTA" readonly title="Use Cartas para Iniciativa!"/>
         </div>
       </div>
     </div>
   </header>
 
-  <section class="main-content grid grid-2col">
-    {{!-- Coluna Esquerda: Atributos e Antecedentes --}}
-    <aside class="sidebar-left">
-      <h2 class="section-title">ATRIBUTOS</h2>
-      <div class="abilities-grid">
-        {{#each system.abilities as |ability key|}}
-        <div class="ability-card">
-          <label class="rollable" data-roll="1d6+@abilities.{{key}}.value" data-label="{{ability.label}}">{{ability.label}}</label>
-          <input type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"/>
-        </div>
-        {{/each}}
-      </div>
-
-      <h2 class="section-title">ANTECEDENTES</h2>
-      <div class="antecedents-list">
-        {{!-- Exemplo de como listar pericias baseadas no PDF --}}
-        <div class="antecedente-item">
-          <label class="rollable" data-roll="1d6+@int.value" data-label="Atenção">ATENÇÃO</label>
-          <input type="text" value="1d6+@int" readonly/>
-        </div>
-        {{!-- Repita para os outros antecedentes do PDF --}}
-      </div>
-    </aside>
-
-    {{!-- Coluna Direita: Vida e Dor --}}
-    <section class="status-column">
-      <div class="resource-group pain-box">
-        <label>CÍRCULOS DE DOR</label>
-        <div class="circles-row">
-          <input type="number" name="system.pain.value" value="{{system.pain.value}}"/>
-          <span class="max">/ {{system.pain.max}}</span>
-        </div>
-        <p class="pain-footer">1- Atordoamento | 2- Queda | 3- Distração...</p>
-      </div>
-
-      <div class="resource-group life-box">
-        <label>CÍRCULOS DE VIDA</label>
-        <div class="circles-row">
-          <input type="number" name="system.health.value" value="{{system.health.value}}"/>
-          <span class="max">/ {{system.health.max}}</span>
-        </div>
-      </div>
-    </section>
-  </section>
-
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="features">Habilidades</a>
-    <a class="item" data-tab="items">Itens</a>
+  <nav class="sheet-tabs tabs western-tabs" data-group="primary">
+    <a class="item" data-tab="status">Ficha</a>
+    <a class="item" data-tab="inventory">Mochila</a>
     <a class="item" data-tab="mount">Montaria</a>
     <a class="item" data-tab="description">Biografia</a>
   </nav>
 
   <section class="sheet-body">
-    <div class="tab features" data-group="primary" data-tab="features">
-       {{> "systems/sacramento-rpg/templates/actor/parts/actor-features.hbs"}}
+    
+    {{!-- TAB FICHA --}}
+    <div class="tab status" data-group="primary" data-tab="status">
+      
+      <!-- TOP: Vida e Dor -->
+      <div class="status-top flexrow parchment-box">
+        <div class="resource-group life-box wood-border">
+          <h2 class="section-title text-red">CÍRCULOS DE VIDA</h2>
+          <div class="circles-row">
+            <input class="uninput text-red" type="number" name="system.health.value" value="{{system.health.value}}" min="0" max="{{system.health.max}}"/>
+            <span class="max text-red">/ {{system.health.max}}</span>
+          </div>
+        </div>
+
+        <div class="resource-group pain-box blood-border">
+          <h2 class="section-title text-red">CÍRCULOS DE DOR</h2>
+          <div class="circles-row flexrow">
+            <div class="pain-input-container">
+              <input class="uninput text-red" type="number" name="system.pain.value" value="{{system.pain.value}}" min="0" max="6"/>
+              <span class="max text-red">/ 6</span>
+            </div>
+            <ul class="pain-debuffs">
+              <li class="{{#if (lte system.pain.value 5)}}active{{/if}}">1. Atordoamento (-1 Ação)</li>
+              <li class="{{#if (lte system.pain.value 4)}}active{{/if}}">2. Queda (-1 Mov)</li>
+              <li class="{{#if (lte system.pain.value 3)}}active{{/if}}">3. Distração</li>
+              <li class="{{#if (lte system.pain.value 2)}}active{{/if}}">4. Sangramento</li>
+              <li class="{{#if (lte system.pain.value 1)}}active{{/if}}">5. Intimidação</li>
+              <li class="{{#if (lte system.pain.value 0)}}active{{/if}}">6. Desorientação</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM: 2 Columns -->
+      <div class="grid grid-2col mt-2">
+        <!-- Esquerda: Atributos, Antecedentes -->
+        <aside class="sidebar-left parchment-box">
+          <h2 class="section-title wood-title">ATRIBUTOS</h2>
+          <div class="abilities-grid">
+            {{#each system.abilities as |ability key|}}
+            <div class="ability-card">
+              <label class="rollable" data-roll="1d6+@abilities.{{key}}.value" data-label="{{ability.label}}">{{ability.label}}</label>
+              <input class="uninput" type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"/>
+            </div>
+            {{/each}}
+          </div>
+
+          <h2 class="section-title wood-title mt-2">ANTECEDENTES</h2>
+          <div class="antecedents-list">
+            {{#each system.antecedents as |ant key|}}
+            <div class="antecedente-item flexrow">
+              <label class="rollable" data-roll="1d6+@antecedents.{{key}}.value" data-label="{{ant.label}}">{{ant.label}}</label>
+              <input class="uninput" type="number" name="system.antecedents.{{key}}.value" value="{{ant.value}}"/>
+            </div>
+            {{/each}}
+          </div>
+        </aside>
+
+        <!-- Direita: Redenção, Habilidades -->
+        <section class="status-column parchment-box">
+          <h2 class="section-title wood-title">TRILHA DE REDENÇÃO</h2>
+          <div class="redemption-track">
+            {{#each system.redemption as |step key|}}
+            <div class="redemption-step flexrow">
+              <input type="checkbox" name="system.redemption.{{key}}.checked" {{checked step.checked}}/>
+              <input class="uninput" type="text" name="system.redemption.{{key}}.text" value="{{step.text}}" placeholder="Objetivo..."/>
+            </div>
+            {{/each}}
+            <p class="help-text">Complete 6 passos para ganhar +1 Hab, +2 Vida, Vantagem na Init.</p>
+          </div>
+
+          <h2 class="section-title wood-title mt-2">HABILIDADES</h2>
+          <ol class="items-list">
+            {{#each abilities as |item id|}}
+            <li class="item flexrow" data-item-id="{{item._id}}">
+              <div class="item-name flexrow">
+                <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a>
+                <h4>{{item.name}}</h4>
+              </div>
+              <div class="item-controls flexrow">
+                <a class="item-control item-edit" title="Editar"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="Deletar"><i class="fas fa-trash"></i></a>
+              </div>
+            </li>
+            {{/each}}
+            <li class="item-create" data-type="ability"><i class="fas fa-plus"></i> Adicionar Habilidade</li>
+          </ol>
+        </section>
+      </div>
     </div>
-    <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/sacramento-rpg/templates/actor/parts/actor-items.hbs"}}
+
+    {{!-- TAB MOCHILA --}}
+    <div class="tab inventory parchment-box" data-group="primary" data-tab="inventory">
+      <div class="inventory-header flexrow" style="justify-content: space-between; align-items: center;">
+        <h2 class="section-title wood-title" style="margin-bottom: 0; border: none;">MOCHILA E EQUIPAMENTOS</h2>
+        <div class="slots-tracker {{#if (gt system.slots.value 10)}}overloaded{{/if}}">
+          ESPAÇO: {{system.slots.value}} / {{system.slots.max}}
+        </div>
+      </div>
+      <hr style="border-top: 2px solid var(--sacramento-brown); margin-bottom: 15px;"/>
+      
+      {{> "systems/sacramento-rpg/templates/actor/parts/actor-items.hbs"}}
     </div>
-    <div class="tab mount" data-group="primary" data-tab="mount">
-       {{!-- Crie um parcial para montaria se quiser --}}
-       <h2 class="section-title">DADOS DA MONTARIA</h2>
+
+    {{!-- TAB MONTARIA --}}
+    <div class="tab mount parchment-box" data-group="primary" data-tab="mount">
+      <h2 class="section-title wood-title">DADOS DA MONTARIA</h2>
+      <div class="grid grid-2col">
+        <div>
+          <label>Potência:</label>
+          <input class="uninput" type="number" name="system.mount.potencia.value" value="{{system.mount.potencia.value}}"/>
+          <label class="mt-1">Resistência:</label>
+          <input class="uninput" type="number" name="system.mount.resistencia.value" value="{{system.mount.resistencia.value}}"/>
+        </div>
+        <div>
+          <label>Fidelidade (0-5):</label>
+          <input class="uninput" type="number" name="system.mount.fidelidade.value" value="{{system.mount.fidelidade.value}}" min="0" max="5"/>
+          <label class="mt-1">Vida da Montaria:</label>
+          <div class="circles-row flexrow" style="justify-content: flex-start;">
+            <input class="uninput text-red" style="font-family: 'Rye', cursive; font-size: 2em; width: 50px;" type="number" name="system.mount.health.value" value="{{system.mount.health.value}}"/>
+            <span style="font-family: 'Rye', cursive; font-size: 1.5em; font-weight: bold;">/ {{system.mount.health.max}}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="tab biography" data-group="primary" data-tab="description">
+
+    {{!-- TAB BIOGRAFIA --}}
+    <div class="tab biography parchment-box" data-group="primary" data-tab="description">
       {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
     </div>
+
   </section>
 </form>

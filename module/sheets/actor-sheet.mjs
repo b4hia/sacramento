@@ -43,13 +43,13 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		context.config = CONFIG.SACRAMENTO_RPG;
 
 		// Prepara dados de PJ
-		if (actorData.type == "character") {
+		if (actorData.type === "character") {
 			this._prepareItems(context);
 			this._prepareCharacterData(context);
 		}
 
 		// Prepara dados de NPC
-		if (actorData.type == "npc") {
+		if (actorData.type === "npc") {
 			this._prepareItems(context);
 		}
 
@@ -72,58 +72,29 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 	 *
 	 * @param {object} context The context object to mutate
 	 */
-	_prepareCharacterData(context) {
+	_prepareCharacterData() {
 		// This is where you can enrich character-specific editor fields
 		// or setup anything else that's specific to this type
 	}
 
-	/**
-	 * Organize and classify Items for Actor sheets.
-	 *
-	 * @param {object} context The context object to mutate
-	 */
 	_prepareItems(context) {
-		// Initialize containers.
-		const gear = [];
 		const weapons = [];
 		const equipment = [];
-		const features = [];
-		const spells = {
-			0: [],
-			1: [],
-			2: [],
-			3: [],
-			4: [],
-			5: [],
-			6: [],
-			7: [],
-			8: [],
-			9: []
-		};
+		const consumables = [];
+		const abilities = [];
 
-		// Iterate through items, allocating to containers
-		for (let i of context.items) {
+		for (const i of context.items) {
 			i.img = i.img || Item.DEFAULT_ICON;
-			// Append to gear.
-			if (i.type === "item") {
-				gear.push(i);
-			}
-			// Append to features.
-			else if (i.type === "feature") {
-				features.push(i);
-			}
-			// Append to spells.
-			else if (i.type === "spell") {
-				if (i.system.spellLevel != undefined) {
-					spells[i.system.spellLevel].push(i);
-				}
-			}
+			if (i.type === "weapon") weapons.push(i);
+			else if (i.type === "equipment") equipment.push(i);
+			else if (i.type === "consumable") consumables.push(i);
+			else if (i.type === "ability") abilities.push(i);
 		}
 
-		// Assign and return
-		context.gear = gear;
-		context.features = features;
-		context.spells = spells;
+		context.weapons = weapons;
+		context.equipment = equipment;
+		context.consumables = consumables;
+		context.abilities = abilities;
 	}
 
 	/* -------------------------------------------- */
@@ -142,6 +113,22 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		// -------------------------------------------------------------
 		// Everything below here is only needed if the sheet is editable
 		if (!this.isEditable) return;
+
+		// Handle item ammo update
+		html.on("change", ".item-ammo", async (ev) => {
+			const itemId = ev.currentTarget.dataset.itemId;
+			const item = this.actor.items.get(itemId);
+			const newAmmo = parseInt(ev.currentTarget.value);
+			await item.update({ "system.attributes.ammo.value": newAmmo });
+		});
+
+		// Handle item equip toggle
+		html.on("change", ".item-equip", async (ev) => {
+			const itemId = ev.currentTarget.dataset.itemId;
+			const item = this.actor.items.get(itemId);
+			const isEquipped = ev.currentTarget.checked;
+			await item.update({ "system.attributes.isEquipped.value": isEquipped });
+		});
 
 		// Add Inventory Item
 		html.on("click", ".item-create", this._onItemCreate.bind(this));
@@ -166,7 +153,7 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 
 		// Drag events for macros.
 		if (this.actor.isOwner) {
-			let handler = (ev) => this._onDragStart(ev);
+			const handler = (ev) => this._onDragStart(ev);
 			html.find("li.item").each((i, li) => {
 				if (li.classList.contains("inventory-header")) return;
 				li.setAttribute("draggable", true);
@@ -186,7 +173,7 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		// Get the type of item to create.
 		const type = header.dataset.type;
 		// Grab any data associated with this control.
-		const data = duplicate(header.dataset);
+		const data = foundry.utils.duplicate(header.dataset);
 		// Initialize a default name.
 		const name = `New ${type.capitalize()}`;
 		// Prepare the item object.
@@ -202,19 +189,14 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		return await Item.create(itemData, { parent: this.actor });
 	}
 
-	/**
-	 * Handle clickable rolls.
-	 * @param {Event} event   The originating click event
-	 * @private
-	 */
-	_onRoll(event) {
+	async _onRoll(event) {
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
 		// Handle item rolls.
 		if (dataset.rollType) {
-			if (dataset.rollType == "item") {
+			if (dataset.rollType === "item") {
 				const itemId = element.closest(".item").dataset.itemId;
 				const item = this.actor.items.get(itemId);
 				if (item) return item.roll();
@@ -223,8 +205,40 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 
 		// Handle rolls that supply the formula directly.
 		if (dataset.roll) {
-			let label = dataset.label ? `[ability] ${dataset.label}` : "";
-			let roll = new Roll(dataset.roll, this.actor.getRollData());
+			let label = dataset.label ? `<strong>Teste de ${dataset.label}</strong>` : "Teste";
+			const roll = new Roll(dataset.roll, this.actor.getRollData());
+			await roll.evaluate({ async: true });
+
+			const dieResult = roll.dice[0].results[0].result;
+			const total = roll.total;
+			let flavor = "";
+
+			if (dieResult === 1) {
+				const reroll = new Roll("1d6");
+				await reroll.evaluate({ async: true });
+				if (reroll.total === 1) {
+					flavor = "<span style='color: red; font-weight: bold;'>Falha Crítica! (Rolou 1 duas vezes)</span>";
+				} else {
+					flavor = "<span style='color: darkred; font-weight: bold;'>Falha Automática! (Rolou 1)</span>";
+				}
+			} else if (dieResult === 6) {
+				const reroll = new Roll("1d6");
+				await reroll.evaluate({ async: true });
+				if (reroll.total === 6) {
+					flavor = "<span style='color: blue; font-weight: bold;'>Acerto Crítico! (Rolou 6 duas vezes)</span>";
+				} else {
+					flavor = "<span style='color: green; font-weight: bold;'>Sucesso! (Dado = 6)</span>";
+				}
+			} else {
+				if (total >= 6) {
+					flavor = "<span style='color: green; font-weight: bold;'>Sucesso! (NA 6)</span>";
+				} else {
+					flavor = "<span style='color: #333; font-weight: bold;'>Falha! (Total menor que 6)</span>";
+				}
+			}
+
+			label += `<br>${flavor}`;
+
 			roll.toMessage({
 				speaker: ChatMessage.getSpeaker({ actor: this.actor }),
 				flavor: label,

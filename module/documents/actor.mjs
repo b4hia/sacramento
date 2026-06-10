@@ -26,11 +26,26 @@ export class SacramentoRPGActor extends Actor {
 	prepareDerivedData() {
 		const actorData = this;
 		const systemData = actorData.system;
-		const flags = actorData.flags.sacramentorpg || {};
+		const flags = actorData.flags.sacramentorpg || {}; // eslint-disable-line no-unused-vars
 
 		// Separa métodos para Personagens e NPCs
 		this._prepareCharacterData(actorData);
 		this._prepareNpcData(actorData);
+
+		// Calculate backpack slots
+		let currentSlots = 0;
+		for (const item of this.items) {
+			if (item.type === "weapon" || item.type === "equipment" || item.type === "consumable") {
+				const isEquipped = item.system.attributes?.isEquipped?.value;
+				if (!isEquipped) {
+					currentSlots += item.system.attributes?.slots?.value || 0;
+				}
+			}
+		}
+		systemData.slots = {
+			value: currentSlots,
+			max: 10
+		};
 	}
 
 	/**
@@ -45,7 +60,7 @@ export class SacramentoRPGActor extends Actor {
 
 		const fisVal = abilities.fis?.value || 0;
 		const velVal = abilities.vel?.value || 0;
-		const intVal = abilities.int?.value || 0;
+		// const intVal = abilities.int?.value || 0;
 		const corVal = abilities.cor?.value || 0;
 
 		/** Definição de atributos do PJ */
@@ -53,16 +68,17 @@ export class SacramentoRPGActor extends Actor {
 			systemData.health.max = 6 + fisVal;
 		}
 		if (attributes.moviment) {
-			attributes.moviment.value = 2 + velVal;
-		}
-		if (attributes.antecedents) {
-			attributes.antecedents.value = 4 + intVal;
+			attributes.moviment.value = 1 + velVal;
 		}
 		if (attributes.actions) {
-			attributes.actions.value = (attributes.actions.value || 0) + corVal;
+			attributes.actions.value = 1 + corVal;
+		}
+		if (systemData.mount) {
+			const res = systemData.mount.resistencia?.value || 0;
+			systemData.mount.health.max = 6 + res;
 		}
 		// Calculo de Modificadores
-		for (let [key, ability] of Object.entries(systemData.abilities)) {
+		for (const ability of Object.values(systemData.abilities)) {
 			ability.mod = ability.value;
 		}
 	}
@@ -148,7 +164,7 @@ export class SacramentoRPGActor extends Actor {
 		// Copia os atributos (fis, vel, int, cor) para o nível superior.
 		// Isso permite usar fórmulas como "1d6 + @fis" ao invés de "1d6 + @abilities.fis.value"
 		if (data.abilities) {
-			for (let [k, v] of Object.entries(data.abilities)) {
+			for (const [k, v] of Object.entries(data.abilities)) {
 				// k será 'fis', 'vel', etc.
 				// v será o objeto { value: 3, label: "Físico", mod: 3 }
 				data[k] = foundry.utils.deepClone(v);

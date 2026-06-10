@@ -75,19 +75,13 @@
       "weapon": {
         "htmlFields": ["system.description"]
       },
-      "weapon-ammo": {
-        "htmlFields": ["system.description"]
-      },
-      "equipament": {
-        "htmlFields": ["system.description"]
-      },
-      "skill": {
+      "equipment": {
         "htmlFields": ["system.description"]
       },
       "consumable": {
         "htmlFields": ["system.description"]
       },
-      "item": {
+      "ability": {
         "htmlFields": ["system.description"]
       }
     }

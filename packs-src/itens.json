@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Unguento",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-jar-corked-red.webp",
+    "system": {
+      "attributes": {
+        "effect": { "value": "Pasta que auxilia na cicatrização. Cura 1 Círculo de Vida durante descanso." },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 }
+      }
+    }
+  },
+  {
+    "name": "Dinamite",
+    "type": "consumable",
+    "img": "icons/weapons/explosives/dynamite-lit-red.webp",
+    "system": {
+      "attributes": {
+        "effect": { "value": "Explosão! Dano: 5 Círculos de Vida em área." },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 }
+      }
+    }
+  }
+]

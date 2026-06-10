@@ -1,2 +1,36 @@
 $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
+
+// Skill description icons (Global for Chat & Sheets)
+.skill-icon {
+  height: 1.2em;
+  width: 1.2em;
+  max-width: 1.2em;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 2px;
+  object-fit: contain;
+}
+
+// Skill description tables (Global for Chat & Sheets)
+table.skill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  table-layout: auto;
+  
+  th, td {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  th {
+    background: rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+    white-space: nowrap;
+  }
+}

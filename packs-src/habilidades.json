@@ -1,0 +1,234 @@
+[
+  {
+    "name": "Armas da Natureza",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/armasDaNatureza.webp",
+    "system": {
+      "description": "<p>Ao lutar com armas rústicas (facas de pedra, lanças, machadinhas e armas rudimentares), o dano aumenta em 1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /> para cada ponto em <strong>Físico</strong>.</p>"
+    }
+  },
+  {
+    "name": "Ataque Sacana",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/AtaqueSacana.png",
+    "system": {
+      "description": "<p>Ao realizar um ataque surpresa usando facas, navalhas ou qualquer outra arma de corte, o golpe causa dano adicional conforme o nível:</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Dano Adicional</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>6</td><td>+3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr></tbody></table>"
+    }
+  },
+  {
+    "name": "Às na Manga",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/AsNaManga.png",
+    "system": {
+      "description": "<p>Ao fazer Testes envolvendo jogos de cartas, role <strong>2d6</strong> e use o melhor resultado.</p>"
+    }
+  },
+  {
+    "name": "Boca na botija",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/BocaNaBotija.png",
+    "system": {
+      "description": "<p>Você quase nunca deixa passar algo desapercebido. Ao fazer Testes de <strong>Atenção</strong>, jogue <strong>2d6</strong> e use o  resultado. Sua <strong>Defesa</strong> também não é reduzida por ficar surpreso antes do combate.</p>"
+    }
+  },
+  {
+    "name": "Briga de bar",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/BrigaDeBar.png",
+    "system": {
+      "description": "<p>Você sabe improvisar armas com aquilo que estiver na sua frente: uma cadeira, uma garrafa, ou o bebum segurando a garrafa. Objetos pequenos e médios causam 3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pontos de Dor\" /> , enquanto objetos grandes causam 1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" />, neste segundo caso, os Testes de <strong>Violência</strong> têm -1 de penalidade para que os objetos desengonçados acertem os alvos.</p>"
+    }
+  },
+  {
+    "name": "Canção da Emoção",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/CancaoDaEmocao.png",
+    "system": {
+      "description": "<p>Uma vez por sessão, você pode gastar duas <strong>Ações de Combate</strong> para cada PJ que queira beneficiar e conceder a todos eles um dos bônus a seguir, conforme seu nível. Quando usa esta habilidade você pode conceder benefícios adicionais, conforme seu nível, gastando mais duas <strong>Ações de Combate</strong> para cada PJ por benefício. Nível 1: +1 <strong>Movimento</strong>. Nível 3: +1 <strong>Ação de Combate</strong>. Nível 4: +1 <strong>Violência</strong>. Nível 6: +3 Pontos de vida temporários.</p>"
+    }
+  },
+  {
+    "name": "Chamego",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/Chamego.png",
+    "system": {
+      "description": "<p>Ao fazer um teste para laçar algo ou alguém, jogue <strong>2d6</strong> e use o melhor resultado. Além disso, seus nós apertados dão penalidade de –1 para os Testes a quem tentar se soltar do chamego do seu laço.</p>"
+    }
+  },
+  {
+    "name": "Cuspe e cola",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/CuspeECola.png",
+    "system": {
+      "description": "<p>Este é o único jeito de curar alguém no meio do combate. Para fazer isso, você precisa estar colado no seu paciente e gastar 2 <strong>Ações de Combate</strong> para cada que curar. O limite de usos dessa habilidade aumenta conforme seu nível. Nível 1: 1 uso. Nível 3: 2 usos. Nível 6: 4 usos.</p>"
+    }
+  },
+  {
+    "name": "Dedo Quente",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/DedoQuente.webp",
+    "system": {
+      "description": "<p>Sempre que atirar com um revólver, você recebe +1 nos Testes de <strong>Violência</strong>. Além disso, contra alvos sem cobertura, o dano dos tiros aumenta conforme seu nível.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Dano</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>6</td><td>+3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr></tbody></table>"
+    }
+  },
+  {
+    "name": "Fogo no Céu",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/FogoNoCeu.png",
+    "system": {
+      "description": "<p>Ao fazer Testes envolvendo explosivos, jogue <strong>2d6</strong> e use o melhor resultado. Além disso, você também não corre o risco de explodir os próprios miolos caso tire uma falha crítica.</p>"
+    }
+  },
+  {
+    "name": "Fumaça na Água",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/FumacaNaAgua.jpg",
+    "system": {
+      "description": "<p>Quando fizer Testes de <strong>Roubo</strong> para afanar coisas, se esconder ou caminhar na quietude, jogue <strong>2d6</strong> e use o melhor resultado que cair.</p>"
+    }
+  },
+  {
+    "name": "Fúria dos Aflitos",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/FuriaDosAflitos.jpg",
+    "system": {
+      "description": "<p>Em combate, você reduz sua <strong>Defesa</strong> em 1 ponto, e aumenta o dano de seus ataques corpo a corpo em 3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pontos de Dor\" /></p>"
+    }
+  },
+  {
+    "name": "Galope Certeiro",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/GalopeCerteiro.jpg",
+    "system": {
+      "description": "<p>Ao fazer Testes de <strong>Montaria</strong> no lombo do seu próprio cavalo, jogue <strong>2d6</strong> e use o melhor resultado. Você também ignora a penalidade em Testes de <strong>Montaria</strong> quando estiver montado em outros animais não familiares a você.</p>"
+    }
+  },
+  {
+    "name": "Gatilho Furioso",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/GatilhoFurioso.png",
+    "system": {
+      "description": "<p>Você dispara dois tiros na mesma <strong>Ação de Combate</strong>, mas precisa gastar um <strong>Movimento</strong> para fazer isso. Se tiver mais <strong>Ações de Combate</strong> e <strong>Movimentos</strong> até o fim do turno, você pode atirar várias vezes até seu revólver descarregar, mas depois precisa usar suas <strong>Ações de Combate</strong> para recarregá-lo.</p>"
+    }
+  },
+  {
+    "name": "Livramento",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/Livramento.jpg",
+    "system": {
+      "description": "<p>Quando perder todos os seus <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" />, caia no chão, recupere 2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /> e permaneça com a sua carranca feia pela Terra. Se você cair outra vez no mesmo combate, acabou a colher de chá e será preciso fazer o Teste de Morte normalmente. Essa habilidade funciona apenas uma vez por combate.</p>"
+    }
+  },
+  {
+    "name": "Marretada",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/Marretada.png",
+    "system": {
+      "description": "<p>Quando lutar de mãos vazias, apenas com o poder de seus socos e chutes, o dano de seus ataques desarmados aumenta em +1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Ponto de Dor\" /> para cada ponto no Atributo <strong>Físico</strong> que tiver.</p>"
+    }
+  },
+  {
+    "name": "Não vai doer nadinha",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/NaoVaiDoerNadinha.webp",
+    "system": {
+      "description": "<p>Ao fazer testes de <strong>Medicina</strong>, jogue <strong>2d6</strong> e use o melhor resultado. Além disso, sua cura adicional aumenta conforme seu nível.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Cura Adicional</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>6</td><td>+4 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr></tbody></table>"
+    }
+  },
+  {
+    "name": "Natural da Natureza",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/NaturalDaNatureza.png",
+    "system": {
+      "description": "<p>Sempre que fizer Testes de <strong>Suor</strong>, jogue <strong>2d6</strong> e use o melhor resultado. Além disso, você não precisa fazer testes para encontrar plantas, ervas medicinais ou comestíveis e abrigo em territórios inóspitos e selvagens.</p>"
+    }
+  },
+  {
+    "name": "Parrudeza",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/Parrudeza.png",
+    "system": {
+      "description": "<p>Você soma 2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /> à sua vida máxima. Esta Habilidade pode ser escolhida várias vezes.</p>"
+    }
+  },
+  {
+    "name": "Punhos do Oriente",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/PunhosDoOriente.png",
+    "system": {
+      "description": "<p>Você pode usar seus <strong>Movimentos</strong> para realizar ataques desarmados.</p>"
+    }
+  },
+  {
+    "name": "Quebra Ossos",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/QuebraOssos.png",
+    "system": {
+      "description": "<p>Aplique golpes especiais de luta livre, como agarrões, arremessos ou o famoso suplex. Para dar este golpe é preciso gastar um <strong>Movimento</strong> e uma <strong>Ação de Combate</strong>. Você pode escolher imobilizar o oponente ou potencializar o dano do seu golpe conforme seu nível.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Dano</th></tr></thead><tbody><tr><td>1</td><td>1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /> + 1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Ponto de Dor\" /></td></tr><tr><td>3</td><td>1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /> + 2 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pontos de Dor\" /></td></tr><tr><td>6</td><td>2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /> + 3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pontos de Dor\" /></td></tr></tbody></table>"
+    }
+  },
+  {
+    "name": "Sabiá Imperatriz",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/SabiaImperatriz.png",
+    "system": {
+      "description": "<p>Sorria, seduza, convença e aperte as mãos certas para conseguir as informações que você tanto precisa. Ao fazer Testes de <strong>Negócios</strong>, jogue <strong>2d6</strong> e use o melhor resultado.</p>"
+    }
+  },
+  {
+    "name": "Sabugos e Peçonhas",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/SabugosEPeconhas.png",
+    "system": {
+      "description": "<p>Você consegue produzir venenos mais eficientes. Eles causam 1 a cada ação feita pelo alvo envenenado. Ou seja, se o alvo usar uma ação para atirar, sofre 1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Ponto de Dor\" />. Se der outro tiro, sofre mais até o veneno ser curado, resistido ou o alvo ficar inconsciente.</p>"
+    }
+  },
+  {
+    "name": "Salve-se quem puder",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/SalveseQuemPuder.jpg",
+    "system": {
+      "description": "<p>Ao fazer qualquer Teste para escapar ou fugir, jogue <strong>2d6</strong> e use o melhor resultado. Em situações de fuga, você recebe +1 <strong>Movimento</strong> que só pode ser usado para dar no pé.</p>"
+    }
+  },
+  {
+    "name": "Sorrisão Chapéu na mão",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/SorrisaoChapeuNaMao.png",
+    "system": {
+      "description": "<p>Sempre que estiver comprando ou vendendo itens comuns, (e não itens especiais ou raros) você consegue comprar itens com 25% de desconto e vendê-los 25% mais caro de acordo com os preços na tabela de equipamento.</p>"
+    }
+  },
+  {
+    "name": "Sorte dos Covardes",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/SorteDosCovardes.png",
+    "system": {
+      "description": "<p>No começo de um combate, puxe uma carta do baralho e obtenha o efeito descrito na tabela abaixo de acordo com o naipe da carta. Os efeitos duram até o final do combate. Para ter esta habilidade você não pode ter mais do que 1 em Intelecto e 2 em Violência, mesmo em níveis mais altos. Se tiver, essa habilidade deixa de funcionar.</p><table class=\"skill-table\"><thead><tr><th>Naipe</th><th>Efeito</th></tr></thead><tbody><tr><td>Paus</td><td>+2 Ações de combate</td></tr><tr><td>Copas</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>Espadas</td><td>+2 Movimentos</td></tr><tr><td>Ouros</td><td>+1 para testes de violência</td></tr></tbody></table>"
+    }
+  },
+  {
+    "name": "Valei-me",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/ValeiMe.png",
+    "system": {
+      "description": "<p>Improvise explosivos com o que tiver em mãos, como pedaços de pano, garrafas, um pouco de bebida, um ferrolho, um parafuso etc. Para fabricá-los é preciso ter sucesso em um Teste de Tradição NA 7. Se estiver no meio de um combate, além do teste, você precisa gastar 2 Ações de Combate e um Movimento por explosivo. O dano do explosivo feito por você aumenta conforme seu nível.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Dano do Explosivo</th></tr></thead><tbody><tr><td>1</td><td>2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>3</td><td>3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>6</td><td>4 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr></tbody></table>"
+    }
+  },
+  {
+    "name": "Zói de Coruja",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/ZoiDeCoruja.jpg",
+    "system": {
+      "description": "<p>É uma sede de saber incontrolável que o transforma em enciclopédia ambulante. Sempre que fizer um Teste de Tradição para se lembrar de algum conhecimento lá do fundo da cachola, jogue 2d6 e fique com o melhor resultado.</p>"
+    }
+  },
+  {
+    "name": "Zói de Gavião",
+    "type": "ability",
+    "img": "systems/sacramento-rpg/icons/skills/ZoiDeGaviao.jpg",
+    "system": {
+      "description": "<p>Se atirar com um fuzil ou arco longo você recebe +1 nos Testes de Violência. Além disso, se estiver em uma posição vantajosa, o dano dos disparos aumenta conforme seu nível.</p><table class=\"skill-table\"><thead><tr><th>Nível</th><th>Dano</th></tr></thead><tbody><tr><td>1</td><td>1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Ponto de Vida\" /></td></tr><tr><td>3</td><td>2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr><tr><td>6</td><td>3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Pontos de Vida\" /></td></tr></tbody></table>"
+    }
+  }
+]

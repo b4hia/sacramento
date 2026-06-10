@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Revólver",
+    "type": "weapon",
+    "img": "icons/weapons/guns/gun-pistol-percussion.webp",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 6, "max": 6 },
+        "reload": { "value": 2 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false }
+      }
+    }
+  },
+  {
+    "name": "Fuzil",
+    "type": "weapon",
+    "img": "icons/weapons/guns/gun-rifle-percussion.webp",
+    "system": {
+      "attributes": {
+        "damage": { "value": "3" },
+        "ammo": { "value": 5, "max": 5 },
+        "reload": { "value": 2 },
+        "slots": { "value": 3 },
+        "isEquipped": { "value": false }
+      }
+    }
+  }
+]

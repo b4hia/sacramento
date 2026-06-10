@@ -1,164 +1,496 @@
-/* Ajustes Globais baseados no PDF */
-.sacramento-rpg.sheet.actor {
-	background-color: #fdfaf3;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Rye&display=swap');
+
+.sacramento-rpg.sheet.actor,
+.sacramento-rpg.sheet.item {
+	background-color: #e8dcc4; /* Pergaminho */
+	background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
 	padding: 15px;
-	--sacramento-black: #1a1a1a;
-	--sacramento-red: #4a0404;
+	--sacramento-black: #2c1a11; /* Marrom muito escuro */
+	--sacramento-brown: #5c3a21; /* Marrom madeira */
+	--sacramento-red: #8b0000; /* Vermelho sangue opaco */
+    --sacramento-gold: #c6a664; /* Ouro envelhecido */
+	font-family: "Playfair Display", serif;
+	color: var(--sacramento-black);
 }
 
-@font-face {
-	font-family: "Folkafe";
-	src:
-		url("../fonts/FolkafeRegular.woff2") format("woff2"),
-		url("../fonts/FolkafeRegular.ttf") format("truetype");
-	font-weight: normal;
-	font-style: normal;
+/* Uninput styling (D&D 5e style) */
+.sacramento-rpg .uninput {
+    background: transparent;
+    border: 1px solid transparent;
+    outline: none;
+    box-shadow: none;
+    padding: 2px;
+    transition: border-color 0.2s;
+    font-family: inherit;
+    color: inherit;
+    width: 100%;
+}
+.sacramento-rpg .uninput:hover, 
+.sacramento-rpg .uninput:focus {
+    border-bottom: 1px dashed var(--sacramento-brown);
 }
 
-/* Header Estilo PDF */
-.sacramento-rpg .charname {
-	display: flex;
-	align-items: baseline;
-	border-bottom: 2px solid var(--sacramento-black);
+/* Flexbox Helpers */
+.sacramento-rpg .flexrow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.sacramento-rpg .flexcol {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.sacramento-rpg .wood-title {
+	font-family: 'Rye', cursive;
+	color: var(--sacramento-brown);
+	border-bottom: 2px solid var(--sacramento-brown);
 	margin-bottom: 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
 }
 
-.sacramento-rpg .charname label {
-	font-size: 14px;
-	font-weight: bold;
-	margin-right: 10px;
+/* Header Flex Layout */
+.sacramento-rpg .western-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 4px solid var(--sacramento-brown);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.sacramento-rpg .header-identity {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.sacramento-rpg .header-names {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0; /* Fix flex shrink */
+}
+.sacramento-rpg .header-names .charname,
+.sacramento-rpg .header-names .playername {
+    min-width: 0; /* Fix flex shrink */
+    width: 100%;
+}
+.sacramento-rpg .header-names .charname input {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-family: 'Rye', cursive;
+    color: var(--sacramento-black);
+    width: 100%;
+    min-width: 0;
+    text-overflow: clip; /* Fix for ellipsis issue */
+}
+.sacramento-rpg .header-names .playername input {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    color: var(--sacramento-brown);
+    width: 100%;
+    min-width: 0;
+    text-overflow: clip; /* Fix for ellipsis issue */
 }
 
-.sacramento-rpg .charname input {
-	font-size: 24px;
-	border: none;
-	background: transparent;
+.sacramento-rpg .header-mechanics {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.sacramento-rpg .level-badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Sheriff star or wooden badge shape */
+    background: var(--sacramento-gold); 
+    border: 3px solid var(--sacramento-brown);
+    width: 80px;
+    height: 80px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 2px 2px 5px rgba(0,0,0,0.5);
+    color: var(--sacramento-black);
+    flex: 0 0 80px;
+}
+.sacramento-rpg .level-badge label {
+    font-family: 'Rye', cursive;
+    font-size: 0.8em;
+    margin-bottom: -5px;
+}
+.sacramento-rpg .level-badge input {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--sacramento-black);
+    text-align: center;
+}
+.sacramento-rpg .level-badge input:hover, 
+.sacramento-rpg .level-badge input:focus {
+    border-bottom-color: var(--sacramento-black);
 }
 
-/* Grid de Atributos Quadrados */
-.abilities-grid {
+.sacramento-rpg .header-stats {
+    display: flex;
+    gap: 5px;
+}
+.sacramento-rpg .header-stats .stat-item {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.sacramento-rpg .header-stats .stat-item input {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.sacramento-rpg .western-border {
+    border: 4px solid var(--sacramento-brown);
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.sacramento-rpg .stamp-box {
+    border: 2px dashed var(--sacramento-black);
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(0,0,0,0.05);
+}
+
+.sacramento-rpg .stamp-box label {
+    font-family: 'Rye', cursive;
+    display: block;
+    font-size: 0.9em;
+    color: var(--sacramento-black);
+}
+
+.sacramento-rpg .stamp-box input {
+    font-family: 'Rye', cursive;
+    color: var(--sacramento-red);
+    text-align: center;
+    width: 100%;
+}
+
+.sacramento-rpg .parchment-box {
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.sacramento-rpg .blood-border {
+    border: 2px solid var(--sacramento-red);
+}
+
+.sacramento-rpg .wood-border {
+    border: 2px solid var(--sacramento-brown);
+}
+
+.sacramento-rpg .text-red {
+    color: var(--sacramento-red) !important;
+    border-bottom-color: var(--sacramento-red) !important;
+}
+
+/* Status Top row */
+.sacramento-rpg .status-top {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 10px;
+    min-width: 0;
+}
+.sacramento-rpg .status-top .resource-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    min-width: 0;
+}
+.sacramento-rpg .status-top .pain-box {
+    flex: 2; /* pain box is larger to accommodate list */
+}
+.sacramento-rpg .pain-box .circles-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+}
+.sacramento-rpg .pain-input-container {
+    display: flex;
+    align-items: baseline;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    min-width: 0;
+}
+
+.sacramento-rpg .life-box .circles-row {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+}
+
+/* Specific Fix for Life and Pain Inputs */
+.sacramento-rpg.sheet.actor .life-box input, 
+.sacramento-rpg.sheet.actor .pain-box input {
+    width: 1.2ch;
+    min-width: 0;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: center;
+    outline: none;
+    font-family: 'Rye', cursive;
+    color: inherit;
+    font-size: 1em;
+}
+
+.sacramento-rpg .pain-input-container span,
+.sacramento-rpg .life-box span {
+    font-size: 0.6em;
+    font-family: 'Rye', cursive;
+    color: var(--sacramento-black);
+    white-space: nowrap;
+}
+
+/* Redenção */
+.sacramento-rpg .redemption-track {
+    margin-top: 10px;
+}
+.sacramento-rpg .redemption-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.sacramento-rpg .redemption-step input[type="text"] {
+    flex-grow: 1;
+    margin-left: 5px;
+    font-style: italic;
+}
+.sacramento-rpg .redemption-track .help-text {
+    font-size: 0.8em;
+    color: var(--sacramento-brown);
+    margin-top: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Dor e Debuffs */
+.sacramento-rpg .pain-debuffs {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    font-size: 0.9em;
+}
+
+.sacramento-rpg .pain-debuffs li {
+    padding: 2px 5px;
+    color: #888;
+}
+
+.sacramento-rpg .pain-debuffs li.active {
+    color: var(--sacramento-red);
+    font-weight: bold;
+    background-color: rgba(139, 0, 0, 0.1);
+    border-left: 3px solid var(--sacramento-red);
+}
+
+/* Mochila Slots */
+.sacramento-rpg .slots-tracker {
+    font-family: 'Rye', cursive;
+    font-size: 1.2em;
+    padding: 5px 10px;
+    background: var(--sacramento-brown);
+    color: white;
+    border-radius: 4px;
+}
+.sacramento-rpg .slots-tracker.overloaded {
+    background: var(--sacramento-red);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.sacramento-rpg .abilities-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 10px;
 }
 
-.ability-card {
-	border: 3px solid var(--sacramento-black);
+.sacramento-rpg .ability-card {
+	border: 2px solid var(--sacramento-brown);
 	padding: 5px;
 	text-align: center;
+    background: rgba(255,255,255,0.5);
 }
 
-.ability-card label {
+.sacramento-rpg .ability-card label {
 	display: block;
-	font-weight: bold;
-	text-transform: uppercase;
-	border-bottom: 2px solid var(--sacramento-black);
-	background: var(--sacramento-black);
-	color: white;
+	font-family: 'Rye', cursive;
+	border-bottom: 1px solid var(--sacramento-brown);
+	color: var(--sacramento-brown);
 	padding: 2px;
+    cursor: pointer;
+}
+.sacramento-rpg .ability-card label:hover {
+    color: var(--sacramento-red);
 }
 
-.ability-card input {
-	font-size: 32px;
+.sacramento-rpg .ability-card input {
+	font-size: 28px;
 	width: 100%;
 	text-align: center;
-	border: none;
-	background: transparent;
 	font-weight: bold;
 }
 
-/* Recursos (Vida e Dor) */
-.resource-group {
-	margin-bottom: 20px;
-	border: 2px solid var(--sacramento-black);
-	padding: 10px;
+.sacramento-rpg .antecedents-list {
+    margin-bottom: 20px;
 }
-
-.resource-group label {
-	font-weight: bold;
-	display: block;
-	font-size: 12px;
-	margin-bottom: 5px;
-}
-
-.circles-row {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.circles-row input {
-	font-size: 40px;
-	width: 60px;
-	text-align: center;
-	border: none;
-	background: transparent;
-	color: var(--sacramento-red);
-}
-
-.circles-row .max {
-	font-size: 24px;
-	font-weight: bold;
-}
-
-.sheet-tabs {
-	margin-top: 20px;
-	border-top: 3px solid var(--sacramento-black);
-}
-
-.sheet-tabs .item {
-	background: #eee;
-	border-right: 1px solid #ccc;
-}
-
-.sheet-tabs .item.active {
-	background: var(--sacramento-black);
-	color: white;
-}
-
-.sacramento-rpg.sheet.actor {
-	font-family: "Folkafe", serif;
-	background-color: #fdfaf3;
-	--sacramento-black: #1a1a1a;
-	--sacramento-red: #4a0404;
-}
-
-.sacramento-rpg .sheet-header {
-	display: flex;
-	border-bottom: 3px solid var(--sacramento-black);
-	padding-bottom: 10px;
-}
-
-.sacramento-rpg .profile-img {
-	flex: 0 0 120px;
-	height: 120px;
-	border: 3px solid var(--sacramento-black);
-	border-radius: 0;
-}
-
-/* 4. Estilo de Antecedentes (Perícias) */
-.antecedents-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 5px;
-}
-
-.antecedente-item {
+.sacramento-rpg .antecedente-item {
 	display: flex;
 	justify-content: space-between;
-	border-bottom: 1px dotted var(--sacramento-black);
+	border-bottom: 1px dotted var(--sacramento-brown);
 	align-items: center;
+    padding: 3px 0;
 }
-
-.antecedente-item label {
-	font-size: 12px;
+.sacramento-rpg .antecedente-item label {
+	font-size: 14px;
 	font-weight: bold;
 	cursor: pointer;
 }
-
-.antecedente-item input {
-	width: 30px;
-	border: none;
-	background: transparent;
+.sacramento-rpg .antecedente-item label:hover {
+    color: var(--sacramento-red);
+}
+.sacramento-rpg .antecedente-item input {
+	width: 40px;
 	text-align: right;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sacramento-rpg .western-tabs {
+    margin: 10px 0;
+    border-bottom: 2px solid var(--sacramento-brown) !important;
+}
+.sacramento-rpg .western-tabs .item {
+    font-family: 'Rye', cursive;
+    color: var(--sacramento-brown);
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    border-bottom: none;
+}
+.sacramento-rpg .western-tabs .item.active {
+    background: var(--sacramento-brown);
+    color: white;
+    border-color: var(--sacramento-brown);
+    border-radius: 5px 5px 0 0;
+}
+
+.sacramento-rpg .inventory-category {
+    font-family: 'Rye', cursive;
+    color: var(--sacramento-black);
+    border-bottom: 1px solid var(--sacramento-black);
+    margin-top: 15px;
+}
+
+.sacramento-rpg .item-detail {
+    flex: 0 0 80px;
+    text-align: center;
+}
+
+/* Image adjustments */
+.sacramento-rpg .profile-img {
+    flex: 0 0 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.sacramento-rpg .item-controls {
+    flex: 0 0 50px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+.sacramento-rpg .item-name {
+    flex: 1;
+}
+
+/* Grid Utilities */
+.sacramento-rpg .grid {
+    display: grid;
+}
+.sacramento-rpg .grid-2col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+.sacramento-rpg .grid-4col {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+/* SKILL ITEMS AND TABLES CUSTOM STYLING (ADDED FOR COMPENDIUMS) */
+.sacramento-rpg .skill-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: "Playfair Display", serif;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sacramento-rpg .skill-table th {
+    background-color: var(--sacramento-brown);
+    color: white;
+    font-family: 'Rye', cursive;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding: 5px;
+    border: 1px solid var(--sacramento-black);
+}
+
+.skill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  table-layout: auto;
+}
+
+.skill-table th, .skill-table td {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 4px 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.skill-table th {
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.skill-icon {
+  height: 1.2em;
+  width: 1.2em;
+  max-width: 1.2em;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 2px;
+  object-fit: contain;
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }

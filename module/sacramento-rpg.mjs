@@ -1,61 +1,56 @@
+/* global Actors, Items */
 // Import document classes.
-import { SacramentoRPGActor } from './documents/actor.mjs';
-import { SacramentoRPGItem } from './documents/item.mjs';
+import { SacramentoRPGActor } from "./documents/actor.mjs";
+import { SacramentoRPGItem } from "./documents/item.mjs";
 // Import sheet classes.
-import { SacramentoRPGActorSheet } from './sheets/actor-sheet.mjs';
-import { SacramentoRPGItemSheet } from './sheets/item-sheet.mjs';
+import { SacramentoRPGActorSheet } from "./sheets/actor-sheet.mjs";
+import { SacramentoRPGItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
-import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
-import { SACRAMENTO_RPG } from './helpers/config.mjs';
+import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
+import { SACRAMENTO_RPG } from "./helpers/config.mjs";
+
+import { SacramentoRPGCombat } from "./documents/combat.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', function () {
-  // Add utility classes to the global game object so that they're more easily
-  // accessible in global contexts.
-  game.sacramentorpg = {
-    SacramentoRPGActor,
-    SacramentoRPGItem,
-    rollItemMacro,
-  };
+Hooks.once("init", function () {
+	// Add utility classes to the global game object so that they're more easily
+	// accessible in global contexts.
+	game.sacramentorpg = {
+		SacramentoRPGActor,
+		SacramentoRPGItem,
+		rollItemMacro
+	};
 
-  // Add custom constants for configuration.
-  CONFIG.SACRAMENTO_RPG = SACRAMENTO_RPG;
+	// Add custom constants for configuration.
+	CONFIG.SACRAMENTO_RPG = SACRAMENTO_RPG;
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-  CONFIG.Combat.initiative = {
-    formula: '1d20 + @abilities.dex.mod',
-    decimals: 2,
-  };
+	// Define custom Document classes
+	CONFIG.Actor.documentClass = SacramentoRPGActor;
+	CONFIG.Item.documentClass = SacramentoRPGItem;
+	CONFIG.Combat.documentClass = SacramentoRPGCombat;
 
-  // Define custom Document classes
-  CONFIG.Actor.documentClass = SacramentoRPGActor;
-  CONFIG.Item.documentClass = SacramentoRPGItem;
+	// Active Effects are never copied to the Actor,
+	// but will still apply to the Actor from within the Item
+	// if the transfer property on the Active Effect is true.
+	CONFIG.ActiveEffect.legacyTransferral = false;
 
-  // Active Effects are never copied to the Actor,
-  // but will still apply to the Actor from within the Item
-  // if the transfer property on the Active Effect is true.
-  CONFIG.ActiveEffect.legacyTransferral = false;
+	// Register sheet application classes
+	Actors.unregisterSheet("core", ActorSheet);
+	Actors.registerSheet("sacramento-rpg", SacramentoRPGActorSheet, {
+		makeDefault: true,
+		label: "SACRAMENTO_RPG.SheetLabels.Actor"
+	});
+	Items.unregisterSheet("core", ItemSheet);
+	Items.registerSheet("sacramento-rpg", SacramentoRPGItemSheet, {
+		makeDefault: true,
+		label: "SACRAMENTO_RPG.SheetLabels.Item"
+	});
 
-  // Register sheet application classes
-  Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('sacramento-rpg', SacramentoRPGActorSheet, {
-    makeDefault: true,
-    label: 'SACRAMENTO_RPG.SheetLabels.Actor',
-  });
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('sacramento-rpg', SacramentoRPGItemSheet, {
-    makeDefault: true,
-    label: 'SACRAMENTO_RPG.SheetLabels.Item',
-  });
-
-  // Preload Handlebars templates.
-  return preloadHandlebarsTemplates();
+	// Preload Handlebars templates.
+	return preloadHandlebarsTemplates();
 });
 
 /* -------------------------------------------- */
@@ -63,18 +58,66 @@ Hooks.once('init', function () {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function (str) {
-  return str.toLowerCase();
+Handlebars.registerHelper("toLowerCase", function (str) {
+	return str.toLowerCase();
 });
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function () {
-  // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+Hooks.once("ready", async function () {
+	// Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
+	Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+
+	// Only GM should run this to prevent race conditions during first-time setup
+	if (game.user.isGM) {
+		await populateCompendiums();
+	}
 });
+
+/**
+ * Automates the first-time setup by populating empty compendiums with the core system JSONs
+ */
+async function populateCompendiums() {
+	const packsToPopulate = [
+		{ name: "sacramento-rpg.armas", path: "systems/sacramento-rpg/packs-src/armas.json" },
+		{ name: "sacramento-rpg.habilidades", path: "systems/sacramento-rpg/packs-src/habilidades.json" },
+		{ name: "sacramento-rpg.itens", path: "systems/sacramento-rpg/packs-src/itens.json" }
+	];
+
+	for (const packInfo of packsToPopulate) {
+		const pack = game.packs.get(packInfo.name);
+		if (!pack) {
+			console.warn(`Sacramento RPG | Compendium ${packInfo.name} not found.`);
+			continue;
+		}
+
+		// Check if pack is empty
+		const index = await pack.getIndex();
+		if (index.size === 0) {
+			console.log(`Sacramento RPG | Populating empty compendium: ${packInfo.name}`);
+			try {
+				const response = await fetch(packInfo.path);
+				const data = await response.json();
+
+				// Temporarily unlock the compendium if it's locked
+				const wasLocked = pack.locked;
+				if (wasLocked) await pack.configure({ locked: false });
+
+				// Create documents
+				await Item.createDocuments(data, { pack: packInfo.name });
+
+				// Relock if it was locked
+				if (wasLocked) await pack.configure({ locked: true });
+
+				console.log(`Sacramento RPG | Successfully populated ${packInfo.name}`);
+			} catch (e) {
+				console.error(`Sacramento RPG | Failed to populate ${packInfo.name}`, e);
+			}
+		}
+	}
+}
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
@@ -88,32 +131,28 @@ Hooks.once('ready', function () {
  * @returns {Promise}
  */
 async function createItemMacro(data, slot) {
-  // First, determine if this is a valid owned item.
-  if (data.type !== 'Item') return;
-  if (!data.uuid.includes('Actor.') && !data.uuid.includes('Token.')) {
-    return ui.notifications.warn(
-      'You can only create macro buttons for owned Items'
-    );
-  }
-  // If it is, retrieve it based on the uuid.
-  const item = await Item.fromDropData(data);
+	// First, determine if this is a valid owned item.
+	if (data.type !== "Item") return;
+	if (!data.uuid.includes("Actor.") && !data.uuid.includes("Token.")) {
+		return ui.notifications.warn("You can only create macro buttons for owned Items");
+	}
+	// If it is, retrieve it based on the uuid.
+	const item = await Item.fromDropData(data);
 
-  // Create the macro command using the uuid.
-  const command = `game.sacramentorpg.rollItemMacro("${data.uuid}");`;
-  let macro = game.macros.find(
-    (m) => m.name === item.name && m.command === command
-  );
-  if (!macro) {
-    macro = await Macro.create({
-      name: item.name,
-      type: 'script',
-      img: item.img,
-      command: command,
-      flags: { 'sacramento-rpg.itemMacro': true },
-    });
-  }
-  game.user.assignHotbarMacro(macro, slot);
-  return false;
+	// Create the macro command using the uuid.
+	const command = `game.sacramentorpg.rollItemMacro("${data.uuid}");`;
+	let macro = game.macros.find((m) => m.name === item.name && m.command === command);
+	if (!macro) {
+		macro = await Macro.create({
+			name: item.name,
+			type: "script",
+			img: item.img,
+			command: command,
+			flags: { "sacramento-rpg.itemMacro": true }
+		});
+	}
+	game.user.assignHotbarMacro(macro, slot);
+	return false;
 }
 
 /**
@@ -122,22 +161,20 @@ async function createItemMacro(data, slot) {
  * @param {string} itemUuid
  */
 function rollItemMacro(itemUuid) {
-  // Reconstruct the drop data so that we can load the item.
-  const dropData = {
-    type: 'Item',
-    uuid: itemUuid,
-  };
-  // Load the item from the uuid.
-  Item.fromDropData(dropData).then((item) => {
-    // Determine if the item loaded and if it's an owned item.
-    if (!item || !item.parent) {
-      const itemName = item?.name ?? itemUuid;
-      return ui.notifications.warn(
-        `Could not find item ${itemName}. You may need to delete and recreate this macro.`
-      );
-    }
+	// Reconstruct the drop data so that we can load the item.
+	const dropData = {
+		type: "Item",
+		uuid: itemUuid
+	};
+	// Load the item from the uuid.
+	Item.fromDropData(dropData).then((item) => {
+		// Determine if the item loaded and if it's an owned item.
+		if (!item || !item.parent) {
+			const itemName = item?.name ?? itemUuid;
+			return ui.notifications.warn(`Could not find item ${itemName}. You may need to delete and recreate this macro.`);
+		}
 
-    // Trigger the item roll
-    item.roll();
-  });
+		// Trigger the item roll
+		item.roll();
+	});
 }

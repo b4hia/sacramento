@@ -6,6 +6,7 @@
         "health": {
           "value": 6,
           "min": 0,
+          "max": 6,
           "label": "Circulos de Vida"
         },
         "pain":{
@@ -14,31 +15,17 @@
           "max": 6,
           "label": "Circulos de Dor"
         },
-        "insanity": { 
-          "value": 0,
-          "min": 0,
-          "max": 10,
-          "label": "Sanidade/Sorte"
-        },
-        "inspiration": {
-          "value": 0,
-          "min": 0,
-          "max": 1,
-          "label": "Carta de Sina"
-        },
-
         "biography": ""
       }
     },
     "character": {
       "templates": ["base"],
       "attributes": {
+        "playerName": {
+          "value": ""
+        },
         "level": {
           "value": 1
-        },
-        "xp": {
-          "value": 0,
-          "max": 10
         },
         "moviment":{
           "value": 0,
@@ -48,27 +35,51 @@
           "value": 0,
           "label": "Ações de combate"
         },
-        "antecedents": {
-          "value": 0,
-          "label": "Pontos de antecedente"
-        },
         "defense": {
           "value": 5,
           "label": "Pontos de defesa"
         }
       },
+      "slots": {
+        "value": 0,
+        "max": 10
+      },
       "abilities": {
-        "fis": { "value": 0, "label": "Físico" },
-        "vel": { "value": 0, "label": "Velocidade" },
-        "int": { "value": 0, "label": "Intelecto" },
-        "cor": { "value": 0, "label": "Coragem" }
+        "fis": { "value": 0, "mod": 0, "label": "Físico" },
+        "vel": { "value": 0, "mod": 0, "label": "Velocidade" },
+        "int": { "value": 0, "mod": 0, "label": "Intelecto" },
+        "cor": { "value": 0, "mod": 0, "label": "Coragem" }
+      },
+      "antecedents": {
+        "atencao": { "value": 0, "label": "Atenção" },
+        "medicina": { "value": 0, "label": "Medicina" },
+        "montaria": { "value": 0, "label": "Montaria" },
+        "negocios": { "value": 0, "label": "Negócios" },
+        "roubo": { "value": 0, "label": "Roubo" },
+        "suor": { "value": 0, "label": "Suor" },
+        "tradicao": { "value": 0, "label": "Tradição" },
+        "violencia": { "value": 0, "label": "Violência" }
+      },
+      "redemption": {
+        "step1": { "text": "", "checked": false },
+        "step2": { "text": "", "checked": false },
+        "step3": { "text": "", "checked": false },
+        "step4": { "text": "", "checked": false },
+        "step5": { "text": "", "checked": false },
+        "step6": { "text": "", "checked": false }
+      },
+      "mount": {
+        "potencia": { "value": 0, "label": "Potência" },
+        "resistencia": { "value": 0, "label": "Resistência" },
+        "fidelidade": { "value": 0, "max": 5, "label": "Fidelidade" },
+        "health": { "value": 6, "max": 6, "label": "Vida da Montaria" }
       }
     },
     "npc": {
       "templates": ["base"],
       "attributes": {
         "cr": {
-          "value": 0,
+          "value": 1,
           "label": "Nível de Canalhice (NdC)"
         },
         "isSpecial": {
@@ -88,75 +99,41 @@
     }
   },
   "Item": {
-    "types": ["item", "equipament", "weapon"],
+    "types": ["weapon", "equipment", "consumable", "ability"],
     "templates": {
       "base": {
         "description": ""
       }
     },
-    "item": {
-      "templates": ["base"],
-      "quantity": 1,
-      "slots": 0,
-      "price": 0
-    },
-    "equipament": {
-      "templates": ["base"],
-      "attributes": {
-        "price": {
-          "value": 0,
-          "label": "Preço ($)"
-        },
-        "slots": {
-          "value": 1,
-          "label": "Espaço (Slots)"
-        },
-        "modifiers": {
-          "value": "",
-          "label": "Modificadores concedidos"
-        }
-      }
-    },  
     "weapon": {
       "templates": ["base"],
       "attributes": {
-        "painDamage": {
-          "value": 0,
-          "label": "Dano (Fixo)"
-        },
-        "lifeDamage": {
-          "value": 0,
-          "label": "Dano (Fixo)"
-        },
-        "damageDist": {
-          "value": 0,
-          "label": "Dano à Distância"
-        },
-        "ammo": {
-          "value": 0,
-          "label": "Munição"
-        },
-        "reload": {
-          "value": 1,
-          "label": "Ações para recarregar"
-        },
-        "range":{
-          "value": 9,
-          "label": "Alcance do ataque"
-        },
-        "slots": {
-          "value": 1,
-          "label": "Espaço (Slots)"
-        },
-        "price": {
-          "value": 0,
-          "label": "Preço da arma ($)"
-        },
-        "special":{
-          "value": "",
-          "label": "Efeitos especiais"
-        }
+        "damage": { "value": "1", "label": "Dano" },
+        "ammo": { "value": 0, "max": 6, "label": "Balas (Munição)" },
+        "reload": { "value": 1, "label": "Custo de Recarga (Ações)" },
+        "slots": { "value": 1, "label": "Espaço na Mochila" },
+        "isEquipped": { "value": false, "dtype": "Boolean", "label": "No Coldre (Não gasta espaço)" }
       }
+    },
+    "equipment": {
+      "templates": ["base"],
+      "attributes": {
+        "effect": { "value": "", "label": "Efeito/Proteção" },
+        "slots": { "value": 1, "label": "Espaço na Mochila" },
+        "isEquipped": { "value": false, "dtype": "Boolean", "label": "Vestido" }
+      }
+    },
+    "consumable": {
+      "templates": ["base"],
+      "attributes": {
+        "effect": { "value": "", "label": "Efeito de Cura/Buff" },
+        "slots": { "value": 1, "label": "Espaço na Mochila" },
+        "quantity": { "value": 1, "label": "Quantidade" }
+      }
+    },
+    "ability": {
+      "templates": ["base"],
+      "attributes": {}
     }
   }
 }
