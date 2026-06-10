@@ -2,7 +2,8 @@
 .idea/
 .vs/
 .agents/
-dnd-example
+dnd-example/
+package-lock.json
 
 # Node Modules
 node_modules/
