@@ -1,6 +1,6 @@
 {
   "name": "sacramento-rpg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CSS compiler for the sacramento system",
   "scripts": {
     "build:css": "sass src/scss/sacramento-rpg.scss css/sacramento-rpg.css --style=expanded --no-source-map",
@@ -17,7 +17,8 @@
     "lint:fix:errors": "eslint --quiet --ext .js,.cjs,.mjs --fix .",
     "postinstall": "npm run build:ci",
     "prepare": "husky",
-    "update-manifest": "node ./utils/update-manifest.js"
+    "update-manifest": "node ./utils/update-manifest.js",
+    "release": "commit-and-tag-version"
   },
   "browserslist": [
     "last 3 versions"
@@ -34,6 +35,7 @@
     "@stylistic/eslint-plugin-js": "^1.8.1",
     "autoprefixer": "^10.4.21",
     "chalk": "^5.4.1",
+    "commit-and-tag-version": "^12.7.3",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.0",
