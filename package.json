@@ -1,6 +1,6 @@
 {
   "name": "sacramento-rpg",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Sacramento RPG system for Foundry VTT",
   "scripts": {
     "build:css": "sass src/scss/sacramento-rpg.scss css/sacramento-rpg.css --style=expanded --no-source-map",
