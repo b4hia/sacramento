@@ -1,15 +1,20 @@
-# IDE
+# IDE & Local Agent Config
 .idea/
 .vs/
 .agents/
-dnd-example/
-package-lock.json
+.vscode/
+CLAUDE.md
+documentacao_sistema_sacramento_rpg.md
 
 # Node Modules
 node_modules/
 npm-debug.log
 
-# Foundry
+# Foundry & Build Artifacts
 *.lock
 jsconfig.json
 foundry
+dist/
+sacramento-rpg.zip
+packs/*
+!packs/.gitkeep
