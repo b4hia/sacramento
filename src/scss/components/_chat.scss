@@ -1,0 +1,324 @@
+/* Chat Cards, Combat Tracker, and Roll Dialogs */
+.sacramento-chat-card {
+  background-color: #e8dcc4;
+  padding: 10px;
+  border: 3px solid #2c1a11;
+  border-radius: 5px;
+  font-family: 'Playfair Display', serif;
+  color: #2c1a11;
+}
+
+.sacramento-chat-card .card-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #5c3a21;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.sacramento-chat-card .chat-card-img {
+  border: 2px solid #5c3a21;
+  margin-right: 10px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.sacramento-chat-card .item-name {
+  margin: 0;
+  font-family: 'Rye', cursive;
+  font-size: 1.5em;
+  color: #5c3a21;
+}
+
+.sacramento-chat-card .card-description {
+  margin-bottom: 5px;
+  color: #2c1a11;
+}
+
+.sacramento-chat-card .attack-section,
+.sacramento-chat-card .damage-section {
+  margin-top: 10px;
+}
+
+.sacramento-chat-card .chat-section-title {
+  margin: 0 0 5px 0;
+  color: #5c3a21;
+  border-bottom: 1px solid #5c3a21;
+}
+
+.sacramento-chat-card .chat-critical-hit {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(40, 167, 69, 0.2);
+  border-left: 3px solid #28a745;
+  color: #155724;
+  font-size: 0.9em;
+  border-radius: 3px;
+}
+
+.sacramento-chat-card .chat-critical-miss {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(220, 53, 69, 0.2);
+  border-left: 3px solid #dc3545;
+  color: #721c24;
+  font-size: 0.9em;
+  border-radius: 3px;
+}
+
+.sacramento-chat-card .chat-damage-fixed {
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  font-size: 1.1em;
+}
+
+.sacramento-chat-card .chat-damage-roll-entry {
+  margin-bottom: 10px;
+}
+
+.sacramento-chat-card .chat-damage-roll-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.sacramento-chat-card .chat-damage-roll-label {
+  color: #2c1a11;
+  margin-right: 5px;
+}
+
+.sacramento-chat-card .chat-damage-icon,
+.chat-damage-fixed-icon {
+  width: 16px;
+  height: 16px;
+  border: none;
+  box-shadow: none;
+  vertical-align: middle;
+}
+
+.chat-damage-fixed-icon {
+  margin-right: 4px;
+}
+
+.sacramento-chat-card .additional-info {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.chat-ammo-spent {
+  color: #5c3a21;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.chat-damage-bonus-info {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.chat-reload-card {
+  border-color: #5c3a21;
+}
+
+.chat-reload-header {
+  border-bottom: 1px solid #5c3a21;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.chat-reload-title {
+  font-family: 'Rye', cursive;
+  color: #5c3a21;
+  margin: 0;
+}
+
+.chat-reload-body {
+  font-size: 0.9em;
+}
+
+/* Critical Confirmation & Roll Icons */
+.critical-roll-icon,
+.dice-roll-icon {
+  width: 14px;
+  height: 14px;
+  border: none;
+  vertical-align: middle;
+  box-shadow: none;
+}
+
+.dice-roll-icon {
+  margin-right: 4px;
+}
+
+.critical-confirm-header {
+  border-bottom: 1px solid #5c3a21;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #5c3a21;
+}
+
+/* Roll Dialogs */
+.roll-dialog-group {
+  margin-bottom: 10px;
+}
+
+.roll-dialog-select {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.roll-dialog-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* Death Save Chat Card */
+.death-save-card {
+  background-color: #e8dcc4;
+  padding: 10px;
+  border: 3px solid #2c1a11;
+  border-radius: 5px;
+  font-family: 'Playfair Display', serif;
+}
+
+.death-save-card-title {
+  margin: 0 0 6px 0;
+  font-family: 'Rye', cursive;
+  color: #8b0000;
+  border-bottom: 2px solid #8b0000;
+  padding-bottom: 4px;
+}
+
+.death-save-card-result {
+  margin: 6px 0;
+  font-size: 1.05em;
+}
+
+.death-save-outcome-success {
+  color: #2e6b34;
+}
+
+.death-save-outcome-failure {
+  color: #8b0000;
+}
+
+.death-save-card-tally {
+  font-size: 0.9em;
+  color: #5c3a21;
+}
+
+.death-save-card-final {
+  margin-top: 6px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Combat Tracker & Combat Order Card */
+.combat-roll-all-container {
+  display: flex;
+  justify-content: center;
+  padding: 6px;
+  border-bottom: 2px solid #5c3a21;
+  background: rgba(92, 58, 33, 0.15);
+}
+
+.sacramento-roll-all-btn {
+  width: 100%;
+  background: #5c3a21;
+  color: #f4ece1;
+  border: 1px solid #2c1a11;
+  font-family: 'Rye', serif;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+.combat-order-card {
+  background-color: #e8dcc4;
+  padding: 10px;
+  border: 3px solid #2c1a11;
+  border-radius: 5px;
+  font-family: 'Playfair Display', serif;
+}
+
+.combat-order-title {
+  margin: 0 0 8px 0;
+  font-family: 'Rye', cursive;
+  color: #5c3a21;
+  border-bottom: 2px solid #5c3a21;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+.combat-order-subtitle {
+  font-size: 0.85em;
+  color: #5c3a21;
+  text-align: center;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.combat-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  color: #2c1a11;
+}
+
+.combat-order-thead-row {
+  border-bottom: 1px solid #5c3a21;
+  background: rgba(92, 58, 33, 0.15);
+}
+
+.combat-order-th-num {
+  padding: 4px;
+  text-align: center;
+  width: 28px;
+}
+
+.combat-order-th-name {
+  padding: 4px;
+  text-align: left;
+}
+
+.combat-order-th-stat {
+  padding: 4px;
+  text-align: center;
+}
+
+.combat-order-row {
+  border-bottom: 1px dashed rgba(92, 58, 33, 0.3);
+}
+
+.combat-order-td-rank {
+  padding: 4px;
+  text-align: center;
+  font-weight: bold;
+  color: #8b0000;
+}
+
+.combat-order-td-name {
+  padding: 4px;
+  font-weight: bold;
+}
+
+.combat-order-td-vel {
+  padding: 4px;
+  text-align: center;
+  font-weight: bold;
+  color: #5c3a21;
+}
+
+.combat-order-td-stat {
+  padding: 4px;
+  text-align: center;
+}
+

@@ -12,7 +12,7 @@
   "url": "https://github.com/b4hia/sacramento",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "Replace this with a link to file issues or tickets",
+  "bugs": "https://github.com/b4hia/sacramento/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
@@ -21,24 +21,38 @@
       "thumbnail": "systems/sacramento-rpg/assets/anvil-impact.png"
     }
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": {
     "minimum": 11,
-    "verified": "11.315"
+    "verified": "12"
+  },
+  "relationships": {
+    "recommends": [
+      {
+        "id": "babele",
+        "type": "module",
+        "reason": "Translates Compendium Packs into English (lang/babele/en)."
+      }
+    ]
   },
   "esmodules": ["module/sacramento-rpg.mjs"],
   "styles": ["css/sacramento-rpg.css"],
   "languages": [
     {
-      "lang": "pt-br",
-      "name": "Portuguese",
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
       "path": "lang/pt_br.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
     }
   ],
   "packs": [
     {
       "name": "armas",
-      "label": "Armas e Munições",
+      "label": "Armas",
       "path": "packs/armas",
       "type": "Item",
       "system": "sacramento-rpg",
@@ -48,16 +62,34 @@
       }
     },
     {
+      "name": "armas-especiais",
+      "label": "Armas Especiais",
+      "path": "packs/armas-especiais",
+      "type": "Item",
+      "system": "sacramento-rpg",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
       "name": "habilidades",
-      "label": "Habilidades e Rezas",
+      "label": "Habilidades",
       "path": "packs/habilidades",
       "type": "Item",
       "system": "sacramento-rpg"
     },
     {
       "name": "itens",
-      "label": "Itens e Equipamentos",
+      "label": "Munições e Equipamentos",
       "path": "packs/itens",
+      "type": "Item",
+      "system": "sacramento-rpg"
+    },
+    {
+      "name": "consumiveis",
+      "label": "Consumíveis",
+      "path": "packs/consumiveis",
       "type": "Item",
       "system": "sacramento-rpg"
     }
@@ -94,6 +126,6 @@
   },
   "primaryTokenAttribute": "health.value",
   "secondaryTokenAttribute": "pain.value",
-  "manifest": "",
-  "download": ""
+  "manifest": "https://github.com/b4hia/sacramento/releases/latest/download/system.json",
+  "download": "https://github.com/b4hia/sacramento/releases/latest/download/sacramento-rpg.zip"
 }

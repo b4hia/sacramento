@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Pistola automática",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/mauser.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 11, "max": 11 },
+        "reload": { "value": 2 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "revolver" },
+        "ammoType": { "value": "Munição de Revólver" },
+        "range": { "value": "medio" },
+        "price": { "value": 1500 },
+        "effect": {
+          "value": "Permite realizar +1 disparo adicional por Ação de Combate gasta."
+        }
+      }
+    }
+  },
+  {
+    "name": "Magnum",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/magnum.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "2" },
+        "ammo": { "value": 6, "max": 6 },
+        "reload": { "value": 2 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "revolver" },
+        "ammoType": { "value": "Munição de Revólver" },
+        "range": { "value": "medio" },
+        "price": { "value": 2000 },
+        "effect": {
+          "value": "Revólver de cano alongado calibre .357 de alto impacto (2 Círculos de Vida)."
+        }
+      }
+    }
+  },
+  {
+    "name": "Mauser C69",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/mauser.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "2" },
+        "ammo": { "value": 15, "max": 15 },
+        "reload": { "value": 1 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "revolver" },
+        "ammoType": { "value": "Munição de Revólver" },
+        "range": { "value": "medio" },
+        "price": { "value": 3000 },
+        "effect": {
+          "value": "Pente de alta capacidade (15 balas) e recarga rápida (1 Ação de Combate)."
+        }
+      }
+    }
+  },
+  {
+    "name": "Carabina de repetição",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/carabina.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "2" },
+        "ammo": { "value": 7, "max": 7 },
+        "reload": { "value": 2 },
+        "slots": { "value": 2 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "fuzil" },
+        "ammoType": { "value": "Munição de Fuzil" },
+        "range": { "value": "longo" },
+        "price": { "value": 1500 },
+        "effect": {
+          "value": "Na 1ª Ação de Combate do turno, permite +1 tiro adicional sofrendo -1 nos Testes de Violência."
+        }
+      }
+    }
+  },
+  {
+    "name": "Derringer (revolver de bolso)",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/derringer.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 2, "max": 2 },
+        "reload": { "value": 1 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "revolver" },
+        "ammoType": { "value": "Munição de Revólver" },
+        "range": { "value": "perto" },
+        "price": { "value": 300 },
+        "effect": {
+          "value": "Arma oculta de manga; compatível com o bônus de dano da habilidade Ataque Sacana."
+        }
+      }
+    }
+  },
+  {
+    "name": "Espingarda de cano serrado",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/espingardaCanoSerrado.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "3" },
+        "ammo": { "value": 2, "max": 2 },
+        "reload": { "value": 2 },
+        "slots": { "value": 2 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "espingarda" },
+        "ammoType": { "value": "Munição de Espingarda" },
+        "range": { "value": "perto" },
+        "price": { "value": 100 },
+        "effect": {
+          "value": "Alcance curto, mas pode ser empunhada com uma mão e guardada em coldre de cintura."
+        }
+      }
+    }
+  },
+  {
+    "name": "Metralhadora montada",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/carabina.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "3" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 2 },
+        "slots": { "value": 0 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "metralhadora" },
+        "ammoType": { "value": "" },
+        "range": { "value": "longo" },
+        "price": { "value": 0 },
+        "effect": {
+          "value": "Transportada em carroça. Consome o turno inteiro sem mirar (atinge todos na linha) causando 3 de Vida por cada Ação de Combate e Movimento gastos."
+        }
+      }
+    }
+  },
+  {
+    "name": "Canhão",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/granadaDeMao.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "6" },
+        "ammo": { "value": 1, "max": 1 },
+        "reload": { "value": 2 },
+        "slots": { "value": 0 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "canhão" },
+        "ammoType": { "value": "Munição de Canhão" },
+        "range": { "value": "longo" },
+        "price": { "value": 0 },
+        "effect": {
+          "value": "Raio de 3m; exige Teste de Violência NA 7. Falha desvia 3m aleatoriamente; falha crítica atinge aliados."
+        }
+      }
+    }
+  },
+  {
+    "name": "Arco Composto de Caça",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/arcoAprimorado.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "arco" },
+        "ammoType": { "value": "Flechas" },
+        "range": { "value": "medio" },
+        "price": { "value": 800 },
+        "effect": {
+          "value": "Em ataques surpresa, concede +1 no Teste de Violência e +1 Círculo de Vida de dano."
+        }
+      }
+    }
+  },
+  {
+    "name": "Explosivo (TNT/Dinamite)",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/granadaDeMao.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "5" },
+        "ammo": { "value": 1, "max": 1 },
+        "reload": { "value": 3 },
+        "quantity": { "value": 1 },
+        "slots": { "value": 0.5 },
+        "isEquipped": { "value": false },
+        "weaponType": { "value": "explosivo" },
+        "range": { "value": "perto" },
+        "price": { "value": 35 },
+        "effect": {
+          "value": "Custa 1 Movimento + 1 Ação de Combate. Exige Violência NA 7 (raio 1,5m). Em 1 natural, detona na mão (Teste de Velocidade NA 6 para esquivar)."
+        }
+      }
+    }
+  }
+]

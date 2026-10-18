@@ -1,0 +1,74 @@
+<div class="item-details">
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.Damage"}}</label>
+    <div class="form-fields">
+      <input type="text" name="system.attributes.damage.value" value="{{system.attributes.damage.value}}"/>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.AmmoCurrentMax"}}</label>
+    <div class="form-fields item-ammo-fields">
+      <input type="number" name="system.attributes.ammo.value" value="{{system.attributes.ammo.value}}" data-dtype="Number"/>
+      <span class="sep"> / </span>
+      <input type="number" name="system.attributes.ammo.max" value="{{system.attributes.ammo.max}}" data-dtype="Number"/>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.AmmoType"}}</label>
+    <div class="form-fields">
+      <input type="text" name="system.attributes.ammoType.value" value="{{system.attributes.ammoType.value}}" placeholder="{{localize 'SACRAMENTO_RPG.ItemDetails.AmmoTypePlaceholder'}}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.WeaponType"}}</label>
+    <div class="form-fields">
+      <select name="system.attributes.weaponType.value">
+        {{#select system.attributes.weaponType.value}}
+        <option value="revolver">{{localize "SACRAMENTO_RPG.ItemDetails.WeaponTypeRevolver"}}</option>
+        <option value="fuzil">{{localize "SACRAMENTO_RPG.ItemDetails.WeaponTypeRifle"}}</option>
+        <option value="melee">{{localize "SACRAMENTO_RPG.ItemDetails.WeaponTypeMelee"}}</option>
+        <option value="smallBlade">{{localize "SACRAMENTO_RPG.ItemDetails.WeaponTypeSmallBlade"}}</option>
+        <option value="explosive">{{localize "SACRAMENTO_RPG.ItemDetails.WeaponTypeExplosive"}}</option>
+        <option value="other">{{localize "SACRAMENTO_RPG.ItemDetails.WeaponTypeOther"}}</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.Range"}}</label>
+    <div class="form-fields">
+      <select name="system.attributes.range.value">
+        {{#select system.attributes.range.value}}
+        <option value="perto">{{localize "SACRAMENTO_RPG.ItemDetails.RangeClose"}}</option>
+        <option value="medio">{{localize "SACRAMENTO_RPG.ItemDetails.RangeMedium"}}</option>
+        <option value="longo">{{localize "SACRAMENTO_RPG.ItemDetails.RangeLong"}}</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.ReloadCost"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.reload.value" value="{{system.attributes.reload.value}}" data-dtype="Number"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.BackpackSlots"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.slots.value" value="{{system.attributes.slots.value}}" step="0.5" data-dtype="Number"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.Price"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.price.value" value="{{system.attributes.price.value}}" data-dtype="Number"/>
+    </div>
+  </div>
+</div>

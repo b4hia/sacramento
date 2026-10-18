@@ -1,481 +1,1397 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Rye&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Rye&display=swap");
 .sacramento-rpg.sheet.actor,
 .sacramento-rpg.sheet.item {
-	background-color: #e8dcc4; /* Pergaminho */
-	background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
-	padding: 15px;
-	--sacramento-black: #2c1a11; /* Marrom muito escuro */
-	--sacramento-brown: #5c3a21; /* Marrom madeira */
-	--sacramento-red: #8b0000; /* Vermelho sangue opaco */
-    --sacramento-gold: #c6a664; /* Ouro envelhecido */
-	font-family: "Playfair Display", serif;
-	color: var(--sacramento-black);
+  background-color: #e8dcc4;
+  background-image: url("https://www.transparenttextures.com/patterns/old-wall.png");
+  padding: 15px;
+  --sacramento-black: #2c1a11;
+  --sacramento-brown: #5c3a21;
+  --sacramento-red: #8b0000;
+  --sacramento-gold: #c6a664;
+  font-family: "Playfair Display", serif;
+  color: var(--sacramento-black);
 }
 
-/* Uninput styling (D&D 5e style) */
+/* Uninput styling */
 .sacramento-rpg .uninput {
-    background: transparent;
-    border: 1px solid transparent;
-    outline: none;
-    box-shadow: none;
-    padding: 2px;
-    transition: border-color 0.2s;
-    font-family: inherit;
-    color: inherit;
-    width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  outline: none;
+  box-shadow: none;
+  padding: 2px;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
 }
-.sacramento-rpg .uninput:hover, 
+
+.sacramento-rpg .uninput:hover,
 .sacramento-rpg .uninput:focus {
-    border-bottom: 1px dashed var(--sacramento-brown);
+  border-bottom: 1px dashed var(--sacramento-brown);
 }
 
 /* Flexbox Helpers */
 .sacramento-rpg .flexrow {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
+
 .sacramento-rpg .flexcol {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .sacramento-rpg .wood-title {
-	font-family: 'Rye', cursive;
-	color: var(--sacramento-brown);
-	border-bottom: 2px solid var(--sacramento-brown);
-	margin-bottom: 10px;
-    font-size: 1.5em;
-    text-transform: uppercase;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-brown);
+  border-bottom: 2px solid var(--sacramento-brown);
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  text-transform: uppercase;
 }
 
 /* Header Flex Layout */
 .sacramento-rpg .western-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    border-bottom: 4px solid var(--sacramento-brown);
-    padding-bottom: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 4px solid var(--sacramento-brown);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
+
 .sacramento-rpg .header-identity {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
+
 .sacramento-rpg .header-names {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    min-width: 0; /* Fix flex shrink */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
 }
+
 .sacramento-rpg .header-names .charname,
 .sacramento-rpg .header-names .playername {
-    min-width: 0; /* Fix flex shrink */
-    width: 100%;
+  min-width: 0;
+  width: 100%;
 }
+
 .sacramento-rpg .header-names .charname input {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-family: 'Rye', cursive;
-    color: var(--sacramento-black);
-    width: 100%;
-    min-width: 0;
-    text-overflow: clip; /* Fix for ellipsis issue */
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-family: "Rye", cursive;
+  color: var(--sacramento-black);
+  width: 100%;
+  min-width: 0;
+  text-overflow: clip;
 }
+
 .sacramento-rpg .header-names .playername input {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    font-family: "Playfair Display", serif;
-    font-style: italic;
-    color: var(--sacramento-brown);
-    width: 100%;
-    min-width: 0;
-    text-overflow: clip; /* Fix for ellipsis issue */
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: var(--sacramento-brown);
+  width: 100%;
+  min-width: 0;
+  text-overflow: clip;
 }
 
 .sacramento-rpg .header-mechanics {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
 }
+
 .sacramento-rpg .level-badge {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%; /* Sheriff star or wooden badge shape */
-    background: var(--sacramento-gold); 
-    border: 3px solid var(--sacramento-brown);
-    width: 80px;
-    height: 80px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 2px 2px 5px rgba(0,0,0,0.5);
-    color: var(--sacramento-black);
-    flex: 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--sacramento-gold);
+  border: 3px solid var(--sacramento-brown);
+  width: 80px;
+  height: 80px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 2px 2px 5px rgba(0, 0, 0, 0.5);
+  color: var(--sacramento-black);
+  flex: 0 0 80px;
 }
+
 .sacramento-rpg .level-badge label {
-    font-family: 'Rye', cursive;
-    font-size: 0.8em;
-    margin-bottom: -5px;
+  font-family: "Rye", cursive;
+  font-size: 0.8em;
+  margin-bottom: -5px;
 }
+
 .sacramento-rpg .level-badge input {
-    font-size: 2em;
-    font-weight: bold;
-    color: var(--sacramento-black);
-    text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--sacramento-black);
+  text-align: center;
 }
-.sacramento-rpg .level-badge input:hover, 
+
+.sacramento-rpg .level-badge input:hover,
 .sacramento-rpg .level-badge input:focus {
-    border-bottom-color: var(--sacramento-black);
+  border-bottom-color: var(--sacramento-black);
 }
 
 .sacramento-rpg .header-stats {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
+
 .sacramento-rpg .header-stats .stat-item {
-    width: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .sacramento-rpg .header-stats .stat-item input {
-    font-size: 1.5em;
-    text-align: center;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.sacramento-rpg .header-stats .stat-item.stat-item-defense {
+  width: 90px;
+}
+
+.sacramento-rpg .defense-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-red);
+  font-size: 1.3em;
+  width: 100%;
+}
+
+.sacramento-rpg .defense-bonus-input {
+  width: 35px;
+  font-size: 0.9em;
+  border-bottom: 1px dashed var(--sacramento-brown);
+  text-align: center;
 }
 
 .sacramento-rpg .western-border {
-    border: 4px solid var(--sacramento-brown);
-    border-radius: 4px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  border: 4px solid var(--sacramento-brown);
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .sacramento-rpg .stamp-box {
-    border: 2px dashed var(--sacramento-black);
-    padding: 5px;
-    text-align: center;
-    background-color: rgba(0,0,0,0.05);
+  border: 2px dashed var(--sacramento-black);
+  padding: 5px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .sacramento-rpg .stamp-box label {
-    font-family: 'Rye', cursive;
-    display: block;
-    font-size: 0.9em;
-    color: var(--sacramento-black);
+  font-family: "Rye", cursive;
+  display: block;
+  font-size: 0.9em;
+  color: var(--sacramento-black);
 }
 
 .sacramento-rpg .stamp-box input {
-    font-family: 'Rye', cursive;
-    color: var(--sacramento-red);
-    text-align: center;
-    width: 100%;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-red);
+  text-align: center;
+  width: 100%;
 }
 
 .sacramento-rpg .parchment-box {
-    background-color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 10px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .sacramento-rpg .blood-border {
-    border: 2px solid var(--sacramento-red);
+  border: 2px solid var(--sacramento-red);
 }
 
 .sacramento-rpg .wood-border {
-    border: 2px solid var(--sacramento-brown);
+  border: 2px solid var(--sacramento-brown);
 }
 
 .sacramento-rpg .text-red {
-    color: var(--sacramento-red) !important;
-    border-bottom-color: var(--sacramento-red) !important;
+  color: var(--sacramento-red) !important;
+  border-bottom-color: var(--sacramento-red) !important;
 }
 
 /* Status Top row */
 .sacramento-rpg .status-top {
-    display: flex;
-    gap: 15px;
-    justify-content: space-between;
-    align-items: stretch;
-    margin-bottom: 10px;
-    min-width: 0;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-bottom: 10px;
+  min-width: 0;
 }
+
 .sacramento-rpg .status-top .resource-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  min-width: 0;
 }
+
 .sacramento-rpg .status-top .pain-box {
-    flex: 2; /* pain box is larger to accommodate list */
+  flex: 2;
 }
+
+.sacramento-rpg .status-resource-title {
+  font-size: 1.1em;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.sacramento-rpg .status-resource-icon {
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
 .sacramento-rpg .pain-box .circles-row {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-    min-width: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
 }
+
 .sacramento-rpg .pain-input-container {
-    display: flex;
-    align-items: baseline;
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    min-width: 120px !important;
-    flex-shrink: 0 !important;
+  display: flex;
+  align-items: baseline;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  min-width: 120px !important;
+  flex-shrink: 0 !important;
 }
 
 .sacramento-rpg .life-box .circles-row {
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    display: flex;
-    align-items: baseline;
-    min-width: 120px !important;
-    flex-shrink: 0 !important;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  display: flex;
+  align-items: baseline;
+  min-width: 120px !important;
+  flex-shrink: 0 !important;
 }
 
 /* Specific Fix for Life and Pain Inputs */
-.sacramento-rpg.sheet.actor .life-box input, 
+.sacramento-rpg.sheet.actor .life-box input,
 .sacramento-rpg.sheet.actor .pain-box input {
-    width: 80px !important;
-    min-width: 80px !important;
-    flex: 0 0 80px !important;
-    height: 1.5em !important;
-    border: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    text-align: center !important;
-    outline: none;
-    font-family: 'Rye', cursive;
-    color: inherit;
-    font-size: 1em;
-    padding: 10px 15px !important;
-    margin: 0 !important;
-    -moz-appearance: textfield;
-    line-height: 1.5 !important;
-    overflow: visible !important;
-    box-sizing: content-box !important;
+  width: 80px !important;
+  min-width: 80px !important;
+  flex: 0 0 80px !important;
+  height: 1.5em !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: center !important;
+  outline: none;
+  font-family: "Rye", cursive;
+  color: inherit;
+  font-size: 1em;
+  padding: 10px 15px !important;
+  margin: 0 !important;
+  -moz-appearance: textfield;
+  line-height: 1.5 !important;
+  overflow: visible !important;
+  box-sizing: content-box !important;
 }
 
 .sacramento-rpg.sheet.actor .life-box input::-webkit-outer-spin-button,
 .sacramento-rpg.sheet.actor .life-box input::-webkit-inner-spin-button,
 .sacramento-rpg.sheet.actor .pain-box input::-webkit-outer-spin-button,
 .sacramento-rpg.sheet.actor .pain-box input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .sacramento-rpg .pain-input-container span,
 .sacramento-rpg .life-box span {
-    font-size: 0.6em;
-    font-family: 'Rye', cursive;
-    color: var(--sacramento-black);
-    white-space: nowrap;
+  font-size: 0.6em;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-black);
+  white-space: nowrap;
 }
 
-/* Redenção */
+/* Redencao */
 .sacramento-rpg .redemption-track {
-    margin-top: 10px;
+  margin-top: 10px;
 }
+
+.sacramento-rpg .redemption-title {
+  font-size: 1.1em;
+}
+
 .sacramento-rpg .redemption-step {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
-.sacramento-rpg .redemption-step input[type="text"] {
-    flex-grow: 1;
-    margin-left: 5px;
-    font-style: italic;
+
+.sacramento-rpg .redemption-step input[type=text] {
+  flex-grow: 1;
+  margin-left: 5px;
+  font-style: italic;
 }
+
 .sacramento-rpg .redemption-track .help-text {
-    font-size: 0.8em;
-    color: var(--sacramento-brown);
-    margin-top: 10px;
-    text-align: center;
-    font-style: italic;
+  font-size: 0.8em;
+  color: var(--sacramento-brown);
+  margin-top: 10px;
+  text-align: center;
+  font-style: italic;
 }
 
 /* Dor e Debuffs */
 .sacramento-rpg .pain-debuffs {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0 0;
-    font-size: 0.9em;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  font-size: 0.9em;
 }
 
 .sacramento-rpg .pain-debuffs li {
-    padding: 2px 5px;
-    color: #888;
+  padding: 2px 5px;
+  color: #888;
 }
 
 .sacramento-rpg .pain-debuffs li.active {
-    color: var(--sacramento-red);
-    font-weight: bold;
-    background-color: rgba(139, 0, 0, 0.1);
-    border-left: 3px solid var(--sacramento-red);
+  color: var(--sacramento-red);
+  font-weight: bold;
+  background-color: rgba(139, 0, 0, 0.1);
+  border-left: 3px solid var(--sacramento-red);
+}
+
+.sacramento-rpg .pain-debuff-icon {
+  width: 14px;
+  height: 14px;
+  border: none;
+  vertical-align: middle;
 }
 
 /* Mochila Slots */
 .sacramento-rpg .slots-tracker {
-    font-family: 'Rye', cursive;
-    font-size: 1.2em;
-    padding: 5px 10px;
-    background: var(--sacramento-brown);
-    color: white;
-    border-radius: 4px;
+  font-family: "Rye", cursive;
+  font-size: 1.2em;
+  padding: 5px 10px;
+  background: var(--sacramento-brown);
+  color: white;
+  border-radius: 4px;
 }
+
 .sacramento-rpg .slots-tracker.overloaded {
-    background: var(--sacramento-red);
-    animation: pulse 1.5s infinite;
+  background: var(--sacramento-red);
+  animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Sheet Main Grid & Sidebar */
+.sacramento-rpg .sheet-main-grid {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 15px;
+  align-items: start;
+}
+
+.sacramento-rpg .sheet-sidebar {
+  min-width: 0;
+}
+
+.sacramento-rpg .sheet-main-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sacramento-rpg .abilities-section-title {
+  font-size: 1.2em;
+}
+
+.sacramento-rpg .antecedents-section-title {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+.sacramento-rpg .progression-warning {
+  background: rgba(139, 0, 0, 0.1);
+  border-left: 3px solid var(--sacramento-red);
+  color: var(--sacramento-red);
+  padding: 4px;
+  font-size: 0.85em;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.sacramento-rpg .antecedent-warning-text {
+  color: var(--sacramento-red);
+}
+
+.sacramento-rpg .roll-inline-icon {
+  width: 16px;
+  height: 16px;
+  border: none;
+  vertical-align: middle;
+  margin-right: 4px;
+  box-shadow: none;
+}
+
+.sacramento-rpg .roll-inline-icon-sm {
+  width: 14px;
+  height: 14px;
+  border: none;
+  vertical-align: middle;
+  margin-right: 4px;
+  box-shadow: none;
 }
 
 .sacramento-rpg .abilities-grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .sacramento-rpg .ability-card {
-	border: 2px solid var(--sacramento-brown);
-	padding: 5px;
-	text-align: center;
-    background: rgba(255,255,255,0.5);
+  border: 2px solid var(--sacramento-brown);
+  padding: 5px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .sacramento-rpg .ability-card label {
-	display: block;
-	font-family: 'Rye', cursive;
-	border-bottom: 1px solid var(--sacramento-brown);
-	color: var(--sacramento-brown);
-	padding: 2px;
-    cursor: pointer;
+  display: block;
+  font-family: "Rye", cursive;
+  border-bottom: 1px solid var(--sacramento-brown);
+  color: var(--sacramento-brown);
+  padding: 2px;
+  cursor: pointer;
 }
+
 .sacramento-rpg .ability-card label:hover {
-    color: var(--sacramento-red);
+  color: var(--sacramento-red);
 }
 
 .sacramento-rpg .ability-card input {
-	font-size: 28px;
-	width: 100%;
-	text-align: center;
-	font-weight: bold;
+  font-size: 28px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
 }
 
 .sacramento-rpg .antecedents-list {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 .sacramento-rpg .antecedente-item {
-	display: flex;
-	justify-content: space-between;
-	border-bottom: 1px dotted var(--sacramento-brown);
-	align-items: center;
-    padding: 3px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted var(--sacramento-brown);
+  align-items: center;
+  padding: 3px 0;
 }
+
 .sacramento-rpg .antecedente-item label {
-	font-size: 14px;
-	font-weight: bold;
-	cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
+
 .sacramento-rpg .antecedente-item label:hover {
-    color: var(--sacramento-red);
+  color: var(--sacramento-red);
 }
+
 .sacramento-rpg .antecedente-item input {
-	width: 40px;
-	text-align: right;
-    font-size: 16px;
-    font-weight: bold;
+  width: 40px;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .sacramento-rpg .western-tabs {
-    margin: 10px 0;
-    border-bottom: 2px solid var(--sacramento-brown) !important;
+  margin: 10px 0;
+  border-bottom: 2px solid var(--sacramento-brown) !important;
 }
+
 .sacramento-rpg .western-tabs .item {
-    font-family: 'Rye', cursive;
-    color: var(--sacramento-brown);
-    padding: 5px 15px;
-    border: 2px solid transparent;
-    border-bottom: none;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-brown);
+  padding: 5px 15px;
+  border: 2px solid transparent;
+  border-bottom: none;
 }
+
 .sacramento-rpg .western-tabs .item.active {
-    background: var(--sacramento-brown);
-    color: white;
-    border-color: var(--sacramento-brown);
-    border-radius: 5px 5px 0 0;
+  background: var(--sacramento-brown);
+  color: white;
+  border-color: var(--sacramento-brown);
+  border-radius: 5px 5px 0 0;
 }
 
 .sacramento-rpg .inventory-category {
-    font-family: 'Rye', cursive;
-    color: var(--sacramento-black);
-    border-bottom: 1px solid var(--sacramento-black);
-    margin-top: 15px;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-black);
+  border-bottom: 1px solid var(--sacramento-black);
+  margin-top: 15px;
 }
 
 .sacramento-rpg .item-detail {
-    flex: 0 0 80px;
-    text-align: center;
+  flex: 0 0 80px;
+  text-align: center;
 }
 
 /* Image adjustments */
 .sacramento-rpg .profile-img {
-    flex: 0 0 120px;
-    height: 120px;
-    object-fit: cover;
+  flex: 0 0 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.sacramento-rpg .char-profile-img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  flex: 0 0 100px;
 }
 
 .sacramento-rpg .item-controls {
-    flex: 0 0 50px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 5px;
+  flex: 0 0 50px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
 }
+
 .sacramento-rpg .item-name {
-    flex: 1;
+  flex: 1;
 }
 
 /* Grid Utilities */
 .sacramento-rpg .grid {
-    display: grid;
+  display: grid;
 }
+
 .sacramento-rpg .grid-2col {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
+
 .sacramento-rpg .grid-4col {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+/* Skills Tab */
+.sacramento-rpg .skills-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--sacramento-brown);
+  padding-bottom: 5px;
+}
+
+.sacramento-rpg .skills-header-title {
+  margin: 0;
+  border: none;
+}
+
+.sacramento-rpg .skills-header-controls {
+  flex: 0 0 auto;
+}
+
+.sacramento-rpg .skill-add-btn {
+  font-family: "Rye", cursive;
+  background: var(--sacramento-brown);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.sacramento-rpg .skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sacramento-rpg .skill-item {
+  border-bottom: 1px dashed var(--sacramento-brown);
+  padding: 8px 0;
+}
+
+.sacramento-rpg .skill-item-header {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sacramento-rpg .skill-item-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sacramento-rpg .skill-item-img {
+  border: 1px solid var(--sacramento-brown);
+  border-radius: 3px;
+}
+
+.sacramento-rpg .skill-item-title {
+  margin: 0;
+  font-family: "Rye", cursive;
+  font-size: 1.1em;
+  color: var(--sacramento-black);
+}
+
+.sacramento-rpg .skill-item-description {
+  margin-top: 5px;
+  font-size: 0.9em;
+  padding-left: 32px;
+  color: #333;
+}
+
+.sacramento-rpg .empty-list-msg {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Mount Tab */
+.sacramento-rpg .mount-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.sacramento-rpg .mount-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sacramento-rpg .mount-field-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sacramento-rpg .mount-field-label {
+  font-family: "Rye", cursive;
+  width: 110px;
+}
+
+.sacramento-rpg .mount-field-input {
+  border-bottom: 1px solid var(--sacramento-brown);
+  flex: 1;
+}
+
+.sacramento-rpg .mount-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.sacramento-rpg .mount-stat-box {
+  padding: 10px;
+}
+
+.sacramento-rpg .mount-stat-label {
+  cursor: pointer;
+}
+
+.sacramento-rpg .mount-stat-input {
+  font-size: 2em;
+}
+
+.sacramento-rpg .mount-loyalty-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.sacramento-rpg .mount-loyalty-input {
+  font-size: 1.5em;
+  width: 40px;
+}
+
+.sacramento-rpg .mount-loyalty-sep {
+  font-family: "Rye", cursive;
+  font-size: 1.2em;
+}
+
+.sacramento-rpg .mount-interactions-box {
+  margin-bottom: 15px;
+}
+
+.sacramento-rpg .mount-section-title {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.sacramento-rpg .mount-interactions-help {
+  font-size: 0.8em;
+  color: var(--sacramento-brown);
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.sacramento-rpg .mount-interactions-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sacramento-rpg .mount-interaction-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Biography Tab */
+.sacramento-rpg .biography-tab {
+  flex: 1;
+}
+
+.sacramento-rpg .biography-container {
+  height: 100%;
+  min-height: 300px;
+}
+
+/* Inventory & Mount Inventory Partial Styles */
+.sacramento-rpg .inventory-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sacramento-rpg .currency-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Rye", cursive;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 5px 10px;
+  border: 1px dashed var(--sacramento-brown);
+}
+
+.sacramento-rpg .currency-value-row {
+  display: flex;
+  align-items: center;
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .currency-prefix {
+  font-size: 1.2em;
+}
+
+.sacramento-rpg .currency-input {
+  width: 70px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-bottom: 1px solid var(--sacramento-brown);
+  text-align: right;
+}
+
+.sacramento-rpg .slots-bonus-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9em;
+}
+
+.sacramento-rpg .slots-bonus-label {
+  font-weight: bold;
+}
+
+.sacramento-rpg .slots-bonus-input {
+  width: 40px;
+  border-bottom: 1px solid var(--sacramento-brown);
+  text-align: center;
+  font-weight: bold;
+}
+
+.sacramento-rpg .items-section-header {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.sacramento-rpg .items-section-title {
+  margin: 0;
+  border: none;
+}
+
+.sacramento-rpg .items-section-controls {
+  flex: 0 0 auto;
+}
+
+.sacramento-rpg .item-add-btn {
+  font-family: "Rye", cursive;
+  background: var(--sacramento-brown);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.8em;
+}
+
+.sacramento-rpg .items-list-clean {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.sacramento-rpg .items-list-header {
+  font-weight: bold;
+  border-bottom: 2px solid var(--sacramento-brown);
+  padding-bottom: 3px;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .item-col-name {
+  flex: 2;
+}
+
+.sacramento-rpg .item-col-damage {
+  flex: 1.5;
+}
+
+.sacramento-rpg .item-col-ammo {
+  flex: 1.2;
+}
+
+.sacramento-rpg .item-col-slots {
+  flex: 0.6;
+}
+
+.sacramento-rpg .item-col-controls-lg {
+  flex: 0 0 70px;
+}
+
+.sacramento-rpg .item-col-effect {
+  flex: 2;
+}
+
+.sacramento-rpg .item-col-equip-type {
+  flex: 1;
+}
+
+.sacramento-rpg .item-col-controls-md {
+  flex: 0 0 60px;
+}
+
+.sacramento-rpg .item-col-qty {
+  flex: 0.8;
+}
+
+.sacramento-rpg .item-col-controls-sm {
+  flex: 0 0 50px;
+}
+
+.sacramento-rpg .item-row {
+  align-items: center;
+  border-bottom: 1px dashed rgba(92, 58, 33, 0.4);
+  padding: 4px 0;
+}
+
+.sacramento-rpg .item-name-cell {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sacramento-rpg .item-roll-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.sacramento-rpg .item-row-img {
+  border: 1px solid var(--sacramento-brown);
+  border-radius: 3px;
+}
+
+.sacramento-rpg .item-title-bold {
+  margin: 0;
+  font-weight: bold;
+}
+
+.sacramento-rpg .item-title-regular {
+  margin: 0;
+}
+
+.sacramento-rpg .item-damage-cell {
+  flex: 1.5;
+  font-size: 0.85em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.sacramento-rpg .item-damage-roll-btn {
+  color: var(--sacramento-red);
+  font-weight: bold;
+  background: rgba(139, 0, 0, 0.1);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--sacramento-red);
+}
+
+.sacramento-rpg .item-ammo-cell {
+  flex: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.sacramento-rpg .item-ammo-input {
+  width: 28px;
+  text-align: center;
+  border-bottom: 1px dashed var(--sacramento-brown);
+  font-weight: bold;
+}
+
+.sacramento-rpg .item-reload-btn {
+  margin-left: 4px;
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .item-slots-cell {
+  flex: 0.6;
+}
+
+.sacramento-rpg .item-effect-cell {
+  flex: 2;
+  font-size: 0.85em;
+}
+
+.sacramento-rpg .item-equip-type-cell {
+  flex: 1;
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+.sacramento-rpg .item-qty-cell {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.sacramento-rpg .item-qty-input {
+  width: 35px;
+  text-align: center;
+  border-bottom: 1px dashed var(--sacramento-brown);
+  font-weight: bold;
+}
+
+.sacramento-rpg .item-control-active {
+  color: var(--sacramento-red);
+}
+
+.sacramento-rpg .item-control-inactive {
+  color: #888;
+}
+
+.sacramento-rpg .item-control-mount {
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .ammo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 10px;
+  border: 1px solid rgba(92, 58, 33, 0.3);
+  border-radius: 4px;
+}
+
+.sacramento-rpg .ammo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dotted var(--sacramento-brown);
+  padding-bottom: 4px;
+}
+
+.sacramento-rpg .ammo-card-label {
+  font-weight: bold;
+  font-family: "Rye", cursive;
+  font-size: 0.9em;
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .ammo-card-fields {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sacramento-rpg .ammo-card-input {
+  width: 40px;
+  text-align: right;
+  font-size: 1.1em;
+  font-weight: bold;
+  border-bottom: 1px solid var(--sacramento-brown);
+}
+
+.sacramento-rpg .ammo-card-max {
+  font-size: 0.85em;
+  color: #666;
+}
+
+.sacramento-rpg .mount-inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 2px solid var(--sacramento-brown);
+  padding-top: 15px;
+}
+
+.sacramento-rpg .mount-storage-options {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.sacramento-rpg .mount-storage-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Rye", cursive;
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .mount-empty-msg {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  padding: 10px;
+}
+
+/* NPC Compact Sheet Overrides */
+.sacramento-rpg .npc-header {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.sacramento-rpg .npc-identity {
+  gap: 10px;
+}
+
+.sacramento-rpg .npc-profile-img {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+  object-fit: cover;
+}
+
+.sacramento-rpg .npc-name-input {
+  font-size: 1.8rem;
+}
+
+.sacramento-rpg .npc-type-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sacramento-rpg .npc-type-label {
+  font-family: "Rye", cursive;
+  font-size: 0.85em;
+  color: var(--sacramento-brown);
+}
+
+.sacramento-rpg .npc-type-select {
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--sacramento-brown);
+  border-radius: 3px;
+  padding: 2px 5px;
+}
+
+.sacramento-rpg .header-stats .stat-item.npc-stat-item {
+  width: 55px;
+  padding: 3px;
+}
+
+.sacramento-rpg .header-stats .stat-item.npc-stat-item-def {
+  width: 60px;
+  padding: 3px;
+}
+
+.sacramento-rpg .npc-stat-label {
+  font-size: 0.75em;
+}
+
+.sacramento-rpg .header-stats .stat-item input.npc-stat-input {
+  font-size: 1.2em;
+}
+
+.sacramento-rpg .npc-stat-value {
+  font-family: "Rye", cursive;
+  color: var(--sacramento-red);
+  font-size: 1.2em;
+}
+
+.sacramento-rpg .npc-status-top {
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.sacramento-rpg .status-top .resource-group.npc-resource-group {
+  padding: 8px;
+  flex: 1;
+}
+
+.sacramento-rpg .npc-resource-title {
+  font-size: 1em;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.sacramento-rpg .npc-resource-icon {
+  width: 16px;
+  height: 16px;
+  border: none;
+}
+
+.sacramento-rpg .npc-circles-row {
+  justify-content: center;
+  font-size: 1.4rem;
+  min-width: auto !important;
+}
+
+.sacramento-rpg.sheet.actor .life-box input.npc-circle-input,
+.sacramento-rpg.sheet.actor .pain-box input.npc-circle-input {
+  width: 45px !important;
+  min-width: 45px !important;
+  flex: 0 0 45px !important;
+  padding: 2px !important;
+}
+
+.sacramento-rpg .npc-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.sacramento-rpg .npc-abilities-box {
+  padding: 8px;
+}
+
+.sacramento-rpg .npc-section-title {
+  font-size: 1em;
+  margin-bottom: 8px;
+}
+
+.sacramento-rpg .npc-abilities-grid {
+  gap: 6px;
+}
+
+.sacramento-rpg .npc-ability-card {
+  padding: 3px;
+}
+
+.sacramento-rpg .npc-ability-label {
+  font-size: 0.85em;
+}
+
+.sacramento-rpg .ability-card input.npc-ability-input {
+  font-size: 20px;
+}
+
+.sacramento-rpg .npc-antecedents-title {
+  font-size: 1em;
+  margin-top: 12px;
+  margin-bottom: 5px;
+}
+
+.sacramento-rpg .npc-antecedents-list {
+  margin-bottom: 5px;
+}
+
+.sacramento-rpg .npc-antecedent-item {
+  padding: 1px 0;
+}
+
+.sacramento-rpg .antecedente-item label.npc-antecedent-label {
+  font-size: 12px;
+}
+
+.sacramento-rpg .antecedente-item input.npc-antecedent-input {
+  font-size: 14px;
+  width: 30px;
+}
+
+.sacramento-rpg .npc-tabs {
+  margin: 0 0 8px 0;
+}
+
+.sacramento-rpg .western-tabs .item.npc-tab-item {
+  padding: 3px 10px;
+  font-size: 0.9em;
+}
+
+.sacramento-rpg .npc-tab-body {
+  padding: 8px;
+}
+
+.sacramento-rpg .npc-skills-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.sacramento-rpg .npc-skill-add-btn {
+  font-family: "Rye", cursive;
+  background: var(--sacramento-brown);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.8em;
+}
+
+.sacramento-rpg .npc-skill-item {
+  border-bottom: 1px dashed var(--sacramento-brown);
+  padding: 5px 0;
+}
+
+.sacramento-rpg .npc-skill-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sacramento-rpg .npc-skill-title {
+  margin: 0;
+  font-family: "Rye", cursive;
+  font-size: 0.95em;
+  color: var(--sacramento-black);
+}
+
+.sacramento-rpg .npc-skill-desc {
+  margin-top: 3px;
+  font-size: 0.85em;
+  padding-left: 26px;
+  color: #333;
+}
+
+.sacramento-rpg .npc-empty-msg {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.sacramento-rpg .npc-notes-container {
+  min-height: 200px;
+  height: 100%;
+}
+
+/* Item Details Sheet */
+.sacramento-rpg .item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.sacramento-rpg .item-details .form-group label {
+  font-weight: bold;
+}
+
+.sacramento-rpg .item-ammo-fields {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.sacramento-rpg .item-description-container {
+  padding: 10px;
+  height: 100%;
 }
 
 /* SKILL ITEMS AND TABLES CUSTOM STYLING (ADDED FOR COMPENDIUMS) */
 .sacramento-rpg .skill-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-family: "Playfair Display", serif;
-    background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: "Playfair Display", serif;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .sacramento-rpg .skill-table th {
-    background-color: var(--sacramento-brown);
-    color: white;
-    font-family: 'Rye', cursive;
-    text-transform: uppercase;
-    font-weight: normal;
-    padding: 5px;
-    border: 1px solid var(--sacramento-black);
+  background-color: var(--sacramento-brown);
+  color: white;
+  font-family: "Rye", cursive;
+  text-transform: uppercase;
+  font-weight: normal;
+  padding: 5px;
+  border: 1px solid var(--sacramento-black);
 }
 
 .skill-table {
@@ -487,7 +1403,8 @@
   table-layout: auto;
 }
 
-.skill-table th, .skill-table td {
+.skill-table th,
+.skill-table td {
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 4px 8px;
   text-align: center;
@@ -511,4 +1428,386 @@
   border: none;
   background: transparent;
   box-shadow: none;
+}
+
+.sacramento-rpg .death-box {
+  padding: 10px;
+  text-align: center;
+}
+
+.sacramento-rpg .death-save-title {
+  font-size: 1em;
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--sacramento-red);
+}
+
+.sacramento-rpg .death-save-roll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sacramento-rpg .death-save-roll:hover {
+  text-shadow: 0 0 4px rgba(139, 0, 0, 0.4);
+}
+
+.sacramento-rpg .death-save-roll .roll-icon {
+  border: none;
+  box-shadow: none;
+  vertical-align: middle;
+}
+
+.sacramento-rpg .death-saves {
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.sacramento-rpg .death-saves .successes,
+.sacramento-rpg .death-saves .failures {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.sacramento-rpg .death-icon-success {
+  color: #2e6b34;
+}
+
+.sacramento-rpg .death-icon-failure {
+  color: var(--sacramento-red);
+}
+
+.sacramento-rpg .wanted-poster {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Chat Cards, Combat Tracker, and Roll Dialogs */
+.sacramento-chat-card {
+  background-color: #e8dcc4;
+  padding: 10px;
+  border: 3px solid #2c1a11;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+  color: #2c1a11;
+}
+
+.sacramento-chat-card .card-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #5c3a21;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.sacramento-chat-card .chat-card-img {
+  border: 2px solid #5c3a21;
+  margin-right: 10px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.sacramento-chat-card .item-name {
+  margin: 0;
+  font-family: "Rye", cursive;
+  font-size: 1.5em;
+  color: #5c3a21;
+}
+
+.sacramento-chat-card .card-description {
+  margin-bottom: 5px;
+  color: #2c1a11;
+}
+
+.sacramento-chat-card .attack-section,
+.sacramento-chat-card .damage-section {
+  margin-top: 10px;
+}
+
+.sacramento-chat-card .chat-section-title {
+  margin: 0 0 5px 0;
+  color: #5c3a21;
+  border-bottom: 1px solid #5c3a21;
+}
+
+.sacramento-chat-card .chat-critical-hit {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(40, 167, 69, 0.2);
+  border-left: 3px solid #28a745;
+  color: #155724;
+  font-size: 0.9em;
+  border-radius: 3px;
+}
+
+.sacramento-chat-card .chat-critical-miss {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgba(220, 53, 69, 0.2);
+  border-left: 3px solid #dc3545;
+  color: #721c24;
+  font-size: 0.9em;
+  border-radius: 3px;
+}
+
+.sacramento-chat-card .chat-damage-fixed {
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  font-size: 1.1em;
+}
+
+.sacramento-chat-card .chat-damage-roll-entry {
+  margin-bottom: 10px;
+}
+
+.sacramento-chat-card .chat-damage-roll-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.sacramento-chat-card .chat-damage-roll-label {
+  color: #2c1a11;
+  margin-right: 5px;
+}
+
+.sacramento-chat-card .chat-damage-icon,
+.chat-damage-fixed-icon {
+  width: 16px;
+  height: 16px;
+  border: none;
+  box-shadow: none;
+  vertical-align: middle;
+}
+
+.chat-damage-fixed-icon {
+  margin-right: 4px;
+}
+
+.sacramento-chat-card .additional-info {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.chat-ammo-spent {
+  color: #5c3a21;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.chat-damage-bonus-info {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.chat-reload-card {
+  border-color: #5c3a21;
+}
+
+.chat-reload-header {
+  border-bottom: 1px solid #5c3a21;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.chat-reload-title {
+  font-family: "Rye", cursive;
+  color: #5c3a21;
+  margin: 0;
+}
+
+.chat-reload-body {
+  font-size: 0.9em;
+}
+
+/* Critical Confirmation & Roll Icons */
+.critical-roll-icon,
+.dice-roll-icon {
+  width: 14px;
+  height: 14px;
+  border: none;
+  vertical-align: middle;
+  box-shadow: none;
+}
+
+.dice-roll-icon {
+  margin-right: 4px;
+}
+
+.critical-confirm-header {
+  border-bottom: 1px solid #5c3a21;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #5c3a21;
+}
+
+/* Roll Dialogs */
+.roll-dialog-group {
+  margin-bottom: 10px;
+}
+
+.roll-dialog-select {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.roll-dialog-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* Death Save Chat Card */
+.death-save-card {
+  background-color: #e8dcc4;
+  padding: 10px;
+  border: 3px solid #2c1a11;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+}
+
+.death-save-card-title {
+  margin: 0 0 6px 0;
+  font-family: "Rye", cursive;
+  color: #8b0000;
+  border-bottom: 2px solid #8b0000;
+  padding-bottom: 4px;
+}
+
+.death-save-card-result {
+  margin: 6px 0;
+  font-size: 1.05em;
+}
+
+.death-save-outcome-success {
+  color: #2e6b34;
+}
+
+.death-save-outcome-failure {
+  color: #8b0000;
+}
+
+.death-save-card-tally {
+  font-size: 0.9em;
+  color: #5c3a21;
+}
+
+.death-save-card-final {
+  margin-top: 6px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Combat Tracker & Combat Order Card */
+.combat-roll-all-container {
+  display: flex;
+  justify-content: center;
+  padding: 6px;
+  border-bottom: 2px solid #5c3a21;
+  background: rgba(92, 58, 33, 0.15);
+}
+
+.sacramento-roll-all-btn {
+  width: 100%;
+  background: #5c3a21;
+  color: #f4ece1;
+  border: 1px solid #2c1a11;
+  font-family: "Rye", serif;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+.combat-order-card {
+  background-color: #e8dcc4;
+  padding: 10px;
+  border: 3px solid #2c1a11;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+}
+
+.combat-order-title {
+  margin: 0 0 8px 0;
+  font-family: "Rye", cursive;
+  color: #5c3a21;
+  border-bottom: 2px solid #5c3a21;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+.combat-order-subtitle {
+  font-size: 0.85em;
+  color: #5c3a21;
+  text-align: center;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.combat-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  color: #2c1a11;
+}
+
+.combat-order-thead-row {
+  border-bottom: 1px solid #5c3a21;
+  background: rgba(92, 58, 33, 0.15);
+}
+
+.combat-order-th-num {
+  padding: 4px;
+  text-align: center;
+  width: 28px;
+}
+
+.combat-order-th-name {
+  padding: 4px;
+  text-align: left;
+}
+
+.combat-order-th-stat {
+  padding: 4px;
+  text-align: center;
+}
+
+.combat-order-row {
+  border-bottom: 1px dashed rgba(92, 58, 33, 0.3);
+}
+
+.combat-order-td-rank {
+  padding: 4px;
+  text-align: center;
+  font-weight: bold;
+  color: #8b0000;
+}
+
+.combat-order-td-name {
+  padding: 4px;
+  font-weight: bold;
+}
+
+.combat-order-td-vel {
+  padding: 4px;
+  text-align: center;
+  font-weight: bold;
+  color: #5c3a21;
+}
+
+.combat-order-td-stat {
+  padding: 4px;
+  text-align: center;
 }

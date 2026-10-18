@@ -5,42 +5,42 @@
       <img class="profile-img western-border" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
       <div class="header-names flexcol">
         <h1 class="charname">
-          <input class="uninput document-name" name="name" type="text" value="{{actor.name}}" placeholder="Nome do NPC"/>
+          <input class="uninput document-name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SACRAMENTO_RPG.Header.NpcNamePlaceholder'}}"/>
         </h1>
-        <div class="npc-special-toggle flexrow" style="align-items: center; margin-top: 5px;">
+        <div class="npc-special-toggle flexrow">
           <input type="checkbox" name="system.attributes.isSpecial.value" {{checked system.attributes.isSpecial.value}} id="isSpecial-{{actor._id}}"/>
-          <label for="isSpecial-{{actor._id}}" style="font-family: 'Playfair Display', serif; color: var(--sacramento-brown); margin-left: 5px; font-weight: bold; cursor: pointer;">NPC Especial (Múltiplos de NdC para Vida e +Ações)</label>
+          <label for="isSpecial-{{actor._id}}" class="npc-special-label">{{localize "SACRAMENTO_RPG.Header.NpcSpecialToggle"}}</label>
         </div>
       </div>
     </div>
     
     <!-- Right: Mechanics & Badges -->
     <div class="header-mechanics flexrow">
-      <div class="level-badge western-border stamp-box" title="Nível de Canalhice (NdC)">
-        <label>NdC</label>
+      <div class="level-badge western-border stamp-box" title="{{localize 'SACRAMENTO_RPG.Header.NdCTitle'}}">
+        <label>{{localize "SACRAMENTO_RPG.Header.NdC"}}</label>
         <input class="uninput" name="system.attributes.cr.value" type="number" value="{{system.attributes.cr.value}}" min="1" max="6"/>
       </div>
 
       <div class="header-stats flexrow">
         <div class="stat-item stamp-box">
-          <label>AÇÕES</label>
+          <label>{{localize "SACRAMENTO_RPG.Header.Actions"}}</label>
           <input class="uninput" type="text" value="{{system.attributes.actions.value}}" readonly/>
         </div>
         <div class="stat-item stamp-box">
-          <label>DEFESA</label>
+          <label>{{localize "SACRAMENTO_RPG.Header.Defense"}}</label>
           <input class="uninput" type="number" name="system.attributes.defense.value" value="{{system.attributes.defense.value}}"/>
         </div>
         <div class="stat-item stamp-box">
-          <label>INICIATIVA</label>
-          <input class="uninput" type="text" value="CARTA" readonly title="Use Cartas para Iniciativa!"/>
+          <label>{{localize "SACRAMENTO_RPG.Header.Initiative"}}</label>
+          <input class="uninput" type="text" value="{{localize 'SACRAMENTO_RPG.Header.InitiativeCard'}}" readonly title="{{localize 'SACRAMENTO_RPG.Header.InitiativeCardTitle'}}"/>
         </div>
       </div>
     </div>
   </header>
 
   <nav class="sheet-tabs tabs western-tabs" data-group="primary">
-    <a class="item" data-tab="status">Status & Arsenal</a>
-    <a class="item" data-tab="description">Biografia & Segredos</a>
+    <a class="item" data-tab="status">{{localize "SACRAMENTO_RPG.Tabs.NpcStatus"}}</a>
+    <a class="item" data-tab="description">{{localize "SACRAMENTO_RPG.Tabs.NpcBiography"}}</a>
   </nav>
 
   <section class="sheet-body">
@@ -51,22 +51,22 @@
       <!-- TOP: Vida e Dor -->
       <div class="status-top flexrow parchment-box">
         <div class="resource-group life-box wood-border">
-          <h2 class="section-title text-red">CÍRCULOS DE VIDA</h2>
+          <h2 class="section-title text-red">{{localize "SACRAMENTO_RPG.Status.LifeCircles"}}</h2>
           <div class="circles-row">
             <input class="uninput text-red" type="number" name="system.health.value" value="{{system.health.value}}" min="0" max="{{system.health.max}}"/>
             <span class="max text-red">/ {{system.health.max}}</span>
           </div>
         </div>
 
-        <div class="resource-group pain-box blood-border" style="flex: 1;">
-          <h2 class="section-title text-red">CÍRCULOS DE DOR</h2>
-          <div class="circles-row flexrow" style="justify-content: center;">
+        <div class="resource-group pain-box blood-border">
+          <h2 class="section-title text-red">{{localize "SACRAMENTO_RPG.Status.PainCircles"}}</h2>
+          <div class="circles-row flexrow npc-pain-row">
             <div class="pain-input-container">
               <input class="uninput text-red" type="number" name="system.pain.value" value="{{system.pain.value}}" min="0" max="6"/>
               <span class="max text-red">/ 6</span>
             </div>
-            <div class="pain-debuffs" style="margin-top: 0; margin-left: 15px; font-size: 0.8em;">
-              <p style="margin:0; font-family: 'Playfair Display', serif; font-style: italic; color: #888;">Lembrete: NPCs também sofrem os mesmos debuffs por Dor que os Jogadores.</p>
+            <div class="pain-debuffs npc-pain-reminder-box">
+              <p class="npc-pain-reminder-text">{{localize "SACRAMENTO_RPG.Status.NpcPainReminder"}}</p>
             </div>
           </div>
         </div>
@@ -74,21 +74,21 @@
 
       <!-- INVENTORY/ABILITIES -->
       <div class="parchment-box mt-2">
-        <div class="inventory-header flexrow" style="justify-content: space-between; align-items: center;">
-            <h2 class="section-title wood-title" style="margin-bottom: 0; border: none;">ARSENAL & HABILIDADES</h2>
+        <div class="inventory-header flexrow">
+            <h2 class="section-title wood-title inventory-title-inline">{{localize "SACRAMENTO_RPG.Status.NpcArsenalAbilities"}}</h2>
             <div class="slots-tracker {{#if (gt system.slots.value 10)}}overloaded{{/if}}">
-            ESPAÇO: {{system.slots.value}} / {{system.slots.max}}
+            {{localize "SACRAMENTO_RPG.Inventory.Slots"}} {{system.slots.value}} / {{system.slots.max}}
             </div>
         </div>
-        <hr style="border-top: 2px solid var(--sacramento-brown); margin-bottom: 15px;"/>
+        <hr class="western-divider"/>
         
          {{> "systems/sacramento-rpg/templates/actor/parts/actor-items.hbs"}}
 
          <!-- ABILITIES (Custom for NPC sheet since actor-items only renders weapons/equip/consumables) -->
-         <h3 class="inventory-category mt-2">Habilidades e Peculiaridades</h3>
+         <h3 class="inventory-category mt-2">{{localize "SACRAMENTO_RPG.Status.NpcAbilitiesPeculiarities"}}</h3>
          <ol class="items-list">
            <li class="item flexrow items-header">
-             <div class="item-name">Habilidade</div>
+             <div class="item-name">{{localize "SACRAMENTO_RPG.Status.AbilitySingular"}}</div>
              <div class="item-controls"><a class="item-control item-create" data-type="ability"><i class="fas fa-plus"></i></a></div>
            </li>
            {{#each abilities as |item id|}}
@@ -98,8 +98,8 @@
                <h4>{{item.name}}</h4>
              </div>
              <div class="item-controls flexrow">
-               <a class="item-control item-edit" title="Editar"><i class="fas fa-edit"></i></a>
-               <a class="item-control item-delete" title="Deletar"><i class="fas fa-trash"></i></a>
+               <a class="item-control item-edit" title="{{localize 'SACRAMENTO_RPG.Inventory.EditTitle'}}"><i class="fas fa-edit"></i></a>
+               <a class="item-control item-delete" title="{{localize 'SACRAMENTO_RPG.Inventory.DeleteTitle'}}"><i class="fas fa-trash"></i></a>
              </div>
            </li>
            {{/each}}

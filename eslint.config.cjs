@@ -16,8 +16,9 @@ const compat = new FlatCompat({
 
 module.exports = defineConfig([
 	{
+		files: ["**/*.js", "**/*.cjs", "**/*.mjs"],
 		languageOptions: {
-			ecmaVersion: 13,
+			ecmaVersion: "latest",
 			sourceType: "module",
 
 			parserOptions: {
@@ -66,6 +67,7 @@ module.exports = defineConfig([
 				fromUuid: false,
 				fromUuidSync: false,
 				globalThis: false,
+				renderTemplate: false,
 				ui: false,
 
 				SACRAMENTO_RPG: false,
@@ -168,9 +170,9 @@ module.exports = defineConfig([
 
 		settings: {}
 	},
-	globalIgnores(["**/foundry", "**/utils", "**/dist", "**/node_modules"]),
+	globalIgnores(["**/foundry", "**/dist", "**/node_modules", "**/dnd-example", "**/packs"]),
 	{
-		files: ["./*.js", "./*.cjs", "./*.mjs"],
+		files: ["./*.js", "./*.cjs", "./*.mjs", "./tests/**/*.mjs", "./utils/**/*.{js,mjs}"],
 
 		languageOptions: {
 			globals: {

@@ -1,8 +1,5 @@
-/**
- * Gerencia interações com botões de Efeitos Ativos na ficha.
- * @param {MouseEvent} event      O clique
- * @param {Actor|Item} owner      O dono do efeito
- */
+import { format, localize } from "./i18n.mjs";
+
 export function onManageActiveEffect(event, owner) {
 	event.preventDefault();
 	const a = event.currentTarget;
@@ -12,8 +9,8 @@ export function onManageActiveEffect(event, owner) {
 		case "create":
 			return owner.createEmbeddedDocuments("ActiveEffect", [
 				{
-					name: game.i18n.format("DOCUMENT.New", {
-						type: game.i18n.localize("DOCUMENT.ActiveEffect")
+					name: format("DOCUMENT.New", {
+						type: localize("DOCUMENT.ActiveEffect")
 					}),
 					icon: "icons/svg/aura.svg",
 					origin: owner.uuid,
@@ -30,32 +27,25 @@ export function onManageActiveEffect(event, owner) {
 	}
 }
 
-/**
- * Prepara as categorias para exibir na ficha (Temporário, Passivo, Inativo).
- * @param {ActiveEffect[]} effects    Lista de efeitos
- * @return {object}                   Dados organizados
- */
 export function prepareActiveEffectCategories(effects) {
-	// Define as categorias do cabeçalho
 	const categories = {
 		temporary: {
 			type: "temporary",
-			label: game.i18n.localize("SACRAMENTO_RPG.Effect.Temporary"),
+			label: localize("SACRAMENTO_RPG.Effect.Temporary"),
 			effects: []
 		},
 		passive: {
 			type: "passive",
-			label: game.i18n.localize("SACRAMENTO_RPG.Effect.Passive"),
+			label: localize("SACRAMENTO_RPG.Effect.Passive"),
 			effects: []
 		},
 		inactive: {
 			type: "inactive",
-			label: game.i18n.localize("SACRAMENTO_RPG.Effect.Inactive"),
+			label: localize("SACRAMENTO_RPG.Effect.Inactive"),
 			effects: []
 		}
 	};
 
-	// Itera sobre os efeitos e os classifica
 	for (const e of effects) {
 		if (e.disabled) categories.inactive.effects.push(e);
 		else if (e.isTemporary) categories.temporary.effects.push(e);

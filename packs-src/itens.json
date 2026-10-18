@@ -1,25 +1,127 @@
 [
   {
-    "name": "Unguento",
+    "name": "Munição de Revólver",
     "type": "consumable",
-    "img": "icons/consumables/potions/potion-jar-corked-red.webp",
+    "img": "systems/sacramento-rpg/icons/weapons/municaoRevolver.png",
     "system": {
       "attributes": {
-        "effect": { "value": "Pasta que auxilia na cicatrização. Cura 1 Círculo de Vida durante descanso." },
-        "slots": { "value": 0.5 },
-        "quantity": { "value": 1 }
+        "effect": {
+          "value": "caixa com 12 balas de revólver"
+        },
+        "slots": {
+          "value": 1
+        },
+        "quantity": {
+          "value": 12
+        },
+        "ammoCategory": {
+          "value": "revolver"
+        },
+        "price": {
+          "value": 6
+        },
+        "isEquipped": {
+          "value": false
+        }
       }
     }
   },
   {
-    "name": "Dinamite",
+    "name": "Munição de Fuzil",
     "type": "consumable",
-    "img": "icons/weapons/explosives/dynamite-lit-red.webp",
+    "img": "systems/sacramento-rpg/icons/weapons/municaoFuzil.png",
     "system": {
       "attributes": {
-        "effect": { "value": "Explosão! Dano: 5 Círculos de Vida em área." },
-        "slots": { "value": 0.5 },
-        "quantity": { "value": 1 }
+        "effect": {
+          "value": "caixa com 6 balas de fuzil"
+        },
+        "slots": {
+          "value": 1
+        },
+        "quantity": {
+          "value": 6
+        },
+        "ammoCategory": {
+          "value": "rifle"
+        },
+        "price": {
+          "value": 9
+        },
+        "isEquipped": {
+          "value": false
+        }
+      }
+    }
+  },
+  {
+    "name": "Munição de Espingarda",
+    "type": "consumable",
+    "img": "systems/sacramento-rpg/icons/weapons/municaoEspingarda.png",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "caixa com 6 balas de espingarda"
+        },
+        "slots": {
+          "value": 1
+        },
+        "quantity": {
+          "value": 6
+        },
+        "ammoCategory": {
+          "value": "rifle"
+        },
+        "price": {
+          "value": 8
+        },
+        "isEquipped": {
+          "value": false
+        }
+      }
+    }
+  },
+  {
+    "name": "Aljava com Flechas",
+    "type": "consumable",
+    "img": "icons/weapons/ammunition/bullets-cartridge-brass.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Aljava com 20 flechas"
+        },
+        "slots": {
+          "value": 0
+        },
+        "quantity": {
+          "value": 24
+        },
+        "price": {
+          "value": 8
+        },
+        "isEquipped": {
+          "value": false
+        }
+      }
+    }
+  },
+  {
+    "name": "Coldre de Revólver",
+    "type": "equipment",
+    "img": "icons/containers/bags/pouch-leather-brown.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Permite equipar 1 Revólver e carregar até 36 balas no coldre."
+        },
+        "slots": {
+          "value": 0
+        },
+        "isEquipped": {
+          "value": false
+        },
+        "equipType": {
+          "value": "coldre"
+        }
       }
     }
   }

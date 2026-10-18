@@ -1,10 +1,13 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
+import { format, localize } from "../helpers/i18n.mjs";
+import { evaluateCheckOutcome } from "../rules/criticals.mjs";
+import { resolveDeathSaveRoll } from "../rules/deathSave.mjs";
+import { calculateWeaponReload, validateEquipmentAndAmmoLimits } from "../rules/inventory.mjs";
+import { getXpThreshold, validateCharacterProgression, validateMountProgression } from "../rules/progression.mjs";
 
-/**
- * Estende a ficha de PJ com modificações para o Sacramento RPG
- * @extends {ActorSheet}
- */
-export class SacramentoRPGActorSheet extends ActorSheet {
+const BaseActorSheet = globalThis.foundry?.appv1?.sheets?.ActorSheet ?? globalThis.ActorSheet;
+
+export class SacramentoRPGActorSheet extends BaseActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
@@ -15,7 +18,7 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 				{
 					navSelector: ".sheet-tabs",
 					contentSelector: ".sheet-body",
-					initial: "features"
+					initial: "status"
 				}
 			]
 		});
@@ -26,42 +29,52 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		return `systems/sacramento-rpg/templates/actor/actor-${this.actor.type}-sheet.hbs`;
 	}
 
-	/* -------------------------------------------- */
-
 	/** @override */
 	async getData() {
 		const context = super.getData();
-
-		// Use a safe clone of the actor data for further operations.
 		const actorData = this.document.toObject(false);
 
-		// Add the actor's data to context.data for easier access, as well as flags.
 		context.system = actorData.system;
 		context.flags = actorData.flags;
-
-		// Acessa as configurações globais
 		context.config = CONFIG.SACRAMENTO_RPG;
 
-		// Prepara dados de PJ
 		if (actorData.type === "character") {
 			this._prepareItems(context);
 			this._prepareCharacterData(context);
 		}
 
-		// Prepara dados de NPC
 		if (actorData.type === "npc") {
 			this._prepareItems(context);
 		}
 
-		// Enriquece a biografia (permite arrastar itens para dentro do texto, rolar dados, etc)
-		context.enrichedBiography = await TextEditor.enrichHTML(this.actor.system.biography, {
+		const bioObj = this.actor.system.bio || {};
+		const legacyBio = typeof this.actor.system.biography === "string" ? this.actor.system.biography : "";
+		const characteristicsContent = bioObj.characteristics || legacyBio || "";
+
+		if (!context.system.bio) {
+			context.system.bio = {
+				characteristics: characteristicsContent,
+				past: bioObj.past || "",
+				motivation: bioObj.motivation || "",
+				howToAchieve: bioObj.howToAchieve || "",
+				whyAchieve: bioObj.whyAchieve || "",
+				notes: bioObj.notes || ""
+			};
+		}
+
+		const enrichmentOptions = {
 			secrets: this.document.isOwner,
 			async: true,
 			rollData: this.actor.getRollData(),
 			relativeTo: this.actor
-		});
+		};
 
-		// Prepara efeitos ativos (Buffs/Debuffs)
+		const TextEditorImpl = foundry.applications?.ux?.TextEditor?.implementation ?? TextEditor;
+		context.enrichedBiography = await TextEditorImpl.enrichHTML(legacyBio, enrichmentOptions);
+		context.enrichedCharacteristics = await TextEditorImpl.enrichHTML(characteristicsContent, enrichmentOptions);
+		context.enrichedPast = await TextEditorImpl.enrichHTML(bioObj.past || "", enrichmentOptions);
+		context.enrichedNotes = await TextEditorImpl.enrichHTML(bioObj.notes || "", enrichmentOptions);
+
 		context.effects = prepareActiveEffectCategories(this.actor.allApplicableEffects());
 
 		return context;
@@ -70,108 +83,39 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 	_prepareCharacterData(context) {
 		const systemData = context.system;
 		const attributes = systemData.attributes;
-		const abilitiesMap = systemData.abilities || {};
-
 		const level = attributes.level?.value || 1;
 
-		// XP Thresholds
-		const xpMaxLevels = {
-			1: 10,
-			2: 20,
-			3: 30,
-			4: 45,
-			5: 65,
-			6: 100 // Level max
-		};
 		if (attributes.xp) {
-			attributes.xp.max = xpMaxLevels[level] || 100;
+			attributes.xp.max = getXpThreshold(level);
 		}
 
-		const warnings = [];
-
-		// Calculate total attributes distributed
-		let totalAttributes = 0;
-		for (const ab of Object.values(abilitiesMap)) {
-			totalAttributes += ab.value || 0;
+		for (const [k, v] of Object.entries(systemData.abilities || {})) {
+			const i18nKey = CONFIG.SACRAMENTO_RPG.abilities[k];
+			if (i18nKey) v.label = localize(i18nKey);
 		}
 
-		// Expected Attributes
-		let expectedAttributes = 4; // Level 1
-		if (level >= 3) expectedAttributes += 1;
-		if (level >= 4) expectedAttributes += 1;
-		if (level >= 5) expectedAttributes += 1;
-		if (level >= 6) expectedAttributes += 1;
-
-		if (totalAttributes < expectedAttributes) {
-			warnings.push(`Falta distribuir ${expectedAttributes - totalAttributes} ponto(s) de Atributo.`);
-		} else if (totalAttributes > expectedAttributes) {
-			warnings.push(`Você distribuiu pontos de Atributo a mais! O esperado é ${expectedAttributes}.`);
+		for (const [k, v] of Object.entries(systemData.antecedents || {})) {
+			const i18nKey = CONFIG.SACRAMENTO_RPG.antecedents?.[k];
+			if (i18nKey) v.label = localize(i18nKey);
 		}
 
-		// Expected Abilities
-		let expectedAbilities = 2; // Level 1
-		if (level >= 2) expectedAbilities += 1;
-		if (level >= 3) expectedAbilities += 1;
-		if (level >= 4) expectedAbilities += 1;
-		if (level >= 6) expectedAbilities += 1;
+		const progressionWarnings = validateCharacterProgression(systemData, context.abilities?.length || 0);
+		const inventoryWarnings = validateEquipmentAndAmmoLimits(
+			context.items,
+			systemData.slots,
+			systemData.mount?.slots
+		);
+		context.warnings = [...progressionWarnings, ...inventoryWarnings];
 
-		const actualAbilities = context.abilities?.length || 0;
-		if (actualAbilities < expectedAbilities) {
-			warnings.push(`Você precisa adicionar ${expectedAbilities - actualAbilities} Habilidade(s).`);
-		} else if (actualAbilities > expectedAbilities) {
-			warnings.push(`Você tem Habilidades a mais! O esperado é ${expectedAbilities}.`);
-		}
-
-		// Expected Antecedents
-		const intVal = abilitiesMap.int?.value || 0;
-		let expectedAntecedents = intVal; // Level 1
-		if (level >= 2) expectedAntecedents += 1;
-		if (level >= 3) expectedAntecedents += 1;
-		if (level >= 4) expectedAntecedents += 1;
-		if (level >= 5) expectedAntecedents += 1;
-		if (level >= 6) expectedAntecedents += 1;
-
-		let totalAntecedents = 0;
-		for (const ant of Object.values(systemData.antecedents || {})) {
-			totalAntecedents += ant.value || 0;
-		}
-
-		if (totalAntecedents < expectedAntecedents) {
-			warnings.push(`Falta distribuir ${expectedAntecedents - totalAntecedents} ponto(s) de Antecedente.`);
-		} else if (totalAntecedents > expectedAntecedents) {
-			warnings.push(`Você distribuiu pontos de Antecedente a mais! O esperado é ${expectedAntecedents}.`);
-		}
-
-		context.warnings = warnings;
-
-		// Mount fidelity logic
 		if (systemData.mount) {
-			const mountWarnings = [];
-			const fid = systemData.mount.fidelidade?.value || 0;
-
-			let expectedMountAttributes = 0;
-			if (fid >= 2) expectedMountAttributes += 1;
-			if (fid >= 5) expectedMountAttributes += 1;
-
-			const currentMountAttributes =
-				(systemData.mount.potencia?.value || 0) + (systemData.mount.resistencia?.value || 0);
-
-			if (currentMountAttributes < expectedMountAttributes) {
-				mountWarnings.push(
-					`Falta distribuir ${expectedMountAttributes - currentMountAttributes} ponto(s) nos Atributos da Montaria.`
-				);
-			} else if (currentMountAttributes > expectedMountAttributes) {
-				mountWarnings.push(`Você distribuiu pontos a mais na Montaria! O esperado é ${expectedMountAttributes}.`);
-			}
-
-			context.mountWarnings = mountWarnings;
-
-			context.fidelityOpacity = {
-				l1: fid >= 1 ? 1 : 0.4,
-				l2: fid >= 2 ? 1 : 0.4,
-				l3: fid >= 3 ? 1 : 0.4,
-				l4: fid >= 4 ? 1 : 0.4,
-				l5: fid >= 5 ? 1 : 0.4
+			const fid = systemData.mount.loyalty?.value ?? systemData.mount.fidelidade?.value ?? 0;
+			context.mountWarnings = validateMountProgression(systemData.mount);
+			context.fidelityClasses = {
+				l1: fid >= 1 ? "unlocked" : "locked",
+				l2: fid >= 2 ? "unlocked" : "locked",
+				l3: fid >= 3 ? "unlocked" : "locked",
+				l4: fid >= 4 ? "unlocked" : "locked",
+				l5: fid >= 5 ? "unlocked" : "locked"
 			};
 		}
 	}
@@ -214,24 +158,18 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		context.mountConsumables = mountConsumables;
 	}
 
-	/* -------------------------------------------- */
-
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
 
-		// Render the item sheet for viewing/editing prior to the editable check.
 		html.on("click", ".item-edit", (ev) => {
 			const li = $(ev.currentTarget).parents(".item");
 			const item = this.actor.items.get(li.data("itemId"));
 			item.sheet.render(true);
 		});
 
-		// -------------------------------------------------------------
-		// Everything below here is only needed if the sheet is editable
 		if (!this.isEditable) return;
 
-		// Handle item ammo update
 		html.on("change", ".item-ammo", async (ev) => {
 			const itemId = ev.currentTarget.dataset.itemId;
 			const item = this.actor.items.get(itemId);
@@ -239,7 +177,13 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 			await item.update({ "system.attributes.ammo.value": newAmmo });
 		});
 
-		// Handle item equip toggle
+		html.on("change", ".item-quantity", async (ev) => {
+			const itemId = ev.currentTarget.dataset.itemId;
+			const item = this.actor.items.get(itemId);
+			const newQty = parseInt(ev.currentTarget.value);
+			await item.update({ "system.attributes.quantity.value": newQty });
+		});
+
 		html.on("change", ".item-equip", async (ev) => {
 			const itemId = ev.currentTarget.dataset.itemId;
 			const item = this.actor.items.get(itemId);
@@ -247,19 +191,9 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 			await item.update({ "system.attributes.isEquipped.value": isEquipped });
 		});
 
-		// Add Inventory Item
+		html.on("click", ".item-reload", this._onReloadWeapon.bind(this));
 		html.on("click", ".item-create", this._onItemCreate.bind(this));
 
-		// Equip/Unequip Toggle
-		html.find(".item-equip").click((ev) => {
-			const li = $(ev.currentTarget).parents(".item");
-			const item = this.actor.items.get(li.data("itemId"));
-			item.update({
-				"system.attributes.isEquipped.value": !item.system.attributes.isEquipped.value
-			});
-		});
-
-		// Mount/Unmount Toggle
 		html.find(".item-mount").click((ev) => {
 			const li = $(ev.currentTarget).parents(".item");
 			const item = this.actor.items.get(li.data("itemId"));
@@ -269,7 +203,6 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 			});
 		});
 
-		// Delete Inventory Item
 		html.on("click", ".item-delete", (ev) => {
 			const li = $(ev.currentTarget).parents(".item");
 			const item = this.actor.items.get(li.data("itemId"));
@@ -277,17 +210,15 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 			li.slideUp(200, () => this.render(false));
 		});
 
-		// Active Effect management
 		html.on("click", ".effect-control", (ev) => {
 			const row = ev.currentTarget.closest("li");
-			const document = row.dataset.parentId === this.actor.id ? this.actor : this.actor.items.get(row.dataset.parentId);
+			const document =
+				row.dataset.parentId === this.actor.id ? this.actor : this.actor.items.get(row.dataset.parentId);
 			onManageActiveEffect(ev, document);
 		});
 
-		// Rollable abilities.
 		html.on("click", ".rollable", this._onRoll.bind(this));
 
-		// Drag events for macros.
 		if (this.actor.isOwner) {
 			const handler = (ev) => this._onDragStart(ev);
 			html.find("li.item").each((i, li) => {
@@ -298,30 +229,20 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		}
 	}
 
-	/**
-	 * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-	 * @param {Event} event   The originating click event
-	 * @private
-	 */
 	async _onItemCreate(event) {
 		event.preventDefault();
 		const header = event.currentTarget;
-		// Get the type of item to create.
 		const type = header.dataset.type;
-		// Grab any data associated with this control.
 		const data = foundry.utils.duplicate(header.dataset);
-		// Initialize a default name.
-		const name = `New ${type.capitalize()}`;
-		// Prepare the item object.
+		const typeLabel = localize(`TYPES.Item.${type}`);
+		const name = format("SACRAMENTO_RPG.Item.NewItemName", { type: typeLabel });
 		const itemData = {
-			name: name,
-			type: type,
+			name,
+			type,
 			system: data
 		};
-		// Remove the type from the dataset since it's in the itemData.type prop.
 		delete itemData.system["type"];
 
-		// Finally, create the item!
 		return await Item.create(itemData, { parent: this.actor });
 	}
 
@@ -330,47 +251,49 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		// Handle item rolls.
 		if (dataset.rollType) {
 			if (dataset.rollType === "item") {
 				const itemId = element.closest(".item").dataset.itemId;
 				const item = this.actor.items.get(itemId);
 				if (item) return item.roll();
 			}
+			if (dataset.rollType === "death-save") {
+				return this._onRollDeathSave();
+			}
 		}
 
-		// Handle rolls that supply the formula directly.
 		if (dataset.roll) {
-			let label = dataset.label ? `<strong>Teste de ${dataset.label}</strong>` : "Teste";
+			const checkLabel = dataset.label
+				? format("SACRAMENTO_RPG.Roll.CheckOf", { label: dataset.label })
+				: localize("SACRAMENTO_RPG.Roll.GenericCheck");
+			let label = `<strong>${checkLabel}</strong>`;
 			const roll = new Roll(dataset.roll, this.actor.getRollData());
 			await roll.evaluate({ async: true });
 
 			const dieResult = roll.dice[0].results[0].result;
-			const total = roll.total;
+			let confirmDie = null;
+
+			if (dieResult === 1 || dieResult === 6) {
+				const reroll = new Roll("1d6");
+				await reroll.evaluate({ async: true });
+				confirmDie = reroll.total;
+			}
+
+			const outcome = evaluateCheckOutcome(dieResult, roll.total, confirmDie);
 			let flavor = "";
 
-			if (dieResult === 1) {
-				const reroll = new Roll("1d6");
-				await reroll.evaluate({ async: true });
-				if (reroll.total === 1) {
-					flavor = "<span style='color: red; font-weight: bold;'>Falha Crítica! (Rolou 1 duas vezes)</span>";
-				} else {
-					flavor = "<span style='color: darkred; font-weight: bold;'>Falha Automática! (Rolou 1)</span>";
-				}
-			} else if (dieResult === 6) {
-				const reroll = new Roll("1d6");
-				await reroll.evaluate({ async: true });
-				if (reroll.total === 6) {
-					flavor = "<span style='color: blue; font-weight: bold;'>Acerto Crítico! (Rolou 6 duas vezes)</span>";
-				} else {
-					flavor = "<span style='color: green; font-weight: bold;'>Sucesso! (Dado = 6)</span>";
-				}
+			if (outcome.criticalFailure) {
+				flavor = `<span class='chat-outcome-crit-fail'>${localize("SACRAMENTO_RPG.Roll.OutcomeCritFail")}</span>`;
+			} else if (outcome.automaticFailure) {
+				flavor = `<span class='chat-outcome-auto-fail'>${localize("SACRAMENTO_RPG.Roll.OutcomeAutoFail")}</span>`;
+			} else if (outcome.criticalSuccess) {
+				flavor = `<span class='chat-outcome-crit-success'>${localize("SACRAMENTO_RPG.Roll.OutcomeCritSuccess")}</span>`;
+			} else if (outcome.success && dieResult === 6) {
+				flavor = `<span class='chat-outcome-success'>${localize("SACRAMENTO_RPG.Roll.OutcomeSuccessDie6")}</span>`;
+			} else if (outcome.success) {
+				flavor = `<span class='chat-outcome-success'>${localize("SACRAMENTO_RPG.Roll.OutcomeSuccessTN6")}</span>`;
 			} else {
-				if (total >= 6) {
-					flavor = "<span style='color: green; font-weight: bold;'>Sucesso! (NA 6)</span>";
-				} else {
-					flavor = "<span style='color: #333; font-weight: bold;'>Falha! (Total menor que 6)</span>";
-				}
+				flavor = `<span class='chat-outcome-fail'>${localize("SACRAMENTO_RPG.Roll.OutcomeFailTN6")}</span>`;
 			}
 
 			label += `<br>${flavor}`;
@@ -382,5 +305,62 @@ export class SacramentoRPGActorSheet extends ActorSheet {
 			});
 			return roll;
 		}
+	}
+
+	async _onRollDeathSave() {
+		const roll = new Roll("1d6");
+		await roll.evaluate({ async: true });
+
+		const dieResult = roll.total;
+		const result = resolveDeathSaveRoll(dieResult, this.actor.system.death, this.actor.system.health?.value);
+
+		const outcomeText = result.isSuccess
+			? format("SACRAMENTO_RPG.DeathSave.EvenSuccess", { die: dieResult, current: result.successes })
+			: format("SACRAMENTO_RPG.DeathSave.OddFailure", { die: dieResult, current: result.failures });
+
+		let statusMessage = result.isSuccess
+			? `<span class="chat-outcome-success">${outcomeText}</span>`
+			: `<span class="chat-outcome-auto-fail">${outcomeText}</span>`;
+
+		if (result.outcome === "survived") {
+			statusMessage += `<br><strong class='chat-outcome-success'>${localize("SACRAMENTO_RPG.DeathSave.SurvivedMsg")}</strong>`;
+		} else if (result.outcome === "died") {
+			statusMessage += `<br><strong class='chat-outcome-auto-fail'>${localize("SACRAMENTO_RPG.DeathSave.DiedMsg")}</strong>`;
+		}
+
+		await this.actor.update(result.updateData);
+
+		const title = localize("SACRAMENTO_RPG.DeathSave.Title");
+		await roll.toMessage({
+			speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+			flavor: `<strong>${title}</strong><br>${statusMessage}`,
+			rollMode: game.settings.get("core", "rollMode")
+		});
+
+		return roll;
+	}
+
+	async _onReloadWeapon(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const itemId = element.closest(".item").dataset.itemId;
+		const weapon = this.actor.items.get(itemId);
+
+		if (!weapon || weapon.type !== "weapon") return;
+
+		const reloadPlan = calculateWeaponReload(weapon, Array.from(this.actor.items));
+		if (reloadPlan.error) {
+			if (reloadPlan.error === "already_full") {
+				ui.notifications.info(reloadPlan.message);
+			} else {
+				ui.notifications.warn(reloadPlan.message);
+			}
+			return;
+		}
+
+		await this.actor.updateEmbeddedDocuments("Item", reloadPlan.itemUpdates);
+		await weapon.update({ "system.attributes.ammo.value": reloadPlan.newAmmoValue });
+
+		ui.notifications.info(format("SACRAMENTO_RPG.Reload.SuccessNotification", { count: reloadPlan.ammoToReload }));
 	}
 }

@@ -1,0 +1,102 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Release Please
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - name: Run Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  package-release:
+    name: Build & Attach Foundry VTT Release Assets
+    needs: [release-please]
+    if: >-
+      always() &&
+      (needs.release-please.outputs.release_created == 'true' || startsWith(github.ref, 'refs/tags/v'))
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name || github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests & linter
+        run: |
+          npm run lint:warnings
+          npm test
+
+      - name: Build CSS and LevelDB compendium packs
+        run: npm run build:ci
+
+      - name: Update system.json manifest
+        env:
+          RELEASE_TAG: ${{ needs.release-please.outputs.tag_name || github.ref_name }}
+        run: |
+          VERSION="${RELEASE_TAG#v}"
+          node ./utils/update-manifest.js \
+            --systemVersion="${VERSION}" \
+            --manifest="https://github.com/${{ github.repository }}/releases/latest/download/system.json" \
+            --download="https://github.com/${{ github.repository }}/releases/download/v${VERSION}/sacramento-rpg.zip"
+
+      - name: Create runtime release archive (sacramento-rpg.zip)
+        run: |
+          mkdir -p dist/sacramento-rpg
+          cp -r \
+            system.json \
+            template.json \
+            LICENSE.txt \
+            README.md \
+            module \
+            css \
+            templates \
+            lang \
+            icons \
+            assets \
+            packs \
+            dist/sacramento-rpg/
+          if [ -f CHANGELOG.md ]; then cp CHANGELOG.md dist/sacramento-rpg/; fi
+          cd dist/sacramento-rpg
+          zip -r ../../sacramento-rpg.zip .
+
+      - name: Upload assets to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ needs.release-please.outputs.tag_name || github.ref_name }}
+        run: |
+          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            gh release upload "${RELEASE_TAG}" system.json sacramento-rpg.zip --clobber
+          else
+            gh release create "${RELEASE_TAG}" system.json sacramento-rpg.zip --generate-notes --title "${RELEASE_TAG}"
+          fi
+

@@ -1,25 +1,23 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-    {{!-- Cabeçalho compartilhado (Baseado no header.hbs do D&D) --}}
-    {{> "systems/sacramento-rpg/templates/item/parts/item-header.hbs" }}
+  {{> "systems/sacramento-rpg/templates/item/parts/item-header.hbs"}}
 
-    {{!-- Navegação de Abas --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Descrição</a>
-        <a class="item" data-tab="details">Detalhes</a>
-        <a class="item" data-tab="effects">Efeitos</a>
-    </nav>
+  <nav class="sheet-tabs tabs western-tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "SACRAMENTO_RPG.Tabs.Description"}}</a>
+    <a class="item" data-tab="details">{{localize "SACRAMENTO_RPG.Tabs.Details"}}</a>
+    <a class="item" data-tab="effects">{{localize "SACRAMENTO_RPG.Tabs.Effects"}}</a>
+  </nav>
 
-    {{!-- Corpo da Ficha --}}
-    <section class="sheet-body">
-        {{!-- Aba de Descrição (Padrão para todos) --}}
-        <div class="tab description" data-group="primary" data-tab="description">
-            {{> "systems/sacramento-rpg/templates/item/parts/item-description.hbs" }}
-        </div>
+  <section class="sheet-body">
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{> "systems/sacramento-rpg/templates/item/parts/item-description.hbs"}}
+    </div>
 
-        {{!-- Aba de Detalhes (Dinâmica por tipo) --}}
-        <div class="tab details" data-group="primary" data-tab="details">
-            {{!-- Aqui o Foundry carrega o arquivo específico da pasta details/ --}}
-            {{> (concat "systems/sacramento-rpg/templates/item/details/details-" item.type ".hbs") }}
-        </div>
-    </section>
+    <div class="tab details" data-group="primary" data-tab="details">
+      {{> (concat "systems/sacramento-rpg/templates/item/details/details-" item.type ".hbs")}}
+    </div>
+
+    <div class="tab effects" data-group="primary" data-tab="effects">
+      {{> "systems/sacramento-rpg/templates/item/parts/item-effects.hbs"}}
+    </div>
+  </section>
 </form>

@@ -1,0 +1,29 @@
+{
+  "label": "Ammo & Equipment",
+  "mapping": {
+    "effect": "system.attributes.effect.value"
+  },
+  "entries": {
+    "Munição de Revólver": {
+      "name": "Revolver Ammo",
+      "effect": "Box of 12 revolver rounds"
+    },
+    "Munição de Fuzil": {
+      "name": "Rifle Ammo",
+      "effect": "Box of 6 rifle rounds"
+    },
+    "Munição de Espingarda": {
+      "name": "Shotgun Ammo",
+      "effect": "Box of 6 shotgun shells"
+    },
+    "Aljava com Flechas": {
+      "name": "Quiver with Arrows",
+      "effect": "Quiver with 20 arrows"
+    },
+    "Coldre de Revólver": {
+      "name": "Revolver Holster",
+      "effect": "Allows equipping 1 Revolver and carrying up to 36 rounds on the belt."
+    }
+  }
+}
+

@@ -3,10 +3,6 @@
 	"printWidth": 120,
 	"singleQuote": false,
 	"trailingComma": "none",
-	"overrides": [
-		{
-			"files": ["*.less"],
-			"options": { "tabWidth": 2, "useTabs": false }
-		}
-	]
+	"tabWidth": 4,
+	"useTabs": true
 }

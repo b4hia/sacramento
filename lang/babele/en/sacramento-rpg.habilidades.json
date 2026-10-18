@@ -1,0 +1,125 @@
+{
+  "label": "Abilities",
+  "mapping": {
+    "description": "system.description"
+  },
+  "entries": {
+    "Armas da Natureza": {
+      "name": "Armas da Natureza",
+      "description": "<p>Attacks with rustic weapons (stone knife, spear, hatchet, bow) add +1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Point\" /> damage per point in <strong>Physique</strong>.</p>"
+    },
+    "Ataque Sacana": {
+      "name": "Ataque Sacana",
+      "description": "<p>Surprise attacks with knives, razors, concealed blades, or Derringers deal extra damage by level:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Bonus Damage</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr><tr><td>6</td><td>+4 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr></tbody></table>"
+    },
+    "Às na Manga": {
+      "name": "Às na Manga",
+      "description": "<p>On checks involving card games and bluffing, roll <strong>2d6</strong> and keep the highest result.</p>"
+    },
+    "Boca na botija": {
+      "name": "Boca na botija",
+      "description": "<p>On <strong>Attention</strong> checks, roll <strong>2d6</strong> and keep the highest result. Immune to <strong>Defense</strong> reduction from surprise.</p>"
+    },
+    "Briga de bar": {
+      "name": "Briga de bar",
+      "description": "<p>Attacks with improvised weapons: small/medium objects deal 3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" />; large objects deal 1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" /> with a -1 penalty on the <strong>Violence</strong> check.</p>"
+    },
+    "Canção da Emoção": {
+      "name": "Canção da Emoção",
+      "description": "<p>Once per session in combat: spend 2 <strong>Combat Actions</strong> per ally to grant a bonus based on your level:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Benefit</th></tr></thead><tbody><tr><td>1</td><td>+1 <strong>Movement</strong></td></tr><tr><td>3</td><td>+1 <strong>Combat Action</strong></td></tr><tr><td>4</td><td>+1 to <strong>Violence</strong></td></tr><tr><td>6</td><td>+3 temporary <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr></tbody></table>"
+    },
+    "Chamego": {
+      "name": "Chamego",
+      "description": "<p>On checks to lasso a target, roll <strong>2d6</strong> and keep the highest result. Lassoed targets suffer -1 to escape.</p>"
+    },
+    "Cuspe e cola": {
+      "name": "Cuspe e cola",
+      "description": "<p>Combat healing (adjacent): spend 2 <strong>Combat Actions</strong> to restore 1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" />. Uses per combat limit:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Limit</th></tr></thead><tbody><tr><td>1</td><td>1 use</td></tr><tr><td>3</td><td>2 uses</td></tr><tr><td>6</td><td>4 uses</td></tr></tbody></table>"
+    },
+    "Dedo Quente": {
+      "name": "Dedo Quente",
+      "description": "<p>Grants +1 on <strong>Violence</strong> checks with revolvers. Bonus damage against targets without cover:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Bonus Damage</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Point\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" /></td></tr><tr><td>6</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" /></td></tr></tbody></table>"
+    },
+    "Fogo no Céu": {
+      "name": "Fogo no Céu",
+      "description": "<p>On checks with explosives, roll <strong>2d6</strong> and keep the highest result. Prevents in-hand detonation on a critical failure.</p>"
+    },
+    "Fumaça na Água": {
+      "name": "Fumaça na Água",
+      "description": "<p>On <strong>Theft</strong> checks (stealth, pickpocketing, hiding), roll <strong>2d6</strong> and keep the highest result.</p>"
+    },
+    "Fúria dos Aflitos": {
+      "name": "Fúria dos Aflitos",
+      "description": "<p>In combat, reduce your own <strong>Defense</strong> by -1 to add +3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" /> to melee damage.</p>"
+    },
+    "Galope Certeiro": {
+      "name": "Galope Certeiro",
+      "description": "<p>On <strong>Riding</strong> checks with your own horse, roll <strong>2d6</strong> and keep the highest result. Ignores Loyalty 0 penalty on other mounts.</p>"
+    },
+    "Gatilho Furioso": {
+      "name": "Gatilho Furioso",
+      "description": "<p>Fires 2 revolver shots by spending 1 <strong>Combat Action</strong> + 1 <strong>Movement</strong> (repeatable while actions and loaded ammo remain).</p>"
+    },
+    "Livramento": {
+      "name": "Livramento",
+      "description": "<p>Once per combat, when reduced to 0 Life Circles, avoids the Death Save and immediately restores 2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" />.</p>"
+    },
+    "Marretada": {
+      "name": "Marretada",
+      "description": "<p>Unarmed attacks add +1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Point\" /> damage per point in <strong>Physique</strong>.</p>"
+    },
+    "Não vai doer nadinha": {
+      "name": "Não vai doer nadinha",
+      "description": "<p>On <strong>Medicine</strong> checks, roll <strong>2d6</strong> and keep the highest result. Grants bonus healing by level:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Bonus Healing</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr><tr><td>6</td><td>+4 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr></tbody></table>"
+    },
+    "Natural da Natureza": {
+      "name": "Natural da Natureza",
+      "description": "<p>On <strong>Sweat</strong> checks, roll <strong>2d6</strong> and keep the highest result. Automatic success to forage herbs, food, and shelter in the wild.</p>"
+    },
+    "Parrudeza": {
+      "name": "Parrudeza",
+      "description": "<p>Grants +2 permanent <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /> to max Life (stackable if chosen multiple times).</p>"
+    },
+    "Punhos do Oriente": {
+      "name": "Punhos do Oriente",
+      "description": "<p>Allows spending <strong>Movement</strong> actions to perform unarmed attacks.</p>"
+    },
+    "Quebra Ossos": {
+      "name": "Quebra Ossos",
+      "description": "<p>Cost: 1 <strong>Movement</strong> + 1 <strong>Combat Action</strong>. Choose between grappling the target or dealing scaled damage by level:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Damage</th></tr></thead><tbody><tr><td>1</td><td>1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" /> + 2 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" /></td></tr><tr><td>3</td><td>2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /> + 2 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" /></td></tr><tr><td>6</td><td>3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /> + 3 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" /></td></tr></tbody></table>"
+    },
+    "Sabiá Imperatriz": {
+      "name": "Sabiá Imperatriz",
+      "description": "<p>On <strong>Business</strong> checks, roll <strong>2d6</strong> and keep the highest result.</p>"
+    },
+    "Sabugos e Peçonhas": {
+      "name": "Sabugos e Peçonhas",
+      "description": "<p>Crafts enhanced poisons: a poisoned target suffers 1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Point\" /> per action taken until cured or unconscious.</p>"
+    },
+    "Salve-se quem puder": {
+      "name": "Salve-se quem puder",
+      "description": "<p>On checks to escape or flee, roll <strong>2d6</strong> and keep the highest result, plus gain +1 <strong>Movement</strong> exclusively for fleeing.</p>"
+    },
+    "Sorrisão Chapéu na mão": {
+      "name": "Sorrisão Chapéu na mão",
+      "description": "<p>Buys common items at a 25% discount and sells for +25% of base price (excluding rare/special items).</p>"
+    },
+    "Sorte dos Covardes": {
+      "name": "Sorte dos Covardes",
+      "description": "<p>Requirement: max <strong>Intellect 1</strong> and <strong>Violence 2</strong>. At the start of combat, draw 1 card to gain a bonus by suit until the end of the fight:</p><table class=\"skill-table\"><thead><tr><th>Suit</th><th>Effect</th></tr></thead><tbody><tr><td>Clubs</td><td>+2 Combat Actions</td></tr><tr><td>Hearts</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr><tr><td>Spades</td><td>+2 Movements</td></tr><tr><td>Diamonds</td><td>+1 on Violence Checks</td></tr></tbody></table>"
+    },
+    "Valei-me": {
+      "name": "Valei-me",
+      "description": "<p>Crafts an improvised explosive with a <strong>Tradition (TN 7)</strong> check (in combat costs 2 <strong>Combat Actions</strong> + 1 <strong>Movement</strong>):</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Explosive Damage</th></tr></thead><tbody><tr><td>1</td><td>2 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr><tr><td>3</td><td>3 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr><tr><td>6</td><td>4 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Points\" /></td></tr></tbody></table>"
+    },
+    "Zói de Coruja": {
+      "name": "Zói de Coruja",
+      "description": "<p>On <strong>Tradition</strong> checks to recall academic or historical knowledge, roll <strong>2d6</strong> and keep the highest result.</p>"
+    },
+    "Zói de Gavião": {
+      "name": "Zói de Gavião",
+      "description": "<p>Grants +1 on <strong>Violence</strong> checks with rifles or longbows. From a vantage point, adds bonus damage by level:</p><table class=\"skill-table\"><thead><tr><th>Level</th><th>Bonus Damage</th></tr></thead><tbody><tr><td>1</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Point\" /></td></tr><tr><td>3</td><td>+2 <img src=\"systems/sacramento-rpg/icons/common/PainPoint.svg\" class=\"skill-icon\" title=\"Pain Points\" /></td></tr><tr><td>6</td><td>+1 <img src=\"systems/sacramento-rpg/icons/common/LifePoint.svg\" class=\"skill-icon\" title=\"Life Point\" /></td></tr></tbody></table>"
+    }
+  }
+}
+

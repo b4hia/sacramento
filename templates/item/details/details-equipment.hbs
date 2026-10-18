@@ -1,0 +1,37 @@
+<div class="item-details">
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.EffectProtection"}}</label>
+    <div class="form-fields">
+      <input type="text" name="system.attributes.effect.value" value="{{system.attributes.effect.value}}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.SpecialEquipType"}}</label>
+    <div class="form-fields">
+      <select name="system.attributes.equipType.value">
+        {{#select system.attributes.equipType.value}}
+        <option value="none">{{localize "SACRAMENTO_RPG.ItemDetails.EquipTypeNone"}}</option>
+        <option value="coldre">{{localize "SACRAMENTO_RPG.ItemDetails.EquipTypeHolster"}}</option>
+        <option value="bandoleira">{{localize "SACRAMENTO_RPG.ItemDetails.EquipTypeBandolier"}}</option>
+        <option value="bainha">{{localize "SACRAMENTO_RPG.ItemDetails.EquipTypeSheath"}}</option>
+        <option value="aljava">{{localize "SACRAMENTO_RPG.ItemDetails.EquipTypeQuiver"}}</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.BackpackSlots"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.slots.value" value="{{system.attributes.slots.value}}" step="0.5" data-dtype="Number"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.Price"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.price.value" value="{{system.attributes.price.value}}" data-dtype="Number"/>
+    </div>
+  </div>
+</div>
