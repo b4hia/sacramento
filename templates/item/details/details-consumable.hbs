@@ -1,0 +1,42 @@
+<div class="item-details">
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.HealBuffEffect"}}</label>
+    <div class="form-fields">
+      <input type="text" name="system.attributes.effect.value" value="{{system.attributes.effect.value}}"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.Quantity"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.quantity.value" value="{{system.attributes.quantity.value}}" data-dtype="Number"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.AmmoCategory"}}</label>
+    <div class="form-fields">
+      <select name="system.attributes.ammoCategory.value">
+        {{#select system.attributes.ammoCategory.value}}
+        <option value="none">{{localize "SACRAMENTO_RPG.ItemDetails.AmmoCategoryNone"}}</option>
+        <option value="revolver">{{localize "SACRAMENTO_RPG.ItemDetails.AmmoCategoryRevolver"}}</option>
+        <option value="rifle">{{localize "SACRAMENTO_RPG.ItemDetails.AmmoCategoryRifle"}}</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.BackpackSlots"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.slots.value" value="{{system.attributes.slots.value}}" step="0.5" data-dtype="Number"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "SACRAMENTO_RPG.ItemDetails.Price"}}</label>
+    <div class="form-fields">
+      <input type="number" name="system.attributes.price.value" value="{{system.attributes.price.value}}" data-dtype="Number"/>
+    </div>
+  </div>
+</div>
