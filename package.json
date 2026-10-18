@@ -28,7 +28,7 @@
   "private": true,
   "devDependencies": {
     "@babel/eslint-parser": "^7.27.0",
-    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^9.26.0",
     "@foundryvtt/foundryvtt-cli": "^1.1.0",
     "@stylistic/eslint-plugin-js": "^1.8.1",
