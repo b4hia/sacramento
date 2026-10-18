@@ -1,11 +1,11 @@
 {{!-- WEAPONS (MONTARIA) --}}
 {{#if mountWeapons.length}}
-<h3 class="inventory-category">Armas na Montaria</h3>
+<h3 class="inventory-category">{{localize "SACRAMENTO_RPG.Inventory.MountWeapons"}}</h3>
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Nome</div>
-    <div class="item-detail">Balas</div>
-    <div class="item-detail"><i class="fas fa-horse" title="Remover da Montaria?"></i></div>
+    <div class="item-name">{{localize "SACRAMENTO_RPG.Inventory.Name"}}</div>
+    <div class="item-detail">{{localize "SACRAMENTO_RPG.Inventory.Bullets"}}</div>
+    <div class="item-detail"><i class="fas fa-horse" title="{{localize 'SACRAMENTO_RPG.Inventory.RemoveFromMountTitle'}}"></i></div>
   </li>
   {{#each mountWeapons as |item id|}}
   <li class="item flexrow" data-item-id="{{item._id}}">
@@ -14,10 +14,14 @@
       <h4>{{item.name}}</h4>
     </div>
     <div class="item-detail">
-      <input type="number" class="item-ammo" data-item-id="{{item._id}}" value="{{item.system.attributes.ammo.value}}" min="0" max="{{item.system.attributes.ammo.max}}" style="width:40px;" /> / {{item.system.attributes.ammo.max}}
+      {{#if item.system.attributes.ammo.max}}
+      <input type="number" class="item-ammo" data-item-id="{{item._id}}" value="{{item.system.attributes.ammo.value}}" min="0" max="{{item.system.attributes.ammo.max}}" /> / {{item.system.attributes.ammo.max}}
+      {{else}}
+      -
+      {{/if}}
     </div>
     <div class="item-detail">
-      <a class="item-control item-mount" title="Voltar para Mochila" data-item-id="{{item._id}}" style="cursor: pointer;"><i class="fas fa-horse"></i></a>
+      <a class="item-control item-mount active" title="{{localize 'SACRAMENTO_RPG.Inventory.ReturnToBackpackTitle'}}" data-item-id="{{item._id}}"><i class="fas fa-horse"></i></a>
     </div>
   </li>
   {{/each}}
@@ -26,12 +30,12 @@
 
 {{!-- EQUIPMENT (MONTARIA) --}}
 {{#if mountEquipment.length}}
-<h3 class="inventory-category mt-2">Equipamentos na Montaria</h3>
+<h3 class="inventory-category mt-2">{{localize "SACRAMENTO_RPG.Inventory.MountEquipment"}}</h3>
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Nome</div>
-    <div class="item-detail">Espaços</div>
-    <div class="item-detail"><i class="fas fa-horse" title="Remover da Montaria?"></i></div>
+    <div class="item-name">{{localize "SACRAMENTO_RPG.Inventory.Name"}}</div>
+    <div class="item-detail">{{localize "SACRAMENTO_RPG.Inventory.SlotsCol"}}</div>
+    <div class="item-detail"><i class="fas fa-horse" title="{{localize 'SACRAMENTO_RPG.Inventory.RemoveFromMountTitle'}}"></i></div>
   </li>
   {{#each mountEquipment as |item id|}}
   <li class="item flexrow" data-item-id="{{item._id}}">
@@ -41,7 +45,7 @@
     </div>
     <div class="item-detail">{{item.system.attributes.slots.value}}</div>
     <div class="item-detail">
-      <a class="item-control item-mount" title="Voltar para Mochila" data-item-id="{{item._id}}" style="cursor: pointer;"><i class="fas fa-horse"></i></a>
+      <a class="item-control item-mount active" title="{{localize 'SACRAMENTO_RPG.Inventory.ReturnToBackpackTitle'}}" data-item-id="{{item._id}}"><i class="fas fa-horse"></i></a>
     </div>
   </li>
   {{/each}}
@@ -50,12 +54,12 @@
 
 {{!-- CONSUMABLES (MONTARIA) --}}
 {{#if mountConsumables.length}}
-<h3 class="inventory-category mt-2">Consumíveis na Montaria</h3>
+<h3 class="inventory-category mt-2">{{localize "SACRAMENTO_RPG.Inventory.MountConsumables"}}</h3>
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Nome</div>
-    <div class="item-detail">Qtd</div>
-    <div class="item-detail"><i class="fas fa-horse" title="Remover da Montaria?"></i></div>
+    <div class="item-name">{{localize "SACRAMENTO_RPG.Inventory.Name"}}</div>
+    <div class="item-detail">{{localize "SACRAMENTO_RPG.Inventory.QuantityAbbr"}}</div>
+    <div class="item-detail"><i class="fas fa-horse" title="{{localize 'SACRAMENTO_RPG.Inventory.RemoveFromMountTitle'}}"></i></div>
   </li>
   {{#each mountConsumables as |item id|}}
   <li class="item flexrow" data-item-id="{{item._id}}">
@@ -63,9 +67,11 @@
       <a class="rollable" data-roll-type="item"><img src="{{item.img}}" width="24" height="24"/></a>
       <h4>{{item.name}}</h4>
     </div>
-    <div class="item-detail">{{item.system.attributes.quantity.value}}</div>
     <div class="item-detail">
-      <a class="item-control item-mount" title="Voltar para Mochila" data-item-id="{{item._id}}" style="cursor: pointer;"><i class="fas fa-horse"></i></a>
+      <input type="number" class="item-quantity uninput" data-item-id="{{item._id}}" value="{{item.system.attributes.quantity.value}}" min="0" />
+    </div>
+    <div class="item-detail">
+      <a class="item-control item-mount active" title="{{localize 'SACRAMENTO_RPG.Inventory.ReturnToBackpackTitle'}}" data-item-id="{{item._id}}"><i class="fas fa-horse"></i></a>
     </div>
   </li>
   {{/each}}
