@@ -1,0 +1,56 @@
+<div class="sacramento-chat-card attack-roll-card">
+    <header class="card-header flexrow">
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" class="chat-card-img"/>
+        <h3 class="item-name"><strong>{{item.name}}</strong></h3>
+    </header>
+
+    <div class="card-description">{{{item.system.description}}}</div>
+
+    {{#if attack}}
+    <div class="attack-section">
+        <h4 class="chat-section-title">{{localize "SACRAMENTO_RPG.Chat.Attack"}}</h4>
+        {{{attack.renderedRoll}}}
+        
+        {{#if attack.criticalHit}}
+        <div class="chat-critical-hit">
+            <strong>{{localize "SACRAMENTO_RPG.Chat.CriticalHit"}}</strong><br>
+            {{attack.criticalEffect}}
+        </div>
+        {{/if}}
+
+        {{#if attack.criticalMiss}}
+        <div class="chat-critical-miss">
+            <strong>{{localize "SACRAMENTO_RPG.Chat.CriticalFailure"}}</strong><br>
+            {{attack.criticalEffect}}
+        </div>
+        {{/if}}
+    </div>
+    {{/if}}
+
+    <div class="damage-section">
+        <h4 class="chat-section-title">{{localize "SACRAMENTO_RPG.Chat.Damage"}}</h4>
+        {{#if (eq mode "fixed")}}
+            <div class="chat-damage-fixed">
+                {{{damageFixedHtml}}}
+            </div>
+        {{else}}
+            {{#if damageOriginalText}}
+            {{/if}}
+            {{#each damageRolls}}
+            <div class="chat-damage-roll-entry">
+                <div class="chat-damage-roll-header">
+                    <strong class="chat-damage-roll-label">{{{this.label}}}</strong>
+                    <img src="{{this.icon}}" class="chat-damage-icon"/>
+                </div>
+                {{{this.renderedRoll}}}
+            </div>
+            {{/each}}
+        {{/if}}
+    </div>
+
+    {{#if additionalInfo}}
+    <div class="additional-info">
+        {{{additionalInfo}}}
+    </div>
+    {{/if}}
+</div>

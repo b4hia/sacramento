@@ -1,121 +1,299 @@
-/**
- * Extend the basic Item with some very simple modifications.
- * @extends {Item}
- */
+import { format, localize } from "../helpers/i18n.mjs";
+import { formatFixedDamageHtml, isExplosiveWeapon, resolveAttackCriticals } from "../rules/criticals.mjs";
+
+const DAMAGE_MODE_STRATEGIES = {
+	async fixed({ dmg, bonusDamage }) {
+		return {
+			damageFixedHtml: formatFixedDamageHtml(dmg, bonusDamage),
+			damageRolls: []
+		};
+	},
+
+	async roll({ dmg, isPain, bonusDamage }) {
+		const damageRolls = [];
+
+		if (isPain) {
+			const roll = new Roll(`1d6${bonusDamage > 0 ? " + " + bonusDamage : ""}`);
+			await roll.evaluate();
+			if (game.dice3d) await game.dice3d.showForRoll(roll, game.user, true);
+			damageRolls.push({
+				label:
+					bonusDamage > 0
+						? localize("SACRAMENTO_RPG.Chat.DamagePainCirclesCrit")
+						: localize("SACRAMENTO_RPG.Chat.DamagePainCircles"),
+				icon: "systems/sacramento-rpg/icons/common/PainPoint.svg",
+				renderedRoll: await roll.render()
+			});
+			return { damageFixedHtml: "", damageRolls };
+		}
+
+		const dmgMatches = [...dmg.matchAll(/\d+/g)];
+		if (dmgMatches.length > 0) {
+			for (const match of dmgMatches) {
+				const num = parseInt(match[0]);
+				if (num <= 0) continue;
+				const diceCount = num * 2;
+				const roll = new Roll(`${diceCount}d6${bonusDamage > 0 ? " + " + bonusDamage : ""}`);
+				await roll.evaluate();
+				if (game.dice3d) await game.dice3d.showForRoll(roll, game.user, true);
+				damageRolls.push({
+					label: localize("SACRAMENTO_RPG.Chat.DamagePainCircles"),
+					icon: "systems/sacramento-rpg/icons/common/PainPoint.svg",
+					renderedRoll: await roll.render()
+				});
+			}
+		} else if (bonusDamage > 0) {
+			const roll = new Roll(`${bonusDamage}`);
+			await roll.evaluate();
+			damageRolls.push({
+				label: localize("SACRAMENTO_RPG.Chat.DamagePainCirclesDeadly"),
+				icon: "systems/sacramento-rpg/icons/common/PainPoint.svg",
+				renderedRoll: await roll.render()
+			});
+		}
+
+		return { damageFixedHtml: "", damageRolls };
+	}
+};
+
+const ITEM_CHAT_STRATEGIES = {
+	equipment(itemData, chatContext) {
+		const slots = itemData.attributes?.slots?.value || 0;
+		const effect = itemData.attributes?.effect?.value || "";
+		const slotsLabel = localize("SACRAMENTO_RPG.Chat.SlotsOccupied");
+		const effectLabel = localize("SACRAMENTO_RPG.Chat.EffectLabel");
+
+		chatContext.additionalInfo += `<p><strong>${slotsLabel}:</strong> ${slots}</p>`;
+		if (effect) {
+			chatContext.additionalInfo += `
+            <div class="chat-effect-box equipment-effect">
+               <strong>${effectLabel}:</strong> ${effect}
+            </div>`;
+		}
+	},
+
+	consumable(itemData, chatContext) {
+		const slots = itemData.attributes?.slots?.value || 0;
+		const effect = itemData.attributes?.effect?.value || "";
+		const qtd = itemData.attributes?.quantity?.value || 1;
+		const qtyLabel = localize("SACRAMENTO_RPG.Chat.QuantityLabel");
+		const slotsLabel = localize("SACRAMENTO_RPG.Chat.SlotsOccupied");
+		const effectLabel = localize("SACRAMENTO_RPG.Chat.EffectLabel");
+
+		chatContext.additionalInfo += `<p><strong>${qtyLabel}:</strong> ${qtd} | <strong>${slotsLabel}:</strong> ${slots}</p>`;
+		if (effect) {
+			chatContext.additionalInfo += `
+            <div class="chat-effect-box consumable-effect">
+               <strong>${effectLabel}:</strong> ${effect}
+            </div>`;
+		}
+	}
+};
+
 export class SacramentoRPGItem extends Item {
-	/**
-	 * Prepara dados derivados.
-	 * Útil se você quiser calcular peso total (peso * quantidade) ou outras regras de item.
-	 */
+	/** @override */
 	prepareData() {
 		super.prepareData();
 	}
 
-	/**
-	 * Prepare a data object which defines the data schema used by dice roll commands against this Item
-	 * @override
-	 */
+	/** @override */
 	getRollData() {
-		// Starts off by populating the roll data with a shallow copy of `this.system`
 		const rollData = { ...this.system };
-		// Quit early if there's no parent actor
 		if (!this.actor) return rollData;
-		// If present, add the actor's roll data
 		rollData.actor = this.actor.getRollData();
 		return rollData;
 	}
 
-	/**
-	 * Lida com o clique no item.
-	 * @param {Event} event   The originating click event
-	 * @private
-	 */
 	async roll() {
-		const item = this;
-		const itemData = item.system;
-		const actor = item.actor;
+		if (this.type === "weapon") {
+			new Dialog({
+				title: format("SACRAMENTO_RPG.Dialog.AttackWithTitle", { name: this.name }),
+				content: `<p>${format("SACRAMENTO_RPG.Dialog.ChooseAttackMode", { name: this.name })}</p>`,
+				buttons: {
+					roll: {
+						label: localize("SACRAMENTO_RPG.Dialog.RollAttackBtn"),
+						callback: () => this._executeItemRoll("roll")
+					},
+					fixed: {
+						label: localize("SACRAMENTO_RPG.Dialog.FixedDamageBtn"),
+						callback: () => this._executeItemRoll("fixed")
+					}
+				},
+				default: "roll"
+			}).render(true);
+		} else {
+			await this._executeItemRoll("fixed");
+		}
+	}
 
-		// Inicializa dados básicos do chat
-		const speaker = ChatMessage.getSpeaker({ actor: actor });
+	// Consumes weapon internal ammo if configured, or draws from matching inventory consumables prioritizing equipped slots.
+	async _consumeWeaponAmmo() {
+		const itemData = this.system;
+		const actor = this.actor;
+		let ammoVal = itemData.attributes.ammo?.value || 0;
+		const ammoMax = itemData.attributes.ammo?.max || 0;
+		const ammoType = itemData.attributes.ammoType?.value || "";
+
+		if (ammoMax > 0) {
+			if (ammoVal <= 0) {
+				ui.notifications.warn(format("SACRAMENTO_RPG.Warnings.WeaponUnloaded", { name: this.name }));
+				return { canProceed: false, infoHtml: "" };
+			}
+			ammoVal--;
+			await this.update({ "system.attributes.ammo.value": ammoVal });
+			const remainingLabel = localize("SACRAMENTO_RPG.Chat.RemainingAmmo");
+			return {
+				canProceed: true,
+				infoHtml: `<p class="chat-ammo-info"><strong>${remainingLabel}:</strong> ${ammoVal}/${ammoMax}</p>`
+			};
+		}
+
+		if (ammoType !== "") {
+			const lowerAmmoType = ammoType.toLowerCase();
+			const matchingAmmos = actor.items
+				.filter((i) => {
+					if (i.type !== "consumable" || !(i.system.attributes.quantity?.value > 0)) return false;
+					const category = (i.system.attributes?.ammoCategory?.value || "").toLowerCase();
+					if (category && category !== "none" && category === lowerAmmoType) return true;
+					return i.name.toLowerCase().includes(lowerAmmoType);
+				})
+				.sort((a, b) => {
+					const eqA = a.system.attributes?.isEquipped?.value ? 1 : 0;
+					const eqB = b.system.attributes?.isEquipped?.value ? 1 : 0;
+					return eqB - eqA;
+				});
+
+			if (matchingAmmos.length === 0) {
+				ui.notifications.warn(format("SACRAMENTO_RPG.Warnings.NoAmmoForWeapon", { ammoType, name: this.name }));
+				return { canProceed: false, infoHtml: "" };
+			}
+
+			const ammoToConsume = matchingAmmos[0];
+			const newQtd = (ammoToConsume.system.attributes.quantity?.value || 1) - 1;
+			await ammoToConsume.update({ "system.attributes.quantity.value": newQtd });
+			const consumedLabel = localize("SACRAMENTO_RPG.Chat.ConsumedAmmo");
+			return {
+				canProceed: true,
+				infoHtml: `<p class="chat-ammo-info"><strong>${consumedLabel}:</strong> 1 ${ammoType}</p>`
+			};
+		}
+
+		return { canProceed: true, infoHtml: "" };
+	}
+
+	async _rollWeaponAttack(mode) {
+		const itemData = this.system;
+		const actor = this.actor;
+		const dmg = String(itemData.attributes.damage?.value || "");
+		const reload = itemData.attributes.reload?.value || 0;
+		const slots = itemData.attributes.slots?.value || 0;
+		const isPain = dmg.toLowerCase().includes("dor") || dmg.toLowerCase().includes("pain");
+		const isExplosive = isExplosiveWeapon(itemData.attributes.weaponType?.value);
+
+		let attackMod = 0;
+		if (actor.type === "character") {
+			attackMod = actor.system.antecedents?.violencia?.value || 0;
+		} else if (actor.type === "npc") {
+			attackMod = actor.system.attributes?.cr?.value || 0;
+		}
+
+		const attackRoll = new Roll("1d6 + @mod", { mod: attackMod });
+		await attackRoll.evaluate();
+		const initialDie = attackRoll.dice[0].results[0].result;
+
+		let confirmDie = null;
+		let tableDie = null;
+
+		if (initialDie === 6 || initialDie === 1) {
+			const confirmRoll = new Roll("1d6");
+			await confirmRoll.evaluate();
+			confirmDie = confirmRoll.total;
+
+			if ((initialDie === 6 && confirmDie === 6) || (initialDie === 1 && confirmDie === 1 && !isExplosive)) {
+				const tableRoll = new Roll("1d6");
+				await tableRoll.evaluate();
+				tableDie = tableRoll.total;
+				if (game.dice3d) await game.dice3d.showForRoll(tableRoll, game.user, true);
+			}
+			if (game.dice3d) await game.dice3d.showForRoll(confirmRoll, game.user, true);
+		}
+
+		if (game.dice3d) await game.dice3d.showForRoll(attackRoll, game.user, true);
+
+		const hasFogoNoCeu = actor.items.some(
+			(i) => i.system?.attributes?.slug?.value === "fogo-no-ceu" || i.name.toLowerCase() === "fogo no céu"
+		);
+		const critResult = resolveAttackCriticals({
+			initialDie,
+			confirmDie,
+			tableDie,
+			isExplosive,
+			hasFogoNoCeu
+		});
+
+		const damageStrategy = DAMAGE_MODE_STRATEGIES[mode] || DAMAGE_MODE_STRATEGIES.fixed;
+		const damageOutput = await damageStrategy({
+			dmg,
+			isPain,
+			bonusDamage: critResult.bonusDamage
+		});
+
+		let extraInfo = "";
+		if (reload > 0 && (itemData.attributes.ammo?.max || 0) > 0) {
+			const reloadLabel = localize("SACRAMENTO_RPG.Chat.ReloadActions");
+			extraInfo += `<p><strong>${reloadLabel}:</strong> ${reload}</p>`;
+		}
+		if (slots > 0) {
+			const slotsLabel = localize("SACRAMENTO_RPG.Chat.SlotsOccupied");
+			extraInfo += `<p><strong>${slotsLabel}:</strong> ${slots}</p>`;
+		}
+
+		return {
+			attack: {
+				renderedRoll: await attackRoll.render(),
+				criticalHit: critResult.isCriticalHit,
+				criticalMiss: critResult.isCriticalMiss,
+				criticalEffect: critResult.criticalEffect
+			},
+			damageFixedHtml: damageOutput.damageFixedHtml,
+			damageRolls: damageOutput.damageRolls,
+			damageOriginalText: dmg,
+			extraInfo
+		};
+	}
+
+	async _executeItemRoll(mode = "fixed") {
+		const speaker = ChatMessage.getSpeaker({ actor: this.actor });
 		const rollMode = game.settings.get("core", "rollMode");
-		let label = `<b>${item.name}</b>`;
 
-		// Logica de munição
-		if (item.type === "weapon") {
-			let ammoVal = itemData.attributes.ammo?.value || 0;
-			const ammoMax = itemData.attributes.ammo?.max || 0;
-			// Se a arma usa munição (Max > 0)
-			if (ammoVal) {
-				if (ammoVal <= 0) {
-					ui.notifications.warn(`A arma ${item.name} está sem munição!`);
-					return; // Cancela a ação
-				}
-				// Gasta a munição
-				ammoVal--;
-				// Atualiza o item
-				await item.update({ "system.attributes.ammo.value": ammoVal });
-				label += ` <span style="font-size: 0.8em; color: #555;">(Bala gasta: ${ammoVal}/${ammoMax})</span>`;
-			}
+		const chatContext = {
+			item: this,
+			mode,
+			additionalInfo: "",
+			damageFixedHtml: ""
+		};
+
+		if (this.type === "weapon") {
+			const ammoResult = await this._consumeWeaponAmmo();
+			if (!ammoResult.canProceed) return;
+			chatContext.additionalInfo += ammoResult.infoHtml;
+
+			const weaponResult = await this._rollWeaponAttack(mode);
+			chatContext.attack = weaponResult.attack;
+			chatContext.damageFixedHtml = weaponResult.damageFixedHtml;
+			chatContext.damageRolls = weaponResult.damageRolls;
+			chatContext.damageOriginalText = weaponResult.damageOriginalText;
+			chatContext.additionalInfo += weaponResult.extraInfo;
+		} else if (ITEM_CHAT_STRATEGIES[this.type]) {
+			ITEM_CHAT_STRATEGIES[this.type](this.system, chatContext);
 		}
 
-		// Card
-		let content = `
-    <div class="sacramento-chat-card" style="background-color: #e8dcc4; padding: 10px; border: 3px solid #2c1a11; border-radius: 5px; font-family: 'Playfair Display', serif;">
-        <header class="card-header flexrow" style="display: flex; align-items: center; border-bottom: 2px solid #5c3a21; padding-bottom: 5px; margin-bottom: 10px;">
-            <img src="${item.img}" title="${item.name}" width="36" height="36" style="border: 2px solid #5c3a21; margin-right: 10px; border-radius: 4px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); object-fit: cover;"/>
-            <h3 class="item-name" style="margin: 0; font-family: 'Rye', cursive; font-size: 1.5em; color: #5c3a21;"><strong>${item.name}</strong></h3>
-        </header>
-        <div class="card-description" style="margin-bottom: 5px; color: #2c1a11;">${itemData.description ?? ""}</div>
-    `;
+		const html = await renderTemplate("systems/sacramento-rpg/templates/chat/attack-roll.hbs", chatContext);
 
-		// Exibir armas
-		if (item.type === "weapon") {
-			const dmg = itemData.attributes.damage?.value || 0;
-			const reload = itemData.attributes.reload?.value || 0;
-			const slots = itemData.attributes.slots?.value || 0;
-
-			if (dmg > 0) content += `<p><strong>Dano:</strong> ${dmg}</p>`;
-			if (reload > 0) content += `<p><strong>Ação(ões) para Recarregar:</strong> ${reload}</p>`;
-			if (slots > 0) content += `<p><strong>Espaços ocupados:</strong> ${slots}</p>`;
-		}
-
-		// Exibir equipamento
-		else if (item.type === "equipment") {
-			const slots = itemData.attributes.slots?.value || 0;
-			const effect = itemData.attributes.effect?.value || "";
-
-			content += `<p><strong>Espaços ocupados:</strong> ${slots}</p>`;
-			if (effect) {
-				content += `
-            <div style="border-left: 3px solid #4a90e2; padding-left: 5px; margin-top: 5px; color: #444;">
-               <strong>Efeito:</strong> ${effect}
-            </div>`;
-			}
-		}
-
-		// Exibir consumível
-		else if (item.type === "consumable") {
-			const slots = itemData.attributes.slots?.value || 0;
-			const effect = itemData.attributes.effect?.value || "";
-			const qtd = itemData.attributes.quantity?.value || 1;
-
-			content += `<p><strong>Quantidade:</strong> ${qtd} | <strong>Espaços ocupados:</strong> ${slots}</p>`;
-			if (effect) {
-				content += `
-            <div style="border-left: 3px solid #e24a4a; padding-left: 5px; margin-top: 5px; color: #444;">
-               <strong>Efeito:</strong> ${effect}
-            </div>`;
-			}
-		}
-
-		content += `</div>`;
-
-		// If there's no roll data, send a chat message.
-		ChatMessage.create({
-			speaker: speaker,
-			rollMode: rollMode,
-			flavor: label,
-			content: content
+		await ChatMessage.create({
+			speaker,
+			rollMode,
+			content: html
 		});
 	}
 }
