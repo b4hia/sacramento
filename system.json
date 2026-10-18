@@ -21,7 +21,7 @@
       "thumbnail": "systems/sacramento-rpg/assets/anvil-impact.png"
     }
   ],
-  "version": "0.0.2",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": 11,
     "verified": "12"
@@ -35,8 +35,12 @@
       }
     ]
   },
-  "esmodules": ["module/sacramento-rpg.mjs"],
-  "styles": ["css/sacramento-rpg.css"],
+  "esmodules": [
+    "module/sacramento-rpg.mjs"
+  ],
+  "styles": [
+    "css/sacramento-rpg.css"
+  ],
   "languages": [
     {
       "lang": "pt-BR",
@@ -97,28 +101,39 @@
   "documentTypes": {
     "Actor": {
       "character": {
-        "htmlFields": ["system.biography"]
+        "htmlFields": [
+          "system.biography"
+        ]
       },
       "npc": {
-        "htmlFields": ["system.biography"]
+        "htmlFields": [
+          "system.biography"
+        ]
       }
     },
     "Item": {
       "weapon": {
-        "htmlFields": ["system.description"]
+        "htmlFields": [
+          "system.description"
+        ]
       },
       "equipment": {
-        "htmlFields": ["system.description"]
+        "htmlFields": [
+          "system.description"
+        ]
       },
       "consumable": {
-        "htmlFields": ["system.description"]
+        "htmlFields": [
+          "system.description"
+        ]
       },
       "ability": {
-        "htmlFields": ["system.description"]
+        "htmlFields": [
+          "system.description"
+        ]
       }
     }
   },
-
   "grid": {
     "distance": 1.5,
     "units": "m",
