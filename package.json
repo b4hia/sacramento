@@ -27,7 +27,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "@babel/eslint-parser": "^7.27.0",
+    "@babel/eslint-parser": "^8.0.7",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.26.0",
     "@foundryvtt/foundryvtt-cli": "^1.1.0",
