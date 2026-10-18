@@ -1,46 +1,38 @@
 import { compilePack, extractPack } from "@foundryvtt/foundryvtt-cli";
+import crypto from "node:crypto";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import logger from "fancy-log";
-import fs from "fs";
-import YAML from "js-yaml";
-import { readdir, readFile, writeFile } from "node:fs/promises";
-import path from "path";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-/**
- * Pasta onde os compêndios compilados (LevelDB/JSON) serão salvos.
- */
 const PACK_DEST = "./packs";
+const PACK_SRC = "./packs-src";
 
-/**
- * Pasta onde os arquivos fonte (YAML) ficarão para você editar.
- */
-const PACK_SRC = "./packs/_source";
-
-// eslint-disable-next-line
-const argv = yargs(hideBin(process.argv)).command(packageCommand()).help().alias("help", "h").argv;
+const argv = yargs(hideBin(process.argv)).command(packageCommand()).help().alias("help", "h").argv; // eslint-disable-line no-unused-vars
 
 function packageCommand() {
 	return {
 		command: "package [action] [pack] [entry]",
-		describe: "Gerenciar pacotes (compêndios)",
-		builder: (yargs) => {
-			yargs.positional("action", {
-				describe: "A ação a ser realizada.",
+		describe: "Manage compendium packs",
+		builder: (yargsInstance) => {
+			yargsInstance.positional("action", {
+				describe: "The action to perform.",
 				type: "string",
 				choices: ["unpack", "pack", "clean"]
 			});
-			yargs.positional("pack", {
-				describe: "Nome do pacote (pack) específico (opcional).",
+			yargsInstance.positional("pack", {
+				describe: "Name of the specific pack (optional).",
 				type: "string"
 			});
-			yargs.positional("entry", {
-				describe: "Nome de uma entrada específica (opcional).",
+			yargsInstance.positional("entry", {
+				describe: "Name of a specific entry (optional).",
 				type: "string"
 			});
 		},
-		handler: async (argv) => {
-			const { action, pack, entry } = argv;
+		handler: async (args) => {
+			const { action, pack, entry } = args;
 			switch (action) {
 				case "clean":
 					return await cleanPacks(pack, entry);
@@ -53,13 +45,10 @@ function packageCommand() {
 	};
 }
 
-/* ----------------------------------------- */
-/* Limpeza (Clean)                          */
-/* ----------------------------------------- */
+function generateDeterministicId(seed) {
+	return crypto.createHash("md5").update(seed).digest("hex").slice(0, 16);
+}
 
-/**
- * Remove flags e dados desnecessários antes de extrair ou compilar.
- */
 function cleanPackEntry(data, { clearSourceId = true, ownership = 0 } = {}) {
 	if (data.ownership) data.ownership = { default: ownership };
 	if (clearSourceId) {
@@ -68,8 +57,8 @@ function cleanPackEntry(data, { clearSourceId = true, ownership = 0 } = {}) {
 	}
 	delete data.flags?.importSource;
 	delete data.flags?.exportSource;
-	
-	if (data._stats?.lastModifiedBy) data._stats.lastModifiedBy = "sacramentobuilder"; 
+
+	if (data._stats?.lastModifiedBy) data._stats.lastModifiedBy = "sacramentobuilder";
 
 	if (!data.flags) data.flags = {};
 	Object.entries(data.flags).forEach(([key, contents]) => {
@@ -79,8 +68,7 @@ function cleanPackEntry(data, { clearSourceId = true, ownership = 0 } = {}) {
 	if (data.effects) data.effects.forEach((i) => cleanPackEntry(i, { clearSourceId: false }));
 	if (data.items) data.items.forEach((i) => cleanPackEntry(i, { clearSourceId: false }));
 	if (data.pages) data.pages.forEach((i) => cleanPackEntry(i, { ownership: -1 }));
-	
-    // Limpa caracteres invisíveis
+
 	if (data.system?.description?.value) data.system.description.value = cleanString(data.system.description.value);
 	if (data.label) data.label = cleanString(data.label);
 	if (data.name) data.name = cleanString(data.name);
@@ -93,116 +81,83 @@ function cleanString(str) {
 		.replace(/[“”]/gu, '"');
 }
 
-async function cleanPacks(packName, entryName) {
-    logger.info("Limpando arquivos fonte...");
+async function cleanPacks() {
+	logger.info("Cleaning pack sources...");
 }
 
-/* ----------------------------------------- */
-/* Compilar (Pack) - YAML -> LevelDB        */
-/* ----------------------------------------- */
-
 async function compilePacks(packName) {
-	// Determina quais pastas processar
-    if (!fs.existsSync(PACK_SRC)) {
-        logger.error(`A pasta de fontes ${PACK_SRC} não existe.`);
-        return;
-    }
+	if (!fs.existsSync(PACK_SRC)) {
+		logger.error(`Source directory ${PACK_SRC} does not exist.`);
+		process.exitCode = 1;
+		return;
+	}
 
-	const folders = fs
-		.readdirSync(PACK_SRC, { withFileTypes: true })
-		.filter((file) => file.isDirectory() && (!packName || packName === file.name));
+	const system = JSON.parse(fs.readFileSync("./system.json", { encoding: "utf8" }));
+	const packs = system.packs.filter((p) => !packName || p.name === packName);
+	const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sacramento-packs-"));
 
-	for (const folder of folders) {
-		const src = path.join(PACK_SRC, folder.name);
-		const dest = path.join(PACK_DEST, folder.name);
-		logger.info(`Compilando pack ${folder.name}`);
-        // transformEntry: cleanPackEntry garante que o que vai pro jogo está limpo
-		await compilePack(src, dest, { recursive: true, log: true, transformEntry: cleanPackEntry, yaml: true });
+	try {
+		for (const packInfo of packs) {
+			const jsonFile = path.join(PACK_SRC, `${packInfo.name}.json`);
+			if (!fs.existsSync(jsonFile)) {
+				logger.warn(`Source file ${jsonFile} not found, skipping ${packInfo.name}.`);
+				continue;
+			}
+
+			const rawEntries = JSON.parse(fs.readFileSync(jsonFile, { encoding: "utf8" }));
+			const packTmpDir = path.join(tmpRoot, packInfo.name);
+			fs.mkdirSync(packTmpDir, { recursive: true });
+
+			const docCollection = packInfo.type === "Actor" ? "actors" : "items";
+
+			rawEntries.forEach((entry, idx) => {
+				const id = entry._id || generateDeterministicId(`${packInfo.name}:${entry.name}:${idx}`);
+				const prepared = {
+					...entry,
+					_id: id,
+					_key: entry._key || `!${docCollection}!${id}`
+				};
+				cleanPackEntry(prepared);
+				const fileName = `${slugify(entry.name || `entry-${idx}`)}-${id}.json`;
+				fs.writeFileSync(path.join(packTmpDir, fileName), JSON.stringify(prepared, null, 2), "utf8");
+			});
+
+			const dest = path.join(PACK_DEST, packInfo.name);
+			logger.info(`Compiling pack ${packInfo.name} (${rawEntries.length} entries) -> ${dest}`);
+			await compilePack(packTmpDir, dest, { recursive: false, log: false, yaml: false });
+		}
+	} finally {
+		fs.rmSync(tmpRoot, { recursive: true, force: true });
 	}
 }
 
-/* ----------------------------------------- */
-/* Extrair (Unpack) - LevelDB -> YAML       */
-/* ----------------------------------------- */
-
 async function extractPacks(packName, entryName) {
 	entryName = entryName?.toLowerCase();
-
-	// Carrega o system.json para saber onde estão os packs
 	const system = JSON.parse(fs.readFileSync("./system.json", { encoding: "utf8" }));
-
-	// Filtra os packs
 	const packs = system.packs.filter((p) => !packName || p.name === packName);
 
 	for (const packInfo of packs) {
-        // Define onde salvar o YAML (_source/nome-do-pack)
 		const dest = path.join(PACK_SRC, packInfo.name);
-        
-        // Define onde está o arquivo do Foundry (./packs/nome-do-pack)
-		const distPath = packInfo.path; 
+		const distPath = packInfo.path;
 
-		logger.info(`Extraindo pack ${packInfo.name} de ${distPath} para ${dest}`);
+		if (!fs.existsSync(distPath)) continue;
+		logger.info(`Extracting pack ${packInfo.name} from ${distPath} to ${dest}`);
 
-        // Cria a pasta de destino se não existir
-        if (!fs.existsSync(dest)) {
-            fs.mkdirSync(dest, { recursive: true });
-        }
+		if (!fs.existsSync(dest)) {
+			fs.mkdirSync(dest, { recursive: true });
+		}
 
-        // 1. Mapeia pastas e containers para organizar os arquivos
-		const folders = {};
-		const containers = {};
-		await extractPack(distPath, dest, {
-			log: false,
-			transformEntry: (e) => {
-				if (e._key.startsWith("!folders")) folders[e._id] = { name: slugify(e.name), folder: e.folder };
-				else if (e.type === "container")
-					containers[e._id] = {
-						name: slugify(e.name),
-						container: e.system?.container,
-						folder: e.folder
-					};
-				return false;
-			}
-		});
-        
-        // 2. Constrói a árvore de diretórios baseada nas pastas do Foundry
-		const buildPath = (collection, entry, parentKey) => {
-			let parent = collection[entry[parentKey]];
-			entry.path = entry.name;
-			while (parent) {
-				entry.path = path.join(parent.name, entry.path);
-				parent = collection[parent[parentKey]];
-			}
-		};
-		Object.values(folders).forEach((f) => buildPath(folders, f, "folder"));
-		Object.values(containers).forEach((c) => {
-			buildPath(containers, c, "container");
-			const folder = folders[c.folder];
-			if (folder) c.path = path.join(folder.path, c.path);
-		});
-
-        // 3. Faz a extração real gerando YAML
 		await extractPack(distPath, dest, {
 			log: true,
 			transformEntry: (entry) => {
 				if (entryName && entryName !== entry.name.toLowerCase()) return false;
 				cleanPackEntry(entry);
 			},
-			transformName: (entry) => {
-				if (entry._id in folders) return path.join(folders[entry._id].path, "_folder.yml");
-				if (entry._id in containers) return path.join(containers[entry._id].path, "_container.yml");
-				const outputName = slugify(entry.name);
-				const parent = containers[entry.system?.container] ?? folders[entry.folder];
-				return path.join(parent?.path ?? "", `${outputName}.yml`);
-			},
-			yaml: true
+			yaml: false
 		});
 	}
 }
 
-/**
- * Normaliza nomes de arquivos (remove acentos, espaços, etc)
- */
 function slugify(name) {
 	return name
 		.toLowerCase()

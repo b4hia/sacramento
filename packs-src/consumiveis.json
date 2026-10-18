@@ -1,0 +1,257 @@
+[
+  {
+    "name": "Adrenalina",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "1 Ação de Combate: recupera 3 Círculos de Vida. Rebote ao fim do combate: -1 Ação de Combate e -1 Movimento até descansar (zerar ações causa parada cardíaca)."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 500 }
+      }
+    }
+  },
+  {
+    "name": "Álcool",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Antisséptico para limpar ferimentos, prevenir infecções ou usar como combustível inflamável."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 5 }
+      }
+    }
+  },
+  {
+    "name": "Arsênico",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Auxilia no tratamento contra venenos e peçonhas (tóxico em doses elevadas)."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 4 }
+      }
+    }
+  },
+  {
+    "name": "Babosa",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Erva tópica usada para aliviar dores musculares, queimaduras leves e higienizar feridas."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Boldo",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Infusão usada para tratar distúrbios gástricos, dores de cabeça e efeitos de insolação."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Cavalinha",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Infusão purgativa usada para desintoxicar venenos e tratar infecções digestivas."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Cânfora",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Uso em combate (1 Ação de Combate): recupera 1 Círculo de Dor imediatamente."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 30 }
+      }
+    }
+  },
+  {
+    "name": "Erva-doce",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Infusão digestiva para alívio de cólicas e desconforto intestinal."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Folha de Salgueiro",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Analgésico e antitérmico natural para febre alta e cefaleia."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 3 }
+      }
+    }
+  },
+  {
+    "name": "Gengibre",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Infusão usada no tratamento de tosse, resfriados e febre."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Laxante",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Composto líquido para alívio de constipação e intoxicação alimentar."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 10 }
+      }
+    }
+  },
+  {
+    "name": "Mil-folhas",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Infusão descongestionante para liberar vias respiratórias."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Morfina",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Anestésico potente para procedimentos cirúrgicos; induz sono profundo e risco de dependência."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 100 }
+      }
+    }
+  },
+  {
+    "name": "Pomada de Cavalo",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Aplicada na montaria durante descanso: recupera +3 Círculos de Vida do animal."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 10 }
+      }
+    }
+  },
+  {
+    "name": "Tônico Milagroso",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Exige Teste de Sorte no Baralho: Carta Preta recupera 3 Círculos de Dor instantaneamente; Carta Vermelha aplica condição Envenenado."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 50 }
+      }
+    }
+  },
+  {
+    "name": "Unguento",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-jar-corked-red.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Aplicado durante descanso: recupera +1 Círculo de Vida adicional."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 10 }
+      }
+    }
+  },
+  {
+    "name": "Xarope de Tosse",
+    "type": "consumable",
+    "img": "icons/consumables/potions/potion-bottle-gold.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Medicamento auxiliar para tratamento de tosse e afecções pulmonares."
+        },
+        "slots": { "value": 0.5 },
+        "quantity": { "value": 1 },
+        "price": { "value": 5 }
+      }
+    }
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "label": "Weapons",
+  "mapping": {
+    "damage": "system.attributes.damage.value",
+    "ammoType": "system.attributes.ammoType.value"
+  },
+  "entries": {
+    "Revólver": {
+      "name": "Revolver",
+      "damage": "1",
+      "ammoType": "Revolver Ammo"
+    },
+    "Fuzil": {
+      "name": "Rifle",
+      "damage": "3",
+      "ammoType": "Rifle Ammo"
+    },
+    "Espingarda": {
+      "name": "Shotgun",
+      "damage": "1 at range, 2 up close",
+      "ammoType": "Shotgun Ammo"
+    },
+    "Garrucha": {
+      "name": "Garrucha",
+      "damage": "2 up close only",
+      "ammoType": "Revolver Ammo"
+    },
+    "Zarabatana": {
+      "name": "Blowgun",
+      "damage": "1 Pain + poison",
+      "ammoType": "Darts"
+    },
+    "Estilingue": {
+      "name": "Slingshot",
+      "damage": "2 Pain",
+      "ammoType": "Stones"
+    },
+    "Boleadeira": {
+      "name": "Bolas (Boleadeira)",
+      "damage": "3 Pain",
+      "ammoType": ""
+    },
+    "Faca": {
+      "name": "Knife",
+      "damage": "3 Pain",
+      "ammoType": ""
+    },
+    "Espada": {
+      "name": "Sword",
+      "damage": "1",
+      "ammoType": ""
+    },
+    "Foice": {
+      "name": "Sickle",
+      "damage": "1",
+      "ammoType": ""
+    },
+    "Lança": {
+      "name": "Spear",
+      "damage": "1",
+      "ammoType": ""
+    },
+    "Machadinha": {
+      "name": "Hatchet",
+      "damage": "1",
+      "ammoType": ""
+    },
+    "Machado de lenha": {
+      "name": "Woodcutter's Axe",
+      "damage": "2",
+      "ammoType": ""
+    },
+    "Mertelo de mão": {
+      "name": "Hand Hammer",
+      "damage": "1",
+      "ammoType": ""
+    },
+    "Arco": {
+      "name": "Bow",
+      "damage": "1",
+      "ammoType": "Arrows"
+    },
+    "Dinamite": {
+      "name": "Dynamite",
+      "damage": "5",
+      "ammoType": ""
+    }
+  }
+}
+

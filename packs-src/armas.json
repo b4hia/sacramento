@@ -2,28 +2,379 @@
   {
     "name": "Revólver",
     "type": "weapon",
-    "img": "icons/weapons/guns/gun-pistol-percussion.webp",
+    "img": "systems/sacramento-rpg/icons/weapons/revolver.png",
     "system": {
       "attributes": {
         "damage": { "value": "1" },
+        "optionalDamage": { "value": "roll d6 + Violencia" },
         "ammo": { "value": 6, "max": 6 },
         "reload": { "value": 2 },
         "slots": { "value": 1 },
-        "isEquipped": { "value": false }
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "revolver"
+        },
+        "ammoType": {
+          "value": "Munição de Revólver"
+        },
+        "range": {
+          "value": "medio"
+        },
+        "price": { "value": 20 }
       }
     }
   },
   {
     "name": "Fuzil",
     "type": "weapon",
-    "img": "icons/weapons/guns/gun-rifle-percussion.webp",
+    "img": "systems/sacramento-rpg/icons/weapons/fuzil.png",
     "system": {
       "attributes": {
         "damage": { "value": "3" },
         "ammo": { "value": 5, "max": 5 },
         "reload": { "value": 2 },
         "slots": { "value": 3 },
-        "isEquipped": { "value": false }
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "fuzil"
+        },
+        "ammoType": {
+          "value": "Munição de Fuzil"
+        },
+        "range": {
+          "value": "longo"
+        },
+        "price": { "value": 32 }
+      }
+    }
+  },
+  {
+    "name": "Espingarda",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/espingarda.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1 de longe 2 de perto" },
+        "ammo": { "value": 2, "max": 2 },
+        "reload": { "value": 1 },
+        "slots": { "value": 2 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "espingarda"
+        },
+        "ammoType": {
+          "value": "Munição de Espingarda"
+        },
+        "range": {
+          "value": "perto"
+        },
+        "price": { "value": 32 }
+      }
+    }
+  },
+  {
+    "name": "Garrucha",
+    "type": "weapon",
+    "img": "icons/weapons/guns/gun-garrucha-percussion.webp",
+    "system": {
+      "attributes": {
+        "damage": { "value": "2 apenas de perto" },
+        "ammo": { "value": 1, "max": 1 },
+        "reload": { "value": 2 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "garrucha"
+        },
+        "ammoType": {
+          "value": "Munição de Revólver"
+        },
+        "range": {
+          "value": "perto"
+        },
+        "price": { "value": 15 }
+      }
+    }
+  },
+  {
+    "name": "Zarabatana",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/zarabatana.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1 de dor + veneno" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "zarabatana"
+        },
+        "ammoType": {
+          "value": "Dardos"
+        },
+        "range": {
+          "value": "perto"
+        },
+        "price": { "value": 6 }
+      }
+    }
+  },
+  {
+    "name": "Estilingue",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/estilingue.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "2 de dor" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "estilingue"
+        },
+        "ammoType": {
+          "value": "Pedras"
+        },
+        "range": {
+          "value": "perto"
+        },
+        "price": { "value": 3 }
+      }
+    }
+  },
+  {
+    "name": "Boleadeira",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/estilingue.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "3 de dor" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "boleadeira"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "perto"
+        },
+        "price": { "value": 1 }
+      }
+    }
+  },
+  {
+    "name": "Faca",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/faca.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "3 de dor" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 0 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "faca"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 3 }
+      }
+    }
+  },
+  {
+    "name": "Espada",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/faca.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 0 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "espada"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 15 }
+      }
+    }
+  },
+  {
+    "name": "Foice",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/foice.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "foice"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 15 }
+      }
+    }
+  },
+  {
+    "name": "Lança",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/lança.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 0 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "lança"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 20 }
+      }
+    }
+  },
+  {
+    "name": "Machadinha",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/machadinha.jpg",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "machadinha"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 7 }
+      }
+    }
+  },
+  {
+    "name": "Machado de lenha",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/machadoLenhador.jpg",
+    "system": {
+      "attributes": {
+        "damage": { "value": "2" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 2 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "machado de lenha"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 2 }
+      }
+    }
+  },
+  {
+    "name": "Mertelo de mão",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/martelo.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "mertelo de mão"
+        },
+        "ammoType": {
+          "value": ""
+        },
+        "range": {
+          "value": "corpo a corpo"
+        },
+        "price": { "value": 7 }
+      }
+    }
+  },
+  {
+    "name": "Arco",
+    "type": "weapon",
+    "img": "systems/sacramento-rpg/icons/weapons/arco.png",
+    "system": {
+      "attributes": {
+        "damage": { "value": "1" },
+        "ammo": { "value": 0, "max": 0 },
+        "reload": { "value": 0 },
+        "slots": { "value": 1 },
+        "isEquipped": { "value": false },
+        "weaponType": {
+          "value": "arco"
+        },
+        "ammoType": {
+          "value": "Flechas"
+        },
+        "range": {
+          "value": "medio"
+        },
+        "price": { "value": 25 }
+      }
+    }
+  },
+  {
+    "name": "Dinamite",
+    "type": "consumable",
+    "img": "icons/weapons/explosives/dynamite-lit-red.webp",
+    "system": {
+      "attributes": {
+        "effect": {
+          "value": "Explosão! Dano: 5 Círculos de Vida em área."
+        },
+        "slots": {
+          "value": 0.5
+        },
+        "quantity": {
+          "value": 1
+        }
       }
     }
   }

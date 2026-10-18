@@ -1,0 +1,77 @@
+{
+  "label": "Consumables",
+  "mapping": {
+    "effect": "system.attributes.effect.value"
+  },
+  "entries": {
+    "Adrenalina": {
+      "name": "Adrenaline",
+      "effect": "1 Combat Action: restores 3 Life Circles. Post-combat crash: -1 Combat Action and -1 Movement until resting (reaching 0 actions causes cardiac arrest)."
+    },
+    "Álcool": {
+      "name": "Alcohol",
+      "effect": "Antiseptic used to clean wounds, prevent infections, or serve as flammable fuel."
+    },
+    "Arsênico": {
+      "name": "Arsenic",
+      "effect": "Assists in treating poisons and venoms (toxic in high doses)."
+    },
+    "Babosa": {
+      "name": "Aloe Vera (Babosa)",
+      "effect": "Topical herb used to relieve muscle pain, minor burns, and sanitize wounds."
+    },
+    "Boldo": {
+      "name": "Boldo",
+      "effect": "Infusion used to treat gastric distress, headaches, and heatstroke effects."
+    },
+    "Cavalinha": {
+      "name": "Horsetail (Cavalinha)",
+      "effect": "Purgative infusion used to detoxify poisons and treat digestive infections."
+    },
+    "Cânfora": {
+      "name": "Camphor (Cânfora)",
+      "effect": "Combat use (1 Combat Action): immediately restores 1 Pain Circle."
+    },
+    "Erva-doce": {
+      "name": "Aniseed (Erva-doce)",
+      "effect": "Digestive infusion for relieving cramps and intestinal discomfort."
+    },
+    "Folha de Salgueiro": {
+      "name": "Willow Leaf",
+      "effect": "Natural analgesic and antipyretic for high fever and headaches."
+    },
+    "Gengibre": {
+      "name": "Ginger",
+      "effect": "Infusion used to treat coughs, colds, and fever."
+    },
+    "Laxante": {
+      "name": "Laxative",
+      "effect": "Liquid compound for relieving constipation and food poisoning."
+    },
+    "Mil-folhas": {
+      "name": "Yarrow (Mil-folhas)",
+      "effect": "Decongestant infusion to clear respiratory pathways."
+    },
+    "Morfina": {
+      "name": "Morphine",
+      "effect": "Potent anesthetic for surgical procedures; induces deep sleep and carries addiction risk."
+    },
+    "Pomada de Cavalo": {
+      "name": "Horse Ointment",
+      "effect": "Applied to the mount during rest: restores +3 additional Life Circles to the animal."
+    },
+    "Tônico Milagroso": {
+      "name": "Miracle Tonic",
+      "effect": "Requires a Card Luck Draw: Black Card immediately restores 3 Pain Circles; Red Card applies the Poisoned condition."
+    },
+    "Unguento": {
+      "name": "Ointment (Unguento)",
+      "effect": "Applied during rest: restores +1 additional Life Circle."
+    },
+    "Xarope de Tosse": {
+      "name": "Cough Syrup",
+      "effect": "Auxiliary medicine for treating coughs and pulmonary ailments."
+    }
+  }
+}
+

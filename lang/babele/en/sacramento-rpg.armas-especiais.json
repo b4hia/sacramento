@@ -1,0 +1,60 @@
+{
+  "label": "Special Weapons",
+  "mapping": {
+    "effect": "system.attributes.effect.value",
+    "ammoType": "system.attributes.ammoType.value"
+  },
+  "entries": {
+    "Pistola automática": {
+      "name": "Automatic Pistol",
+      "ammoType": "Revolver Ammo",
+      "effect": "Allows +1 additional shot per Combat Action spent."
+    },
+    "Magnum": {
+      "name": "Magnum",
+      "ammoType": "Revolver Ammo",
+      "effect": "High-impact long-barrel .357 revolver (2 Life Circles)."
+    },
+    "Mauser C69": {
+      "name": "Mauser C69",
+      "ammoType": "Revolver Ammo",
+      "effect": "High-capacity magazine (15 rounds) and fast reload (1 Combat Action)."
+    },
+    "Carabina de repetição": {
+      "name": "Repeating Carbine",
+      "ammoType": "Rifle Ammo",
+      "effect": "On the 1st Combat Action of your turn, allows +1 extra shot at a -1 penalty on Violence checks."
+    },
+    "Derringer (revolver de bolso)": {
+      "name": "Derringer (Pocket Gun)",
+      "ammoType": "Revolver Ammo",
+      "effect": "Concealed sleeve gun; compatible with bonus damage from Ataque Sacana."
+    },
+    "Espingarda de cano serrado": {
+      "name": "Sawed-Off Shotgun",
+      "ammoType": "Shotgun Ammo",
+      "effect": "Short range, but can be wielded one-handed and carried in a waist holster."
+    },
+    "Metralhadora montada": {
+      "name": "Mounted Gatling Gun",
+      "ammoType": "",
+      "effect": "Wagon-mounted. Consumes your entire turn firing in a line without aiming, dealing 3 Life damage per Combat Action and Movement spent."
+    },
+    "Canhão": {
+      "name": "Cannon",
+      "ammoType": "Cannonball",
+      "effect": "3m blast radius; requires Violence TN 7. Misses scatter 3m randomly; critical failure hits allies."
+    },
+    "Arco Composto de Caça": {
+      "name": "Compound Hunting Bow",
+      "ammoType": "Arrows",
+      "effect": "On surprise attacks, grants +1 to Violence checks and +1 Life Circle of damage."
+    },
+    "Explosivo (TNT/Dinamite)": {
+      "name": "Explosive (TNT/Dynamite)",
+      "ammoType": "",
+      "effect": "Costs 1 Movement + 1 Combat Action. Requires Violence TN 7 (1.5m radius). On a natural 1, detonates in hand (Speed TN 6 check to dodge)."
+    }
+  }
+}
+
