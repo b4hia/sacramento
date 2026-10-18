@@ -12,7 +12,7 @@
   "url": "https://github.com/b4hia/sacramento",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "Replace this with a link to file issues or tickets",
+  "bugs": "https://github.com/b4hia/sacramento/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
@@ -21,10 +21,10 @@
       "thumbnail": "systems/sacramento-rpg/assets/anvil-impact.png"
     }
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": {
     "minimum": 11,
-    "verified": "11.315"
+    "verified": "12"
   },
   "relationships": {
     "recommends": [
@@ -35,17 +35,18 @@
       }
     ]
   },
-  "esmodules": [
-    "module/sacramento-rpg.mjs"
-  ],
-  "styles": [
-    "css/sacramento-rpg.css"
-  ],
+  "esmodules": ["module/sacramento-rpg.mjs"],
+  "styles": ["css/sacramento-rpg.css"],
   "languages": [
     {
-      "lang": "pt-br",
-      "name": "Portuguese",
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
       "path": "lang/pt_br.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
     }
   ],
   "packs": [
@@ -96,39 +97,28 @@
   "documentTypes": {
     "Actor": {
       "character": {
-        "htmlFields": [
-          "system.biography"
-        ]
+        "htmlFields": ["system.biography"]
       },
       "npc": {
-        "htmlFields": [
-          "system.biography"
-        ]
+        "htmlFields": ["system.biography"]
       }
     },
     "Item": {
       "weapon": {
-        "htmlFields": [
-          "system.description"
-        ]
+        "htmlFields": ["system.description"]
       },
       "equipment": {
-        "htmlFields": [
-          "system.description"
-        ]
+        "htmlFields": ["system.description"]
       },
       "consumable": {
-        "htmlFields": [
-          "system.description"
-        ]
+        "htmlFields": ["system.description"]
       },
       "ability": {
-        "htmlFields": [
-          "system.description"
-        ]
+        "htmlFields": ["system.description"]
       }
     }
   },
+
   "grid": {
     "distance": 1.5,
     "units": "m",
@@ -136,6 +126,6 @@
   },
   "primaryTokenAttribute": "health.value",
   "secondaryTokenAttribute": "pain.value",
-  "manifest": "",
-  "download": ""
+  "manifest": "https://github.com/b4hia/sacramento/releases/latest/download/system.json",
+  "download": "https://github.com/b4hia/sacramento/releases/latest/download/sacramento-rpg.zip"
 }
