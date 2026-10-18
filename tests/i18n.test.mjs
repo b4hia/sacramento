@@ -34,6 +34,17 @@ function listFilesRecursively(dir, ext) {
 	return results;
 }
 
+// Strips repeatedly so tags rebuilt by a single pass (e.g. "<scr<b>ipt>") are also removed.
+function stripHtmlTags(html) {
+	let previous;
+	let current = html;
+	do {
+		previous = current;
+		current = current.replace(/<[^>]*>/g, "");
+	} while (current !== previous);
+	return current.replace(/[<>]/g, "");
+}
+
 describe("Sacramento RPG — Internationalization (i18n) & Babele Validation", () => {
 	const flatPt = flattenKeys(ptBr);
 	const flatEn = flattenKeys(en);
@@ -98,10 +109,9 @@ describe("Sacramento RPG — Internationalization (i18n) & Babele Validation", (
 
 			let tagMatch;
 			while ((tagMatch = tagRegex.exec(content)) !== null) {
-				const inner = tagMatch[1]
-					.replace(/<[^>]+>/g, "")
+				const inner = stripHtmlTags(tagMatch[1])
 					.replace(/\{\{[\s\S]*?\}\}/g, "")
-					.replace(/[():/$-0-9\s]/g, "")
+					.replace(/[():/$\-0-9\s]/g, "")
 					.trim();
 
 				assert.equal(inner, "", `Hardcoded text "${inner}" inside label/heading/option in ${relPath}`);
